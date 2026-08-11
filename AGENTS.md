@@ -145,9 +145,9 @@ not in the frontmatter.
 ## Memory vs. vault
 
 What changes how you work goes into your memory under
-`~/.claude/projects/-home-hpark-projects-assistant/memory/`. What I want to look
-up later goes into the vault. Rule of thumb: behaviour in memory, subject matter
-in the vault.
+`~/.claude/projects/-home-hpark-repos-assistant/memory/`. What I want to look up
+later goes into the vault. Rule of thumb: behaviour in memory, subject matter in
+the vault.
 
 ## Commands
 
@@ -158,7 +158,7 @@ in the vault.
   formatting flags disables them.
 - `git -C ~/projects/claudevault commit`: after every note, subject
   `note(<slug>): what changed`. No trailing `Co-Authored-By` lines.
-- `git -C ~/projects/assistant commit`: after every change to this file or to
+- `git -C ~/repos/assistant commit`: after every change to this file or to
   `.claude/commands/`, subject `docs(agents): what changed`. No trailing
   `Co-Authored-By` lines.
 
