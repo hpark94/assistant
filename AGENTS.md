@@ -78,69 +78,17 @@ finding nothing.
 
 ## Note contract
 
-One note is one topic. A note captures the last self contained topic we
-discussed, never the whole session. The filename is the title as an ASCII slug
-(`obsidian-mcp-setup.md`), because marksman resolves wiki links by title slug
-and reports broken ones as errors.
-
-```markdown
----
-title: Obsidian MCP Setup
-type: tool
-tags: [obsidian, mcp, claude-code]
-created: 2026-08-11
-updated: 2026-08-11
-session: 30eca1dd-79a9-4984-8938-382c3715b51f
-verified: 2026-08-11
----
-
-# Obsidian MCP Setup
-
-One or two sentences: what this is about and what the insight was.
-
-## Details
-
-The substance. Commands in code blocks, paths as `code`.
-
-## Verified
-
-`curl -sk https://127.0.0.1:27124/vault/` lists the vault root.
-
-## Related
-
-- [[claude-code-hooks]]
-```
-
-- `type` is one of `project`, `tool`, `topic`.
-- `session` is the id of the session the note came from. The transcript gets its
-  filename only at SessionEnd, so a wiki link to it cannot resolve at write
-  time; the id is the durable handle, and the notes under `chats/` carry it in
-  their own frontmatter.
-- `verified` and the `## Verified` section appear only on notes that make a
-  checked claim. A feasibility claim goes stale when a tool updates, and
-  `updated` only says when the file was last touched.
-- Write only the sections that have content.
-
-### Never write a duplicate
-
-Search `notes/` before every write.
-
-- **On a hit**: extend that note and correct what is now wrong. Never silently
-  delete what is there, and tell me afterwards what changed.
-- **On no hit**: create a new note.
-
-Either way, add or update its line in `index.md` under the heading for its
-`type`, as `- [[slug]]: half a sentence`.
+One note is one topic. The format, the frontmatter, the duplicate rule and the
+whole write procedure live in `skills/note/SKILL.md`, because that skill also
+runs in projects where this file is not loaded.
 
 ## Images and the web
 
-Pasted images are files under `attachments/` once the hook has run, and a note
-may embed one as `![[filename.png]]` when the image carries the point. Images I
+Pasted images are files under `attachments/` once the hook has run. Images I
 pass by path are already files and need no extraction.
 
 Search and fetch the web freely where a fact cannot be checked locally, and
-always name the source with its URL. The URL belongs in the body of the note,
-not in the frontmatter.
+always name the source with its URL.
 
 ## Memory vs. vault
 
@@ -151,15 +99,12 @@ the vault.
 
 ## Commands
 
-- `/note`: distill the last topic into a note. These phrases do the same: "merk
-  dir das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
-- `prettier -w <file>`: run on every note you touch, with no flags. Both
-  `.prettierrc` files set 80 columns and `proseWrap: always`, and passing
-  formatting flags disables them.
-- `git -C ~/projects/claudevault commit`: after every note, subject
-  `note(<slug>): what changed`. No trailing `Co-Authored-By` lines.
+- `/note`: distill the last topic into a note, `/note --from <hint>` an earlier
+  session's topic. These phrases do the same as a bare `/note`: "merk dir das",
+  "mach eine Notiz draus", "das ist wichtig", "halt das fest". The skill carries
+  its own procedure, including `prettier -w` and the vault commit.
 - `git -C ~/repos/assistant commit`: after every change to this file or to
-  `.claude/commands/`, subject `docs(agents): what changed`. No trailing
+  `skills/note/`, subject `docs(agents): what changed`. No trailing
   `Co-Authored-By` lines.
 
 Facts about the setup, not commands to run:
@@ -168,6 +113,9 @@ Facts about the setup, not commands to run:
   `~/.claude/hooks/save_to_obsidian.py`. It writes every session to
   `chats/<date>_<time>_<session8>.md` and extracts images to `attachments/`. It
   runs for every project of mine, not only this one.
+- `~/.claude/skills/note` is a symlink to `skills/note/` in this repo. The skill
+  is therefore available in every project, while its history stays here: neither
+  `~/.claude` nor `~/.agents/skills`, where the other skills live, is versioned.
 - The `obsidian` MCP server is configured globally in `~/.claude.json` and
   served by the Local REST API plugin over `https://127.0.0.1:27124`. It exposes
   16 tools, `vault_read`, `vault_write`, `search_query` and so on, which appear
