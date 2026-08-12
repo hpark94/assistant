@@ -56,12 +56,13 @@ outputs.
 
 ## The vault
 
-`~/projects/claudevault`, a git repo.
+`~/projects/claudevault`, an Obsidian vault replicated by Syncthing to four
+devices. No version control: what is deleted there is gone on every device.
 
 | Path           | What it is                                                     |
 | -------------- | -------------------------------------------------------------- |
 | `chats/`       | Raw transcripts from the SessionEnd hook. Never edit or delete |
-| `attachments/` | Images the hook extracted from transcripts. Untracked by git   |
+| `attachments/` | Images the hook extracted from transcripts                     |
 | `notes/`       | The curated knowledge. Flat, no subfolders                     |
 | `index.md`     | Entry point, one line per note                                 |
 
@@ -102,7 +103,7 @@ the vault.
 - `/note`: distill the last topic into a note, `/note --from <hint>` an earlier
   session's topic. These phrases do the same as a bare `/note`: "merk dir das",
   "mach eine Notiz draus", "das ist wichtig", "halt das fest". The skill carries
-  its own procedure, including `prettier -w` and the vault commit.
+  its own procedure, including `prettier -w`.
 - `git -C ~/repos/assistant commit`: after every change to this file or to
   `skills/note/`, subject `docs(agents): what changed`. No trailing
   `Co-Authored-By` lines.

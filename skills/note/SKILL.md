@@ -49,9 +49,7 @@ Everything below applies to both modes. The backfill section adds what differs.
 5. **Index.** Add or update the note's line in
    `~/projects/claudevault/index.md`, under the heading matching its `type`, as
    `- [[slug]]: half a sentence`.
-6. **Commit.** `git -C ~/projects/claudevault add -A` and commit with subject
-   `note(<slug>): what changed`. No trailing `Co-Authored-By` line.
-7. **Report.** One or two sentences: which file, created or extended, and what
+6. **Report.** One or two sentences: which file, created or extended, and what
    changed if it was an extension.
 
 ## Note contract
