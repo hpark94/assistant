@@ -2,18 +2,18 @@
 name: note
 description:
   "Distill one topic into a note in Hyeong-Gyu's Obsidian vault at
-  ~/projects/claudevault. Triggers, and nothing else: the command /note or
-  $note, or the German phrases 'merk dir das', 'mach eine Notiz draus', 'das ist
-  wichtig', 'halt das fest'. Also handles --from <hint>, which builds the note
-  from an earlier session's transcript instead of the current conversation."
+  ~/projects/vault. Triggers, and nothing else: the command /note or $note, or
+  the German phrases 'merk dir das', 'mach eine Notiz draus', 'das ist wichtig',
+  'halt das fest'. Also handles --from <hint>, which builds the note from an
+  earlier session's transcript instead of the current conversation."
 ---
 
 # note
 
-Turn one self contained topic into a note in `~/projects/claudevault/notes/`.
-Writing to the vault happens only on command, never on your own initiative. This
-file is the complete contract: it must work in projects whose `AGENTS.md` you
-have never seen.
+Turn one self contained topic into a note in `~/projects/vault/notes/`. Writing
+to the vault happens only on command, never on your own initiative, and nothing
+goes into the vault before he has seen it. This file is the complete contract:
+it must work in projects whose `AGENTS.md` you have never seen.
 
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
@@ -32,24 +32,29 @@ The third mode is the ordinary one for a second brain: "what are the Linux
 commands for the size of a directory, and make a note of it". Establish the
 answer to the same standard you would give it in conversation, which means run
 the command rather than recall it, and name every web source with its URL in the
-note. Never write a note from memory alone.
+note. Never write a note from memory alone. In this mode the preview from step 5
+**is** the answer: do not write the same thing twice, once as prose and once as
+a note. Anything that does not belong in the note, an intermediate result or a
+source that contradicts another, goes in one or two sentences next to the
+preview.
 
 ## Procedure
 
 1. **Scope.** Identify the last self contained topic, not the whole session. If
    arguments name a topic, they win. One note is one topic; if two unrelated
    things are worth keeping, write two notes.
-2. **Search first, never write a duplicate.** Grep
-   `~/projects/claudevault/notes/` for the topic, its tags, its likely hub and
-   likely synonyms. Read any candidate before deciding.
+2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
+   the topic, its tags, its likely hub and likely synonyms. Read any candidate
+   before deciding.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `topic`. If
-   an existing hub fits, use it without asking. **If none fits, propose a name
-   and wait for the answer.** A hub name is expensive: it is a prefix of every
-   child's file name, so renaming it later renames files. This is the only
-   question this skill asks.
+   an existing hub fits, use it. If none fits, pick a name and let the preview
+   carry it: it shows the same name in the file name, in the title and in
+   `topic`, which is more than a question would. A hub name is expensive, it is
+   a prefix of every child's file name, so renaming it later renames files. Say
+   in one line that the hub is new, so it is not mistaken for an existing one.
 4. **Name the file.** `<hub-slug>-<short-name>.md`, and the title is the same
    thing as prose: `disk-management-memory-usage.md` with the title
    `Disk Management: Memory Usage`. The hub carries the context, so the rest of
@@ -57,15 +62,29 @@ note. Never write a note from memory alone.
    `virtualization-docker-breaks-libvirt-vm-nat.md`. The file name is the title
    as an ASCII slug, because marksman resolves wiki links by title slug and
    reports broken ones as errors.
-5. **Write.** Through the Obsidian MCP (`mcp__obsidian__vault_write`), so paths
-   stay vault relative and Obsidian sees the write. Those tools are bound at
-   session start; if they are absent here, write the file on disk and say so
-   instead of implying the write went through the vault API. If the hub is new
-   and approved, write it in the same step.
-6. **Format.** `prettier -w` on every file you touched, no flags, and only once
-   the file sits in the vault. Prettier reads the `.prettierrc` next to the
-   file, so formatting a draft elsewhere silently loses `proseWrap: always`.
-7. **Report.** One or two sentences: which file, created or extended, under
+5. **Show it, then wait.** Build the whole file, run it through both checks, and
+   put the result up with the path it would get. Nothing is on disk at this
+   point, and nothing is written until he says so.
+
+   ```sh
+   prettier --stdin-filepath ~/projects/vault/notes/<name>.md < draft   # exact final formatting
+   python3 -c 'import sys,yaml; yaml.safe_load(sys.argv[1])' "$frontmatter"  # frontmatter parses
+   ```
+
+   `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
+   though the file does not exist yet, so what he reads is byte for byte what
+   lands. **On an extension show only the changed passages**, never the whole
+   file: the point of a minimal diff is that the change is visible.
+
+6. **Write.** After the OK, through the Obsidian MCP
+   (`mcp__obsidian__vault_write`), so paths stay vault relative and Obsidian
+   sees the write. Those tools are bound at session start; if they are absent
+   here, write the file on disk and say so instead of implying the write went
+   through the vault API. If the hub is new, write it in the same step.
+7. **Format.** `prettier -w` on every file you touched, no flags, once the file
+   sits in the vault. Prettier reads the `.prettierrc` next to the file, so
+   formatting a copy elsewhere silently loses `proseWrap: always`.
+8. **Report.** One or two sentences: which file, created or extended, under
    which hub, and what changed if it was an extension.
 
 **Never edit `index.md`, and never edit a hub's list.** Both are Dataview
@@ -102,7 +121,10 @@ verified: 2026-08-13
 - [[neovim-config-isolation]]
 ```
 
-- `title` needs quotes because of the colon.
+- `title` needs quotes because of the colon. This holds for **every** value: an
+  unquoted scalar containing `: ` is read as a mapping and breaks the whole
+  frontmatter, which Obsidian then reports as invalid properties. Either quote
+  the value or write the line without a colon.
 - `type` is `note` or `hub`, nothing else. What a note is about is carried by
   its hub and its tags, not by a category.
 - `topic` is the one hub, written as a quoted link. Obsidian indexes links in
@@ -161,7 +183,7 @@ The chat files under `chats/` are the cheap search index, about 3 KB each. The
 raw transcript is the content, because the SessionEnd hook keeps only `text` and
 `image` blocks: every command the session ran is missing from `chats/`.
 
-1. **Find.** Grep `~/projects/claudevault/chats/*.md` for the hint. Each hit's
+1. **Find.** Grep `~/projects/vault/chats/*.md` for the hint. Each hit's
    frontmatter carries `session_id` and `project`. Only Claude sessions land
    there; for a Codex session, grep the rollouts directly, see step 2.
 2. **Resolve.** The raw transcript lives on the machine the session ran on, and
@@ -181,7 +203,7 @@ raw transcript is the content, because the SessionEnd hook keeps only `text` and
 4. **Ask when anything is open.** If more than one session matches, or the topic
    is not one you named, put the candidates up and wait. `chats/` holds dead
    ends and things we later rejected, so choosing the topic is not yours to do.
-   When both session and topic are pinned, write without asking.
+   When both session and topic are pinned, go on to the preview.
 5. **`session` and `agent`** describe the **source** session, not the current
    one. `created` and `updated` are today.
 6. **`verified`.** Re-run the transcript's command in the scratchpad. If it

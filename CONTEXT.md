@@ -9,9 +9,9 @@ agents that read `AGENTS.md` have in common.
 ### The vault
 
 **Vault**:\
-`~/projects/claudevault`, an Obsidian vault replicated by Syncthing to four
-devices and deliberately outside version control. Holds the curated knowledge,
-the raw transcripts it came from, and nothing else.\
+`~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices
+and deliberately outside version control. Holds the curated knowledge, the raw
+transcripts it came from, the unfinished thinking, and nothing else.\
 _Avoid_: notes folder, knowledge base, wiki
 
 **Note**:\
@@ -46,12 +46,31 @@ ends and things we later rejected, and is read only when a Note is being built
 from an earlier session.\
 _Avoid_: history, log, archive
 
+**Draft**:\
+Unfinished thinking about one Project, one file in `drafts/`. Not knowledge and
+not a Note: it may weigh options that were never decided. Belongs to a Project,
+never to a Hub, and no query over `notes/` ever sees it.\
+_Avoid_: note, spec, plan, scratch
+
+**Status**:\
+Where a Draft stands: `todo`, `wip`, `done`, `superseded` or `dropped`. Changed
+on command, never by the agent's own judgement, and a `dropped` Draft stays on
+disk because the rejected option is what cannot be reconstructed later.\
+_Avoid_: state, phase, progress
+
 ### Working in it
 
 **Capture**:\
 Turning a finished topic into a Note. Happens only on command, never on the
-agent's initiative, and is the only thing that writes to the Vault.\
+agent's initiative. Together with writing a Draft it is the only thing that
+writes to the Vault, and both show the file before writing it.\
 _Avoid_: save, log, dump
+
+**Project**:\
+A directory I work in, named by its directory: `routing-lab`, `dots`, `fuseki`.
+A Draft names the one it belongs to, and the name is the directory's, so that
+the same string finds it in the Vault and on disk.\
+_Avoid_: repo, workspace, codebase
 
 **Notizwuerdig**:\
 The single line an answer may end with when it produced something durable. A

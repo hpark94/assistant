@@ -7,7 +7,10 @@ notes. You are not a builder here: nothing in this directory ships.
 ## The bright line
 
 - **Answering and looking things up**: just do it.
-- **Writing to the vault**, creating or changing a note: only on my command.
+- **Writing to the vault**, creating or changing a note or a draft: only on my
+  command, and **nothing goes into the vault without my having seen it first**.
+  You build the file, show it to me formatted as it would land, and write after
+  my OK. On a change to an existing file, show the changed passages only.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. No follow-up, no second nudge on the same topic. I
@@ -56,20 +59,26 @@ outputs.
 
 ## The vault
 
-`~/projects/claudevault`, an Obsidian vault replicated by Syncthing to four
-devices. No version control: what is deleted there is gone on every device.
+`~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices.
+No version control: what is deleted there is gone on every device.
 
 | Path           | What it is                                                       |
 | -------------- | ---------------------------------------------------------------- |
 | `chats/`       | Raw transcripts from the SessionEnd hook. Never edit or delete   |
 | `attachments/` | Images the hook extracted from transcripts                       |
 | `notes/`       | The curated knowledge, notes and hubs alike. Flat, no subfolders |
+| `drafts/`      | Unfinished thinking about one project. Never inside `notes/`     |
 | `index.md`     | Entry point. Dataview queries only, never edited by hand         |
 
 A note declares the one hub it belongs to; a hub lists its children with a
 Dataview block and holds no knowledge of its own. Both the hub lists and the
 index are generated from what the notes declare about themselves, so a capture
 writes exactly one file. `docs/adr/0001` to `0003` record why.
+
+A draft is not knowledge and not a note: it is thinking about one project while
+it is still unfinished, it carries a `status`, and every hub query is scoped
+`FROM "notes"`, so no draft ever shows up as knowledge. `docs/adr/0004` records
+why they live here rather than in the project.
 
 **Read and search on disk** with Grep, Glob and Read: faster, and you get full
 text. **Write through the Obsidian MCP** so paths stay vault relative and
@@ -82,11 +91,12 @@ me what you are relying on. Do not touch `chats/` unless I ask: it holds dead
 ends and things we later rejected, and treating that as knowledge is worse than
 finding nothing.
 
-## Note contract
+## Note and draft contract
 
-One note is one topic. The format, the frontmatter, the duplicate rule and the
-whole write procedure live in `skills/note/SKILL.md`, because that skill also
-runs in projects where this file is not loaded.
+One note is one topic, one draft is one subject in one project. The format, the
+frontmatter, the duplicate rule and the whole write procedure live in
+`skills/note/SKILL.md` and `skills/draft/SKILL.md`, because both skills also run
+in projects where this file is not loaded.
 
 ## Vocabulary and decisions
 
@@ -116,8 +126,13 @@ behaviour in memory, subject matter in the vault.
   do the same as a bare invocation: "merk dir das", "mach eine Notiz draus",
   "das ist wichtig", "halt das fest". The skill carries its own procedure,
   including `prettier -w`.
+- The draft skill: `/draft` writes this conversation down as a draft for the
+  project it is about, `/draft --open` lists the open drafts of the project I am
+  working in, reads the one I pick, and asks how to proceed. It never fires on
+  its own reading of the conversation, only when I invoke it. I point at a draft
+  when I want it; nothing searches for drafts unasked.
 - `git -C ~/repos/assistant commit`: after every change to this file, to
-  `CONTEXT.md`, to `docs/adr/` or to `skills/note/`, subject
+  `CONTEXT.md`, to `docs/adr/` or to a skill under `skills/`, subject
   `docs(agents): what changed`. No trailing `Co-Authored-By` lines.
 
 ## Which agent you are
@@ -128,7 +143,7 @@ natively. The contract is the same for both; only these facts differ.
 | What                | Claude                                                   | Codex                                                        |
 | ------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
 | Skill directory     | `~/.claude/skills/`                                      | `~/.agents/skills/`, plus `.agents/skills` in a repo         |
-| Invoking a skill    | `/note`                                                  | `$note`, or pick it from `/skills`                           |
+| Invoking a skill    | `/note`, `/draft`                                        | `$note`, `$draft`, or pick it from `/skills`                 |
 | MCP configuration   | `~/.claude.json`                                         | `~/.codex/config.toml`                                       |
 | Session transcripts | `~/.claude/projects/<slug>/<id>.jsonl`                   | `~/.codex/sessions/<yyyy>/<mm>/<dd>/rollout-<ts>-<id>.jsonl` |
 | Lifecycle hooks     | `~/.claude/settings.json`                                | `~/.codex/hooks.json` or inline `[hooks]`                    |
@@ -142,11 +157,17 @@ Facts about the setup, not commands to run:
   runs for every project of mine, not only this one. Codex has `SessionEnd` as
   well but no such script yet, so a Codex session leaves nothing in `chats/` and
   its rollout stays on the machine it ran on.
-- `skills/note/` in this repo is symlinked into both skill directories, as
-  `~/.claude/skills/note` and `~/.agents/skills/note`. The skill is therefore
-  available in every project of either agent, while its history stays here:
-  neither `~/.claude` nor `~/.agents/skills`, where the other skills live, is
-  versioned.
+- `skills/note/` and `skills/draft/` in this repo are symlinked into both skill
+  directories, as `~/.claude/skills/<name>` and `~/.agents/skills/<name>`. They
+  are therefore available in every project of either agent, while their history
+  stays here: neither `~/.claude` nor `~/.agents/skills`, where the other skills
+  live, is versioned.
+- `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
+  list the model chooses from. Claude honours it, Codex does not: it lists such
+  a skill with its full description in `<skills_instructions>` anyway, checked
+  with `codex debug prompt-input`. A skill that must not fire by itself
+  therefore says so in its own `description`, which is the only part Codex
+  reads.
 - The `obsidian` MCP server is served by the Local REST API plugin over
   `https://127.0.0.1:27124`. It exposes 16 tools, `vault_read`, `vault_write`,
   `search_query` and so on, which appear as `mcp__obsidian__*` in both agents.
