@@ -59,12 +59,17 @@ outputs.
 `~/projects/claudevault`, an Obsidian vault replicated by Syncthing to four
 devices. No version control: what is deleted there is gone on every device.
 
-| Path           | What it is                                                     |
-| -------------- | -------------------------------------------------------------- |
-| `chats/`       | Raw transcripts from the SessionEnd hook. Never edit or delete |
-| `attachments/` | Images the hook extracted from transcripts                     |
-| `notes/`       | The curated knowledge. Flat, no subfolders                     |
-| `index.md`     | Entry point, one line per note                                 |
+| Path           | What it is                                                       |
+| -------------- | ---------------------------------------------------------------- |
+| `chats/`       | Raw transcripts from the SessionEnd hook. Never edit or delete   |
+| `attachments/` | Images the hook extracted from transcripts                       |
+| `notes/`       | The curated knowledge, notes and hubs alike. Flat, no subfolders |
+| `index.md`     | Entry point. Dataview queries only, never edited by hand         |
+
+A note declares the one hub it belongs to; a hub lists its children with a
+Dataview block and holds no knowledge of its own. Both the hub lists and the
+index are generated from what the notes declare about themselves, so a capture
+writes exactly one file. `docs/adr/0001` to `0003` record why.
 
 **Read and search on disk** with Grep, Glob and Read: faster, and you get full
 text. **Write through the Obsidian MCP** so paths stay vault relative and
@@ -83,6 +88,13 @@ One note is one topic. The format, the frontmatter, the duplicate rule and the
 whole write procedure live in `skills/note/SKILL.md`, because that skill also
 runs in projects where this file is not loaded.
 
+## Vocabulary and decisions
+
+`CONTEXT.md` is the glossary: what a note, a hub, a topic and a capture are, and
+which words I do not want used for them. `docs/adr/` holds the decisions that
+shaped the vault and the alternatives they beat. Both are yours to extend when a
+term or a decision actually changes, never in passing.
+
 ## Images and the web
 
 Pasted images are files under `attachments/` once the hook has run. Images I
@@ -93,47 +105,64 @@ always name the source with its URL.
 
 ## Memory vs. vault
 
-What changes how you work goes into your memory under
-`~/.claude/projects/-home-hpark-repos-assistant/memory/`. What I want to look up
-later goes into the vault. Rule of thumb: behaviour in memory, subject matter in
-the vault.
+What changes how you work goes into your own memory, wherever the agent you are
+keeps it. What I want to look up later goes into the vault. Rule of thumb:
+behaviour in memory, subject matter in the vault.
 
 ## Commands
 
-- `/note`: distill the last topic into a note, `/note --from <hint>` an earlier
-  session's topic. These phrases do the same as a bare `/note`: "merk dir das",
-  "mach eine Notiz draus", "das ist wichtig", "halt das fest". The skill carries
-  its own procedure, including `prettier -w`.
-- `git -C ~/repos/assistant commit`: after every change to this file or to
-  `skills/note/`, subject `docs(agents): what changed`. No trailing
-  `Co-Authored-By` lines.
+- The note skill: distill the last topic into a note, `--from <hint>` an earlier
+  session's topic. Claude invokes it as `/note`, Codex as `$note`. These phrases
+  do the same as a bare invocation: "merk dir das", "mach eine Notiz draus",
+  "das ist wichtig", "halt das fest". The skill carries its own procedure,
+  including `prettier -w`.
+- `git -C ~/repos/assistant commit`: after every change to this file, to
+  `CONTEXT.md`, to `docs/adr/` or to `skills/note/`, subject
+  `docs(agents): what changed`. No trailing `Co-Authored-By` lines.
+
+## Which agent you are
+
+Both Claude and Codex read this file, Claude through `CLAUDE.md`, Codex
+natively. The contract is the same for both; only these facts differ.
+
+| What                | Claude                                                   | Codex                                                        |
+| ------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| Skill directory     | `~/.claude/skills/`                                      | `~/.agents/skills/`, plus `.agents/skills` in a repo         |
+| Invoking a skill    | `/note`                                                  | `$note`, or pick it from `/skills`                           |
+| MCP configuration   | `~/.claude.json`                                         | `~/.codex/config.toml`                                       |
+| Session transcripts | `~/.claude/projects/<slug>/<id>.jsonl`                   | `~/.codex/sessions/<yyyy>/<mm>/<dd>/rollout-<ts>-<id>.jsonl` |
+| Lifecycle hooks     | `~/.claude/settings.json`                                | `~/.codex/hooks.json` or inline `[hooks]`                    |
+| Memory              | `~/.claude/projects/-home-hpark-repos-assistant/memory/` | Codex's own memories                                         |
 
 Facts about the setup, not commands to run:
 
 - `~/.claude/settings.json` registers a `SessionEnd` hook,
-  `~/.claude/hooks/save_to_obsidian.py`. It writes every session to
+  `~/.claude/hooks/save_to_obsidian.py`. It writes every Claude session to
   `chats/<date>_<time>_<session8>.md` and extracts images to `attachments/`. It
-  runs for every project of mine, not only this one.
-- `~/.claude/skills/note` is a symlink to `skills/note/` in this repo. The skill
-  is therefore available in every project, while its history stays here: neither
-  `~/.claude` nor `~/.agents/skills`, where the other skills live, is versioned.
-- The `obsidian` MCP server is configured globally in `~/.claude.json` and
-  served by the Local REST API plugin over `https://127.0.0.1:27124`. It exposes
-  16 tools, `vault_read`, `vault_write`, `search_query` and so on, which appear
-  as `mcp__obsidian__*`.
+  runs for every project of mine, not only this one. Codex has `SessionEnd` as
+  well but no such script yet, so a Codex session leaves nothing in `chats/` and
+  its rollout stays on the machine it ran on.
+- `skills/note/` in this repo is symlinked into both skill directories, as
+  `~/.claude/skills/note` and `~/.agents/skills/note`. The skill is therefore
+  available in every project of either agent, while its history stays here:
+  neither `~/.claude` nor `~/.agents/skills`, where the other skills live, is
+  versioned.
+- The `obsidian` MCP server is served by the Local REST API plugin over
+  `https://127.0.0.1:27124`. It exposes 16 tools, `vault_read`, `vault_write`,
+  `search_query` and so on, which appear as `mcp__obsidian__*` in both agents.
 - Those tools are bound when a session starts. A session that lacks them keeps
   lacking them, and only a restart picks them up. Do not conclude from
-  `claude mcp list` saying "Connected" that they are present: that command opens
-  its own connection, as does a manual `tools/list`, so both can report a
-  healthy server while this session still has none of its tools. The honest
-  check is `mcp__obsidian__*` in the session itself. When they are missing, say
-  so and write the file on disk instead of implying the write went through the
-  vault API.
+  `claude mcp list` or `codex mcp list` saying "Connected" that they are
+  present: those commands open their own connection, as does a manual
+  `tools/list`, so all of them can report a healthy server while this session
+  still has none of its tools. The honest check is `mcp__obsidian__*` in the
+  session itself. When they are missing, say so and write the file on disk
+  instead of implying the write went through the vault API.
 
 ## Style
 
-- Speak German with me. Write notes, this file and every document in English.
-  Code, identifiers and commit messages stay English.
+- Speak German with me. Everything written down is English: notes, this file,
+  `CONTEXT.md`, the ADRs, code, identifiers and commit messages.
 - No em dashes. Use commas, periods, semicolons, colons.
 - Minimal diffs: when extending a note, touch only what the topic requires. No
   rewording in passing, no reformatting of untouched sections, or I cannot see
