@@ -104,13 +104,33 @@ step is nowhere in the file is an empty claim.
    would get, formatted exactly as it will land:
 
    ```sh
-   prettier --stdin-filepath ~/projects/vault/drafts/<name>.md < draft
+   prettier --stdin-filepath ~/projects/vault/drafts/<name>.md < draft \
+     | python3 -c '
+   import sys, yaml, re, datetime
+   t = sys.stdin.read(); sys.stdout.write(t)
+   m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
+   try: f = yaml.safe_load(m.group(1))
+   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   bad  = [f"missing {k}" for k in ("title","type","project","summary","status","created","updated") if k not in f]
+   bad += [f"{k} must be a quoted string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
+   bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
+   sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
+   '
    ```
 
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
-   though the file does not exist yet. Check that the frontmatter parses as YAML
-   before showing it. Nothing is on disk until he says yes; on an extension show
-   only the changed passages.
+   though the file does not exist yet. The check passes prettier's output
+   through unchanged, so what gets validated is exactly the text you show and
+   later write.
+
+   A frontmatter that merely parses is not enough: `status: open` is valid YAML
+   and still outside the table, and no query would ever see that draft, which is
+   why the values are checked too. On a failure repair the frontmatter and run
+   it again; never show a preview that did not pass.
+
+   Nothing is on disk until he says yes; on an extension show only the changed
+   passages.
 
 4. **Write.** Through the Obsidian MCP (`mcp__obsidian__vault_write`), so paths
    stay vault relative and Obsidian sees the write. Those tools are bound at
@@ -149,7 +169,7 @@ Run this in the project you are working in, not here.
    `status` should go to `wip`.
 6. **Never set `done` on your own.** Whether something is finished is his call,
    and a status change is a vault write like any other: only on command, and the
-   preview rule applies to it too.
+   preview rule applies to it too, frontmatter check included.
 
 ## Style
 

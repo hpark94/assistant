@@ -67,14 +67,36 @@ preview.
    point, and nothing is written until he says so.
 
    ```sh
-   prettier --stdin-filepath ~/projects/vault/notes/<name>.md < draft   # exact final formatting
-   python3 -c 'import sys,yaml; yaml.safe_load(sys.argv[1])' "$frontmatter"  # frontmatter parses
+   prettier --stdin-filepath ~/projects/vault/notes/<name>.md < draft \
+     | python3 -c '
+   import sys, yaml, re, datetime
+   t = sys.stdin.read(); sys.stdout.write(t)
+   m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
+   try: f = yaml.safe_load(m.group(1))
+   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   d = lambda k: isinstance(f.get(k), datetime.date)
+   bad  = [f"missing {k}" for k in ("title","type","topic","summary","created","updated") if k not in f]
+   bad += [f"{k} must be a quoted string" for k in ("title","summary") if not isinstance(f.get(k), str)]
+   bad += ["topic must be a quoted \"[[hub]]\""] * (not isinstance(f.get("topic"), str) or not re.fullmatch(r"\[\[[^]]+\]\]", str(f.get("topic"))))
+   bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
+   bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
+   sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
+   '
    ```
 
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
    though the file does not exist yet, so what he reads is byte for byte what
-   lands. **On an extension show only the changed passages**, never the whole
-   file: the point of a minimal diff is that the change is visible.
+   lands. The check passes prettier's output through unchanged, so what gets
+   validated is exactly the text you show and later write.
+
+   A frontmatter that merely parses is not enough: `topic: [[hub]]` without
+   quotes parses silently into a list and is no link in Obsidian, which is why
+   the types are checked too. On a failure repair the frontmatter and run it
+   again; never show a preview that did not pass.
+
+   **On an extension show only the changed passages**, never the whole file: the
+   point of a minimal diff is that the change is visible.
 
 6. **Write.** After the OK, through the Obsidian MCP
    (`mcp__obsidian__vault_write`), so paths stay vault relative and Obsidian
