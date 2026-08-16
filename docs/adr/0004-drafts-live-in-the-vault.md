@@ -11,7 +11,7 @@ status `todo` or `wip`.
 The reason is one place for everything he thinks: the Vault is where he already
 looks, it replicates to all four devices through Syncthing, and a Draft written
 on the desktop is on the laptop in the evening without a push. A Project session
-reads it as a plain path, which needs no MCP; the MCP is only used for writing.
+reads and writes it as plain Markdown at a known path, which needs no API.
 
 ## Considered Options
 

@@ -79,10 +79,9 @@ it is still unfinished, it carries a `status`, and every hub query is scoped
 `FROM "notes"`, so no draft ever shows up as knowledge. `docs/adr/0004` records
 why they live here rather than in the project.
 
-**Read and search on disk** with Grep, Glob and Read: faster, and you get full
-text. **Write through the Obsidian MCP** so paths stay vault relative and
-Obsidian sees the write. When its tools are missing from the session, write on
-disk and say so, rather than implying the write went through the vault API.
+**Read, search and write on disk** with Grep, Glob, Read and the agent's file
+editing tool. The Vault is plain Markdown at a known path and needs no API. The
+preview and OK rule still applies to every write.
 
 ## Answering from the vault
 
@@ -159,14 +158,8 @@ Facts about the setup, not commands to run:
   with `codex debug prompt-input`. A skill that must not fire by itself
   therefore says so in its own `description`, which is the only part Codex
   reads.
-- The `obsidian` MCP server is served by the Local REST API plugin over
-  `https://127.0.0.1:27124`. It exposes 16 tools, `vault_read`, `vault_write`,
-  `search_query` and so on, which appear as `mcp__obsidian__*` in both agents.
-- Those tools are bound when a session starts, and only a restart adds them. The
-  honest check is whether `mcp__obsidian__*` exists in the session itself:
-  `claude mcp list`, `codex mcp list` and a manual `tools/list` all open their
-  own connection, so each can report a healthy server while this session has
-  none of its tools.
+- Neither Agent configures the Vault as an MCP server. Both work with its
+  Markdown files directly.
 
 ## Style
 

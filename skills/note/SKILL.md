@@ -114,12 +114,9 @@ that contradicts another, goes in one or two sentences next to the preview.
    **On an extension show only the changed passages**, never the whole file: the
    point of a minimal diff is that the change is visible.
 
-6. **Write.** After the OK for every previewed file, through the Obsidian MCP
-   (`mcp__obsidian__vault_write`), so paths stay vault relative and Obsidian
-   sees the write. Those tools are bound at session start; if they are absent
-   here, write the file on disk and say so instead of implying the write went
-   through the vault API. If the Hub is new, write both approved files in the
-   same step.
+6. **Write.** After the OK for every previewed file, write the approved content
+   directly to its absolute path under `~/projects/vault/notes/`. If the Hub is
+   new, write both approved files in the same step. Never write anywhere else.
 7. **Format.** `prettier -w` on every file you touched, no flags, once the file
    sits in the vault. Prettier reads the `.prettierrc` next to the file, so
    formatting a copy elsewhere silently loses `proseWrap: always`.

@@ -135,10 +135,8 @@ step is nowhere in the file is an empty claim.
    Nothing is on disk until he says yes; on an extension show only the changed
    passages.
 
-4. **Write.** Through the Obsidian MCP (`mcp__obsidian__vault_write`), so paths
-   stay vault relative and Obsidian sees the write. Those tools are bound at
-   session start; if they are absent here, write the file on disk and say so
-   instead of implying the write went through the vault API.
+4. **Write.** Write the approved content directly to its absolute path under
+   `~/projects/vault/drafts/`. Never write anywhere else.
 5. **Format.** `prettier -w` on the file, once it sits in the vault.
 6. **Report.** One or two sentences: which file, created or extended, for which
    project, at which status.

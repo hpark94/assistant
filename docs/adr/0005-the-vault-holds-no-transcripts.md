@@ -59,8 +59,8 @@ decision left to preserve, and what there is to say is in this file.
   trace back to.
 - `.obsidian/` stays excluded from Syncthing by `~/projects/.stignore`, a
   deliberate choice against conflicts in `workspace.json`. The Notes are
-  portable, the machinery is not: a new machine needs `dataview`,
-  `obsidian-local-rest-api` and `obsidian-vimrc-support` installed by hand.
+  portable, the machinery is not: a new machine needs `dataview` and
+  `obsidian-vimrc-support` installed by hand.
 - `~/dots` is unaffected. It never knew the hook: `bootstrap.sh` does not create
   the Vault or touch `~/.claude`, and `.stow-local-ignore` excludes `^/\.claude`
   outright. What ends here is the plan to adopt the hook there, not any existing
