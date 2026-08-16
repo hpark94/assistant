@@ -48,13 +48,13 @@ that contradicts another, goes in one or two sentences next to the preview.
    `topic`, which is more than a question would. A hub name is expensive, it is
    a prefix of every child's file name, so renaming it later renames files. Say
    in one line that the hub is new, so it is not mistaken for an existing one.
-4. **Name the file.** `<hub-slug>-<short-name>.md`, and the title is the same
-   thing as prose: `disk-management-memory-usage.md` with the title
-   `Disk Management: Memory Usage`. The hub carries the context, so the rest of
-   the name stays short: `virtualization-docker-libvirt-nat.md`, not
-   `virtualization-docker-breaks-libvirt-vm-nat.md`. The file name is the title
-   as an ASCII slug, because marksman resolves wiki links by title slug and
-   reports broken ones as errors.
+4. **Name the file.** `<hub-slug>-<short-name>.md`, the title as an ASCII slug:
+   `disk-management-memory-usage.md` with the title
+   `Disk Management: Memory Usage`. The hub carries the context, so keep the
+   title itself short and the file name follows:
+   `Virtualization: Docker libvirt NAT`, not
+   `Virtualization: Docker Breaks libvirt VM NAT`. `ffd` matches paths and file
+   names, never frontmatter, which is why the two agree.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
    check, then put every result up with the path it would get. Nothing is on
