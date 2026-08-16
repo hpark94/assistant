@@ -102,7 +102,7 @@ step is nowhere in the file is an empty claim.
    would get, formatted exactly as it will land:
 
    ```sh
-   prettier --stdin-filepath ~/projects/vault/drafts/<name>.md < draft \
+   prettier --stdin-filepath ~/projects/vault/drafts/<name>.md <<'EOF' \
      | python3 -c '
    import sys, yaml, re, datetime
    t = sys.stdin.read(); sys.stdout.write(t)
@@ -120,12 +120,15 @@ step is nowhere in the file is an empty claim.
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
+   <the whole draft, frontmatter and body>
+   EOF
    ```
 
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
    though the file does not exist yet. The check passes prettier's output
    through unchanged, so what gets validated is exactly the text you show and
-   later write.
+   later write. The content rides in the heredoc, so no temporary file exists
+   either: nothing is on disk before the OK.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is

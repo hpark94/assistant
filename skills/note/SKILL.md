@@ -63,7 +63,7 @@ that contradicts another, goes in one or two sentences next to the preview.
    For a Note:
 
    ```sh
-   prettier --stdin-filepath ~/projects/vault/notes/<name>.md < draft \
+   prettier --stdin-filepath ~/projects/vault/notes/<name>.md <<'EOF' \
      | python3 -c '
    import sys, yaml, re, datetime
    t = sys.stdin.read(); sys.stdout.write(t)
@@ -80,12 +80,14 @@ that contradicts another, goes in one or two sentences next to the preview.
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
+   <the whole note, frontmatter and body>
+   EOF
    ```
 
    For a Hub:
 
    ```sh
-   prettier --stdin-filepath ~/projects/vault/notes/<hub>.md < hub \
+   prettier --stdin-filepath ~/projects/vault/notes/<hub>.md <<'EOF' \
      | python3 -c '
    import sys, yaml, re, datetime
    t = sys.stdin.read(); sys.stdout.write(t)
@@ -99,12 +101,16 @@ that contradicts another, goes in one or two sentences next to the preview.
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
+   <the whole hub, frontmatter and dataview block>
+   EOF
    ```
 
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
    though the file does not exist yet, so what he reads is byte for byte what
    lands. The check passes prettier's output through unchanged, so what gets
-   validated is exactly the text you show and later write.
+   validated is exactly the text you show and later write. The content rides in
+   the heredoc, so no temporary file exists either: nothing is on disk before
+   the OK.
 
    A frontmatter that merely parses is not enough: `topic: [[hub]]` without
    quotes parses silently into a list and is no link in Obsidian, which is why

@@ -28,10 +28,12 @@ way, or why something does not work, prove it. Do not answer from memory.
 
 ### Where tests run
 
-In the scratchpad, never in my live setup. Copy configs, redirect paths, use
-minimal fixtures:
+In a scratch directory, never in my live setup. Every proof opens with
+`SCRATCH=$(mktemp -d)`, so the commands you hand me rebuild their own
+environment from nothing. Copy configs, redirect paths, use minimal fixtures:
 
 ```sh
+SCRATCH=$(mktemp -d)
 nvim --headless --clean -u "${SCRATCH}/init.lua" +'lua print(vim.g.colors_name)' +qa
 XDG_CONFIG_HOME="${SCRATCH}/config" XDG_DATA_HOME="${SCRATCH}/data" some-tool
 ```
@@ -53,9 +55,9 @@ nvim --headless --clean -u "${SCRATCH}/init.lua" \
 ### Who runs it
 
 One or two commands: inline, so I read along. If the proof needs a built
-environment, plugin installs, or several variants, hand it to a fresh Tester
-subagent that reports back the result and the commands instead of fifty tool
-outputs.
+environment, plugin installs, or several variants, hand it to a fresh subagent
+without this session's context, whatever your agent calls that. It reports back
+the result and the commands instead of fifty tool outputs.
 
 ## The vault
 
