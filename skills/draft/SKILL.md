@@ -80,6 +80,12 @@ Whatever the brainstorm produced.
 - `superseded_by: "[[routing-lab-ospf-metrics-v2]]"` exists only on a
   `superseded` draft. A link in a property is a real link, so the newer draft
   gets a backlink and its history is visible from there.
+- `depends_on: ["[[routing-lab-ospf-metrics]]"]` names the drafts that must be
+  carried out first. It is always a list, even with one entry, and every value
+  is a quoted wiki link, so the blocking draft gets a backlink. It exists only
+  where the order is real: the later draft's decision cannot be made until the
+  earlier one is. A session that produces several drafts records the order here,
+  because otherwise it lives only in that conversation and is gone with it.
 - A `dropped` draft is **not** deleted. The vault has no version control, so a
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
@@ -93,7 +99,9 @@ step is nowhere in the file is an empty claim.
 ## Writing a draft
 
 1. **Scope.** One draft is one subject in one project. If arguments name a
-   subject, they win.
+   subject, they win. A session that produces several drafts writes each one on
+   its own and shows them in dependency order, with `depends_on` set where one
+   must be carried out before another.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
    second one; if the thinking replaced the old one, that is `superseded`, not a
@@ -116,6 +124,8 @@ step is nowhere in the file is an empty claim.
    s = f.get("superseded_by")
    bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(r"\[\[[^]]+\]\]", s)))
    bad += ["superseded_by exists only when status is superseded"] * (f.get("status") != "superseded" and "superseded_by" in f)
+   d = f.get("depends_on")
+   bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
    bad += [f"{k} is not allowed on a draft" for k in ("tags","topic","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
@@ -168,7 +178,9 @@ Run this in the project you are working in, not here.
    all projects rather than guessing.
 
 2. **Choose.** More than one hit: put them up with `summary` and `status` and
-   wait. Exactly one: name it and go on.
+   wait. A draft whose `depends_on` still points at a `todo` or `wip` draft is
+   blocked, so say that with it instead of offering it as an equal choice.
+   Exactly one: name it and go on.
 3. **Read it whole**, on disk with Read. It is a draft, not an order: it may
    contain options that were never decided and thinking that the code has since
    overtaken.
