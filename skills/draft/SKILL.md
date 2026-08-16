@@ -127,7 +127,7 @@ step is nowhere in the file is an empty claim.
    d = f.get("depends_on")
    bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
    bad += [f"{k} is not allowed on a draft" for k in ("tags","topic","hub") if k in f]
-   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
    <the whole draft, frontmatter and body>
@@ -146,6 +146,10 @@ step is nowhere in the file is an empty claim.
    and still outside the table, and no query would ever see that draft, which is
    why the values are checked too. On a failure repair the frontmatter and run
    it again; never show a preview that did not pass.
+
+   The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
+   reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
+   `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
    Nothing is on disk until he says yes; on an extension show only the changed
    passages.

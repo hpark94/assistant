@@ -70,7 +70,7 @@ that contradicts another, goes in one or two sentences next to the preview.
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
    except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
-   d = lambda k: isinstance(f.get(k), datetime.date)
+   d = lambda k: type(f.get(k)) is datetime.date
    bad  = [f"missing {k}" for k in ("title","type","topic","summary","created","updated") if k not in f]
    bad += ["type must be note"] * (f.get("type") != "note")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
@@ -98,7 +98,7 @@ that contradicts another, goes in one or two sentences next to the preview.
    bad += ["type must be hub"] * (f.get("type") != "hub")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
    bad += [f"{k} is not allowed on a hub" for k in ("topic","tags") if k in f]
-   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
    <the whole hub, frontmatter and dataview block>
@@ -117,6 +117,10 @@ that contradicts another, goes in one or two sentences next to the preview.
    quotes parses silently into a list and is no link in Obsidian, which is why
    the values are checked too. On a failure repair the frontmatter and run it
    again; never show a preview that did not pass.
+
+   The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
+   reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
+   `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
    **On an extension show only the changed passages**, never the whole file: the
    point of a minimal diff is that the change is visible.
