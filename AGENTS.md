@@ -80,12 +80,13 @@ why they live here rather than in the project.
 
 **Read and search on disk** with Grep, Glob and Read: faster, and you get full
 text. **Write through the Obsidian MCP** so paths stay vault relative and
-Obsidian sees the write.
+Obsidian sees the write. When its tools are missing from the session, write on
+disk and say so, rather than implying the write went through the vault API.
 
 ## Answering from the vault
 
 For any question about my projects or my tools, search `notes/` first and tell
-me what you are relying on. The vault holds only what I had captured on command:
+me what you are relying on. The vault holds only what I captured on command:
 nothing records a session by itself, so a session that produced no note left
 nothing behind. `docs/adr/0005` records why.
 
@@ -105,9 +106,8 @@ term or a decision actually changes, never in passing.
 
 ## Images and the web
 
-An image I paste never becomes a file: it exists only as base64 inside the
-transcript, and nothing extracts it. Images I pass by path are already files and
-are the only ones a note can embed.
+An image I paste never becomes a file, so only the ones I pass by path can be
+worked with or embedded in a note.
 
 Search and fetch the web freely where a fact cannot be checked locally, and
 always name the source with its URL.
@@ -138,20 +138,15 @@ behaviour in memory, subject matter in the vault.
 Both Claude and Codex read this file, Claude through `CLAUDE.md`, Codex
 natively. The contract is the same for both; only these facts differ.
 
-| What                | Claude                                                   | Codex                                                        |
-| ------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| Skill directory     | `~/.claude/skills/`                                      | `~/.agents/skills/`, plus `.agents/skills` in a repo         |
-| Invoking a skill    | `/note`, `/draft`                                        | `$note`, `$draft`, or pick it from `/skills`                 |
-| MCP configuration   | `~/.claude.json`                                         | `~/.codex/config.toml`                                       |
-| Session transcripts | `~/.claude/projects/<slug>/<id>.jsonl`                   | `~/.codex/sessions/<yyyy>/<mm>/<dd>/rollout-<ts>-<id>.jsonl` |
-| Lifecycle hooks     | `~/.claude/settings.json`                                | `~/.codex/hooks.json` or inline `[hooks]`                    |
-| Memory              | `~/.claude/projects/-home-hpark-repos-assistant/memory/` | Codex's own memories                                         |
+| What              | Claude                                                   | Codex                                                |
+| ----------------- | -------------------------------------------------------- | ---------------------------------------------------- |
+| Skill directory   | `~/.claude/skills/`                                      | `~/.agents/skills/`, plus `.agents/skills` in a repo |
+| Invoking a skill  | `/note`, `/draft`                                        | `$note`, `$draft`, or pick it from `/skills`         |
+| MCP configuration | `~/.claude.json`                                         | `~/.codex/config.toml`                               |
+| Memory            | `~/.claude/projects/-home-hpark-repos-assistant/memory/` | Codex's own memories                                 |
 
 Facts about the setup, not commands to run:
 
-- No lifecycle hook is registered on either side, and nothing carries a session
-  into the vault. A transcript stays on the machine it ran on and is pruned
-  there; only a note outlives it.
 - `skills/note/` and `skills/draft/` in this repo are symlinked into both skill
   directories, as `~/.claude/skills/<name>` and `~/.agents/skills/<name>`. They
   are therefore available in every project of either agent, while their history
@@ -166,14 +161,11 @@ Facts about the setup, not commands to run:
 - The `obsidian` MCP server is served by the Local REST API plugin over
   `https://127.0.0.1:27124`. It exposes 16 tools, `vault_read`, `vault_write`,
   `search_query` and so on, which appear as `mcp__obsidian__*` in both agents.
-- Those tools are bound when a session starts. A session that lacks them keeps
-  lacking them, and only a restart picks them up. Do not conclude from
-  `claude mcp list` or `codex mcp list` saying "Connected" that they are
-  present: those commands open their own connection, as does a manual
-  `tools/list`, so all of them can report a healthy server while this session
-  still has none of its tools. The honest check is `mcp__obsidian__*` in the
-  session itself. When they are missing, say so and write the file on disk
-  instead of implying the write went through the vault API.
+- Those tools are bound when a session starts, and only a restart adds them. The
+  honest check is whether `mcp__obsidian__*` exists in the session itself:
+  `claude mcp list`, `codex mcp list` and a manual `tools/list` all open their
+  own connection, so each can report a healthy server while this session has
+  none of its tools.
 
 ## Style
 

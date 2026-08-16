@@ -82,8 +82,7 @@ Whatever the brainstorm produced.
 - A `dropped` draft is **not** deleted. The vault has no version control, so a
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
-- No `tags`, no `topic`, no hub: drafts are outside `notes/` and no query sees
-  them.
+- No `tags`, no `topic`, no hub.
 
 Below the frontmatter only the `# Title` is required. Write the sections the
 conversation actually produced, no fixed skeleton, no empty headings. If the

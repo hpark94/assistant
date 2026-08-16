@@ -19,20 +19,17 @@ topic to capture.
 
 ## Two modes
 
-| Invocation                 | Source                                      |
-| -------------------------- | ------------------------------------------- |
-| bare, or with a topic      | This conversation                           |
-| on a topic not settled yet | Find out first, then capture what you found |
+On a topic this conversation already settled, capture what it produced. On one
+it did not, find out first, then capture what you found.
 
-The second mode is the ordinary one for a second brain: "what are the Linux
-commands for the size of a directory, and make a note of it". Establish the
-answer to the same standard you would give it in conversation, which means run
-the command rather than recall it, and name every web source with its URL in the
-note. Never write a note from memory alone. In this mode the preview from step 5
-**is** the answer: do not write the same thing twice, once as prose and once as
-a note. Anything that does not belong in the note, an intermediate result or a
-source that contradicts another, goes in one or two sentences next to the
-preview.
+The second is the ordinary one for a second brain: "what are the Linux commands
+for the size of a directory, and make a note of it". Establish the answer to the
+same standard you would give it in conversation, which means run the command
+rather than recall it, and name every web source with its URL in the note. Never
+write a note from memory alone. In this mode the preview from step 5 **is** the
+answer: do not write the same thing twice, once as prose and once as a note.
+Anything that does not belong in the note, an intermediate result or a source
+that contradicts another, goes in one or two sentences next to the preview.
 
 ## Procedure
 
