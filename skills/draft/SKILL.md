@@ -157,8 +157,12 @@ Run this in the project you are working in, not here.
    the drafts whose `project` matches and whose `status` is `todo` or `wip`:
 
    ```sh
-   rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs rg -l '^status: (todo|wip)$'
+   rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs -r rg -l '^status: (todo|wip)$'
    ```
+
+   `-r` is not decoration: without it an empty first result leaves the second
+   `rg` with no path, it searches the working directory instead, and a project
+   file carrying `status: todo` is reported as an open draft.
 
    If nothing matches the directory name, say so and offer the open drafts of
    all projects rather than guessing.
