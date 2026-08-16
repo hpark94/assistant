@@ -110,7 +110,8 @@ that contradicts another, goes in one or two sentences next to the preview.
    lands. The check passes prettier's output through unchanged, so what gets
    validated is exactly the text you show and later write. The content rides in
    the heredoc, so no temporary file exists either: nothing is on disk before
-   the OK.
+   the OK. The delimiter must not occur in the content: a note that itself
+   contains a line `EOF` needs `<<'NOTE'` or any other word that does not.
 
    A frontmatter that merely parses is not enough: `topic: [[hub]]` without
    quotes parses silently into a list and is no link in Obsidian, which is why

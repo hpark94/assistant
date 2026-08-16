@@ -128,7 +128,9 @@ step is nowhere in the file is an empty claim.
    though the file does not exist yet. The check passes prettier's output
    through unchanged, so what gets validated is exactly the text you show and
    later write. The content rides in the heredoc, so no temporary file exists
-   either: nothing is on disk before the OK.
+   either: nothing is on disk before the OK. The delimiter must not occur in the
+   content: a draft that itself contains a line `EOF` needs `<<'DRAFT'` or any
+   other word that does not.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is
