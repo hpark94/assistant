@@ -9,10 +9,18 @@ agents that read `AGENTS.md` have in common.
 ### The vault
 
 **Vault**:\
-`~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices
-and deliberately outside version control. Holds the curated knowledge, the
-unfinished thinking, and nothing else.\
+The curated knowledge and the unfinished thinking: Notes, Hubs, Drafts and the
+generated Index. It lives in `~/projects/vault`, an Obsidian vault replicated by
+Syncthing to four devices and deliberately outside version control, together
+with the Machinery.\
 _Avoid_: notes folder, knowledge base, wiki
+
+**Machinery**:\
+Everything in the Vault directory that is not knowledge: `.obsidian/`,
+`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`. It configures the tools that
+read and write the Notes and carries none of their content, so a tool changing
+it is not a write to the Vault and needs no command and no preview.\
+_Avoid_: config, dotfiles, plumbing
 
 **Note**:\
 One self contained topic, one file with `type: note` in `notes/`. May be three

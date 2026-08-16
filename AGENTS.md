@@ -70,6 +70,11 @@ No version control: what is deleted there is gone on every device.
 | `drafts/`  | Unfinished thinking about one project. Never inside `notes/`     |
 | `index.md` | Entry point. Dataview queries, no hand-written results           |
 
+These three are the vault. What else sits in the directory, `.obsidian/`,
+`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`, is machinery: it configures
+the tools that read and write the knowledge, and a tool changing it is not a
+write to the vault. `docs/adr/0006` records the boundary.
+
 A note declares the one hub it belongs to; a hub lists its children with a
 Dataview block and holds no knowledge of its own. A capture writes the note and,
 if necessary, creates its hub; it never edits an existing hub or the index. The
