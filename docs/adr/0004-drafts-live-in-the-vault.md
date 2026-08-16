@@ -37,6 +37,11 @@ which is why `dropped` is a Status and not a deletion.
 - A Draft has no history. Iterating on it overwrites what was there, and only
   the Status trail says what became of it. `superseded_by` links the successor
   so the path is at least visible.
+- A Draft may name the Drafts that must be carried out before it, in
+  `depends_on`, a list of links. A session that produces several Drafts at once
+  writes the order there, because otherwise it lives only in that conversation.
+  `/draft --open` reports a Draft as blocked while a dependency is still `todo`
+  or `wip`; the Index does not, its block queries `status` alone.
 - No Agent pulls a Draft into a session on its own. He points at it, or invokes
   `/draft --open` in the Project. The Index may list open Drafts, but automatic
   session discovery would also pull up a Draft from three months ago that has
