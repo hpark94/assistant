@@ -152,7 +152,11 @@ step is nowhere in the file is an empty claim.
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
    Nothing is on disk until he says yes; on an extension show only the changed
-   passages.
+   passages. Run `prettier --check` on the target file before you build the
+   extension. If it fails, the `prettier -w` in step 5 will reformat passages
+   your subject never touched, so put that formatting change up as a second
+   passage of its own and let him approve it separately. A reformat never rides
+   along unseen on a content change.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else.
