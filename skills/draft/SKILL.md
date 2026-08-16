@@ -29,8 +29,9 @@ nothing goes into the vault before he has seen it.
 ## Where drafts live
 
 `~/projects/vault/drafts/<project>-<topic>.md`, a sibling of `notes/`, never
-inside it. Every hub query and every index block is scoped `FROM "notes"`, so a
-draft is invisible to all of them, which is the point: it is unfinished.
+inside it. Every hub and knowledge query is scoped `FROM "notes"`, so a draft is
+invisible to them. Only the index's dedicated open-drafts block queries
+`drafts/`, which is the point: unfinished thinking never appears as knowledge.
 
 `<project>` is the directory name of the project, `routing-lab` for
 `~/repos/routing-lab`, so that `ffd routing` and `rg 'project: routing-lab'`
@@ -109,8 +110,13 @@ step is nowhere in the file is an empty claim.
    try: f = yaml.safe_load(m.group(1))
    except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
    bad  = [f"missing {k}" for k in ("title","type","project","summary","status","created","updated") if k not in f]
-   bad += [f"{k} must be a quoted string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
+   bad += ["type must be draft"] * (f.get("type") != "draft")
+   bad += [f"{k} must be a string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
    bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
+   s = f.get("superseded_by")
+   bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(r"\[\[[^]]+\]\]", s)))
+   bad += ["superseded_by exists only when status is superseded"] * (f.get("status") != "superseded" and "superseded_by" in f)
+   bad += [f"{k} is not allowed on a draft" for k in ("tags","topic","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '

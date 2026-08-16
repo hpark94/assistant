@@ -55,9 +55,12 @@ that contradicts another, goes in one or two sentences next to the preview.
    `virtualization-docker-breaks-libvirt-vm-nat.md`. The file name is the title
    as an ASCII slug, because marksman resolves wiki links by title slug and
    reports broken ones as errors.
-5. **Show it, then wait.** Build the whole file, run it through both checks, and
-   put the result up with the path it would get. Nothing is on disk at this
-   point, and nothing is written until he says so.
+5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
+   whole Hub. Run every file through prettier and its matching frontmatter
+   check, then put every result up with the path it would get. Nothing is on
+   disk at this point, and nothing is written until he says so.
+
+   For a Note:
 
    ```sh
    prettier --stdin-filepath ~/projects/vault/notes/<name>.md < draft \
@@ -69,11 +72,31 @@ that contradicts another, goes in one or two sentences next to the preview.
    except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
    d = lambda k: isinstance(f.get(k), datetime.date)
    bad  = [f"missing {k}" for k in ("title","type","topic","summary","created","updated") if k not in f]
-   bad += [f"{k} must be a quoted string" for k in ("title","summary") if not isinstance(f.get(k), str)]
+   bad += ["type must be note"] * (f.get("type") != "note")
+   bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
    bad += ["topic must be a quoted \"[[hub]]\""] * (not isinstance(f.get("topic"), str) or not re.fullmatch(r"\[\[[^]]+\]\]", str(f.get("topic"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
+   sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
+   '
+   ```
+
+   For a Hub:
+
+   ```sh
+   prettier --stdin-filepath ~/projects/vault/notes/<hub>.md < hub \
+     | python3 -c '
+   import sys, yaml, re, datetime
+   t = sys.stdin.read(); sys.stdout.write(t)
+   m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
+   try: f = yaml.safe_load(m.group(1))
+   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   bad  = [f"missing {k}" for k in ("title","type","summary","created","updated") if k not in f]
+   bad += ["type must be hub"] * (f.get("type") != "hub")
+   bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
+   bad += [f"{k} is not allowed on a hub" for k in ("topic","tags") if k in f]
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not isinstance(f.get(k), datetime.date)]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
    ```
@@ -85,17 +108,18 @@ that contradicts another, goes in one or two sentences next to the preview.
 
    A frontmatter that merely parses is not enough: `topic: [[hub]]` without
    quotes parses silently into a list and is no link in Obsidian, which is why
-   the types are checked too. On a failure repair the frontmatter and run it
+   the values are checked too. On a failure repair the frontmatter and run it
    again; never show a preview that did not pass.
 
    **On an extension show only the changed passages**, never the whole file: the
    point of a minimal diff is that the change is visible.
 
-6. **Write.** After the OK, through the Obsidian MCP
+6. **Write.** After the OK for every previewed file, through the Obsidian MCP
    (`mcp__obsidian__vault_write`), so paths stay vault relative and Obsidian
    sees the write. Those tools are bound at session start; if they are absent
    here, write the file on disk and say so instead of implying the write went
-   through the vault API. If the hub is new, write it in the same step.
+   through the vault API. If the Hub is new, write both approved files in the
+   same step.
 7. **Format.** `prettier -w` on every file you touched, no flags, once the file
    sits in the vault. Prettier reads the `.prettierrc` next to the file, so
    formatting a copy elsewhere silently loses `proseWrap: always`.

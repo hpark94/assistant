@@ -15,7 +15,7 @@ property is also the first thing `fzf-preview` shows while scrolling through
 ## Consequences
 
 - `index.md` in nvim is query text, not a list. The terminal equivalent is
-  `rg -N '^summary:' ~/projects/claudevault/notes/`.
+  `rg -N '^summary:' ~/projects/vault/notes/`.
 - The maintenance queries are the only thing that ever sees a
   `*.sync-conflict-*.md` file. Without them such a copy silently joins every
   other query.

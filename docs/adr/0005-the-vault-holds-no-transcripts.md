@@ -46,13 +46,14 @@ decision left to preserve, and what there is to say is in this file.
 
 ## Consequences
 
-- A session that produced no Note leaves nothing. Claude prunes transcripts
-  after 30 days by default and `cleanupPeriodDays` stays unset, so the window
-  for a late capture is a month and then the session is gone on every device.
-  That is the accepted price: the alternative was 29 files nobody read.
+- A session that produced neither a Note nor a Draft leaves nothing in the
+  Vault. Claude prunes transcripts after 30 days by default and
+  `cleanupPeriodDays` stays unset, so the window for a late capture is a month
+  and then the session is gone on every device. That is the accepted price: the
+  alternative was 29 files nobody read.
 - A pasted image never becomes a file. It exists as base64 inside the transcript
   and nothing extracts it, so only an image passed by path can be worked with,
-  and a Note can embed nothing at all.
+  and only such a path-backed image can be embedded in a Note.
 - A Note has no provenance field any more. When one turns out wrong it is
   corrected on its own evidence, or its Proof is re-run; there is nothing to
   trace back to.

@@ -66,12 +66,13 @@ No version control: what is deleted there is gone on every device.
 | ---------- | ---------------------------------------------------------------- |
 | `notes/`   | The curated knowledge, notes and hubs alike. Flat, no subfolders |
 | `drafts/`  | Unfinished thinking about one project. Never inside `notes/`     |
-| `index.md` | Entry point. Dataview queries only, never edited by hand         |
+| `index.md` | Entry point. Dataview queries, no hand-written results           |
 
 A note declares the one hub it belongs to; a hub lists its children with a
-Dataview block and holds no knowledge of its own. Both the hub lists and the
-index are generated from what the notes declare about themselves, so a capture
-writes exactly one file. `docs/adr/0001` to `0003` record why.
+Dataview block and holds no knowledge of its own. A capture writes the note and,
+if necessary, creates its hub; it never edits an existing hub or the index. The
+index derives its views from notes, hubs, drafts and maintenance conditions.
+`docs/adr/0001` to `0004` record why.
 
 A draft is not knowledge and not a note: it is thinking about one project while
 it is still unfinished, it carries a `status`, and every hub query is scoped
@@ -87,8 +88,8 @@ disk and say so, rather than implying the write went through the vault API.
 
 For any question about my projects or my tools, search `notes/` first and tell
 me what you are relying on. The vault holds only what I captured on command:
-nothing records a session by itself, so a session that produced no note left
-nothing behind. `docs/adr/0005` records why.
+nothing records a session by itself, so a session that produced neither a note
+nor a draft left nothing in the vault. `docs/adr/0005` records why.
 
 ## Note and draft contract
 

@@ -16,10 +16,11 @@ SORT file.name ASC
 ````
 
 The link therefore exists once, written by the same skill in the same step that
-creates the Note, and no second file is edited when a Note is born. Since
-Obsidian 1.4 a link in a property is a real link, so backlinks and the graph
-keep working, while `FROM [[]]` selects the pages linking to the current file
-and needs no per Hub editing.
+creates the Note. A capture never edits an existing Hub or the Index; when its
+Hub does not exist yet, the approved write creates both the Hub and its first
+Note. Since Obsidian 1.4 a link in a property is a real link, so backlinks and
+the graph keep working, while `FROM [[]]` selects the pages linking to the
+current file and needs no per Hub editing.
 
 ## Considered Options
 
@@ -45,7 +46,7 @@ findable.
   adds no graph edges. This costs nothing here because the child's property
   already provides the real edge.
 - Outside Obsidian a Hub shows query text, not its children. The terminal
-  equivalent is `rg -N '^topic:' ~/projects/claudevault/notes/`.
+  equivalent is `rg -N '^topic:' ~/projects/vault/notes/`.
 - Allowing several Hubs per Note later means rewriting the frontmatter of the
   affected Notes and changing one line per Hub query. Minutes at vault scale,
   but not free.

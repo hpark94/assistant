@@ -4,8 +4,9 @@ Thinking about a project starts in a session here and has to be readable later
 in a session in that project. We keep that thinking in the Vault, in
 `~/projects/vault/drafts/`, a sibling of `notes/`. A Draft is
 `<project>-<topic>.md`, declares its Project and a Status, and is invisible to
-every Hub query and to the Index, because all of them are scoped `FROM "notes"`.
-The Index gains one block that lists the Drafts with status `todo` or `wip`.
+every Hub and knowledge query, because those are scoped `FROM "notes"`. The
+Index alone has a dedicated block over `drafts/` that lists the Drafts with
+status `todo` or `wip`.
 
 The reason is one place for everything he thinks: the Vault is where he already
 looks, it replicates to all four devices through Syncthing, and a Draft written
@@ -36,10 +37,10 @@ which is why `dropped` is a Status and not a deletion.
 - A Draft has no history. Iterating on it overwrites what was there, and only
   the Status trail says what became of it. `superseded_by` links the successor
   so the path is at least visible.
-- Nothing finds a Draft on its own. He points at it, or invokes `/draft --open`
-  in the project. That was chosen deliberately over a global rule: automatic
-  discovery would also pull up a Draft from three months ago that has long been
-  decided otherwise.
+- No Agent pulls a Draft into a session on its own. He points at it, or invokes
+  `/draft --open` in the Project. The Index may list open Drafts, but automatic
+  session discovery would also pull up a Draft from three months ago that has
+  long been decided otherwise.
 - `status` only stays true while he says so. A forgotten status leaves a Draft
   listed as open, which errs towards too much work rather than too little; the
   opposite error, a `done` that is not, would be the expensive one.
