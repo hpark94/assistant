@@ -203,6 +203,10 @@ SORT file.name ASC
 ```
 ````
 
+A hub's file name is its title as an ASCII slug and nothing else,
+`second-brain.md` for `Second Brain`. That slug is what `topic` links to and
+what every child's file name starts with.
+
 Hubs have no `topic`, no tags and no prose. Create one only together with its
 first child, so that no `topic` link ever points at a file that does not exist.
 

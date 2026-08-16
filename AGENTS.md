@@ -72,7 +72,7 @@ A note declares the one hub it belongs to; a hub lists its children with a
 Dataview block and holds no knowledge of its own. A capture writes the note and,
 if necessary, creates its hub; it never edits an existing hub or the index. The
 index derives its views from notes, hubs, drafts and maintenance conditions.
-`docs/adr/0001` to `0004` record why.
+`docs/adr/0001` to `0003` record why.
 
 A draft is not knowledge and not a note: it is thinking about one project while
 it is still unfinished, it carries a `status`, and every hub query is scoped
