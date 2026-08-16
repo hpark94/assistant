@@ -62,13 +62,11 @@ outputs.
 `~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices.
 No version control: what is deleted there is gone on every device.
 
-| Path           | What it is                                                       |
-| -------------- | ---------------------------------------------------------------- |
-| `chats/`       | Raw transcripts from the SessionEnd hook. Never edit or delete   |
-| `attachments/` | Images the hook extracted from transcripts                       |
-| `notes/`       | The curated knowledge, notes and hubs alike. Flat, no subfolders |
-| `drafts/`      | Unfinished thinking about one project. Never inside `notes/`     |
-| `index.md`     | Entry point. Dataview queries only, never edited by hand         |
+| Path       | What it is                                                       |
+| ---------- | ---------------------------------------------------------------- |
+| `notes/`   | The curated knowledge, notes and hubs alike. Flat, no subfolders |
+| `drafts/`  | Unfinished thinking about one project. Never inside `notes/`     |
+| `index.md` | Entry point. Dataview queries only, never edited by hand         |
 
 A note declares the one hub it belongs to; a hub lists its children with a
 Dataview block and holds no knowledge of its own. Both the hub lists and the
@@ -87,9 +85,9 @@ Obsidian sees the write.
 ## Answering from the vault
 
 For any question about my projects or my tools, search `notes/` first and tell
-me what you are relying on. Do not touch `chats/` unless I ask: it holds dead
-ends and things we later rejected, and treating that as knowledge is worse than
-finding nothing.
+me what you are relying on. The vault holds only what I had captured on command:
+nothing records a session by itself, so a session that produced no note left
+nothing behind. `docs/adr/0005` records why.
 
 ## Note and draft contract
 
@@ -107,8 +105,9 @@ term or a decision actually changes, never in passing.
 
 ## Images and the web
 
-Pasted images are files under `attachments/` once the hook has run. Images I
-pass by path are already files and need no extraction.
+An image I paste never becomes a file: it exists only as base64 inside the
+transcript, and nothing extracts it. Images I pass by path are already files and
+are the only ones a note can embed.
 
 Search and fetch the web freely where a fact cannot be checked locally, and
 always name the source with its URL.
@@ -121,11 +120,10 @@ behaviour in memory, subject matter in the vault.
 
 ## Commands
 
-- The note skill: distill the last topic into a note, `--from <hint>` an earlier
-  session's topic. Claude invokes it as `/note`, Codex as `$note`. These phrases
-  do the same as a bare invocation: "merk dir das", "mach eine Notiz draus",
-  "das ist wichtig", "halt das fest". The skill carries its own procedure,
-  including `prettier -w`.
+- The note skill: distill the last topic into a note. Claude invokes it as
+  `/note`, Codex as `$note`. These phrases do the same as a bare invocation:
+  "merk dir das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
+  The skill carries its own procedure, including `prettier -w`.
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of the project I am
   working in, reads the one I pick, and asks how to proceed. It never fires on
@@ -151,12 +149,9 @@ natively. The contract is the same for both; only these facts differ.
 
 Facts about the setup, not commands to run:
 
-- `~/.claude/settings.json` registers a `SessionEnd` hook,
-  `~/.claude/hooks/save_to_obsidian.py`. It writes every Claude session to
-  `chats/<date>_<time>_<session8>.md` and extracts images to `attachments/`. It
-  runs for every project of mine, not only this one. Codex has `SessionEnd` as
-  well but no such script yet, so a Codex session leaves nothing in `chats/` and
-  its rollout stays on the machine it ran on.
+- No lifecycle hook is registered on either side, and nothing carries a session
+  into the vault. A transcript stays on the machine it ran on and is pruned
+  there; only a note outlives it.
 - `skills/note/` and `skills/draft/` in this repo are symlinked into both skill
   directories, as `~/.claude/skills/<name>` and `~/.agents/skills/<name>`. They
   are therefore available in every project of either agent, while their history

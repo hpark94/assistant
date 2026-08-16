@@ -10,8 +10,8 @@ agents that read `AGENTS.md` have in common.
 
 **Vault**:\
 `~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices
-and deliberately outside version control. Holds the curated knowledge, the raw
-transcripts it came from, the unfinished thinking, and nothing else.\
+and deliberately outside version control. Holds the curated knowledge, the
+unfinished thinking, and nothing else.\
 _Avoid_: notes folder, knowledge base, wiki
 
 **Note**:\
@@ -39,12 +39,6 @@ _Avoid_: description, abstract, excerpt
 `index.md`, the entry point. Derived entirely from what Notes and Hubs declare
 about themselves, and therefore never edited by hand.\
 _Avoid_: home, table of contents, dashboard
-
-**Transcript**:\
-A raw session record under `chats/`. Deliberately not knowledge: it holds dead
-ends and things we later rejected, and is read only when a Note is being built
-from an earlier session.\
-_Avoid_: history, log, archive
 
 **Draft**:\
 Unfinished thinking about one Project, one file in `drafts/`. Not knowledge and

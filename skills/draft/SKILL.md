@@ -83,9 +83,7 @@ Whatever the brainstorm produced.
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
 - No `tags`, no `topic`, no hub: drafts are outside `notes/` and no query sees
-  them. No `session` or `agent` either. Those say where to look when knowledge
-  turns out wrong; a draft is the thought itself, and a wrong one is thrown away
-  rather than traced back.
+  them.
 
 Below the frontmatter only the `# Title` is required. Write the sections the
 conversation actually produced, no fixed skeleton, no empty headings. If the

@@ -4,8 +4,7 @@ description:
   "Distill one topic into a note in Hyeong-Gyu's Obsidian vault at
   ~/projects/vault. Triggers, and nothing else: the command /note or $note, or
   the German phrases 'merk dir das', 'mach eine Notiz draus', 'das ist wichtig',
-  'halt das fest'. Also handles --from <hint>, which builds the note from an
-  earlier session's transcript instead of the current conversation."
+  'halt das fest'."
 ---
 
 # note
@@ -18,17 +17,14 @@ it must work in projects whose `AGENTS.md` you have never seen.
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
 
-## Three modes
+## Two modes
 
 | Invocation                 | Source                                      |
 | -------------------------- | ------------------------------------------- |
 | bare, or with a topic      | This conversation                           |
-| `--from <hint> [topic]`    | An earlier session's transcript             |
 | on a topic not settled yet | Find out first, then capture what you found |
 
-`<hint>` is free text: a session id, a date, a project name, or a keyword.
-
-The third mode is the ordinary one for a second brain: "what are the Linux
+The second mode is the ordinary one for a second brain: "what are the Linux
 commands for the size of a directory, and make a note of it". Establish the
 answer to the same standard you would give it in conversation, which means run
 the command rather than recall it, and name every web source with its URL in the
@@ -124,8 +120,6 @@ summary: du, ncdu and df, and why the three disagree.
 tags: [linux, disk, cli]
 created: 2026-08-13
 updated: 2026-08-13
-session: 30eca1dd-79a9-4984-8938-382c3715b51f
-agent: claude
 verified: 2026-08-13
 ---
 
@@ -156,16 +150,10 @@ verified: 2026-08-13
   appears in the hub, in the index and in the fzf preview, and exists only here.
   Keep it under about 70 characters: `prettier` folds a longer value onto a
   second line, which is valid YAML but noise in the preview.
-- `session` is the id of the session the note came from, `agent` is `claude` or
-  `codex`. Together they say where to look if the note later turns out wrong.
-  The transcript gets its file name only at SessionEnd, so a wiki link to it
-  cannot resolve at write time.
 - `verified` and the `## Verified` section appear only on notes that make a
   checked claim. A feasibility claim goes stale when a tool updates, and
   `updated` only says when the file was last touched.
 - A web source belongs in the body with its URL, never in the frontmatter.
-- A note may embed an image the hook extracted as `![[filename.png]]` when the
-  image carries the point.
 
 Everything below the frontmatter is optional except the `# Title`. A three line
 note is a good note: `summary` already says what it is about, so a short note
@@ -198,41 +186,6 @@ SORT file.name ASC
 
 Hubs have no `topic`, no tags and no prose. Create one only together with its
 first child, so that no `topic` link ever points at a file that does not exist.
-
-## Backfill: `--from <hint> [topic]`
-
-The chat files under `chats/` are the cheap search index, about 3 KB each. The
-raw transcript is the content, because the SessionEnd hook keeps only `text` and
-`image` blocks: every command the session ran is missing from `chats/`.
-
-1. **Find.** Grep `~/projects/vault/chats/*.md` for the hint. Each hit's
-   frontmatter carries `session_id` and `project`. Only Claude sessions land
-   there; for a Codex session, grep the rollouts directly, see step 2.
-2. **Resolve.** The raw transcript lives on the machine the session ran on, and
-   its location differs per agent:
-   - Claude: `find ~/.claude/projects -name '<session_id>.jsonl'`. Never build
-     that path from `project:`: it is the `cwd` at SessionEnd, not the directory
-     the session started in, so it points at the wrong slug whenever the session
-     changed directory.
-   - Codex:
-     `~/.codex/sessions/<yyyy>/<mm>/<dd>/rollout-<ts>-<session_id>.jsonl`, found
-     with `rg -l '<hint>' ~/.codex/sessions/`. The records are
-     `{"type":"session_meta",...}` followed by response items, not Claude's
-     block shape.
-3. **Read.** Parse the jsonl and keep the text, tool call and tool result
-   records. Transcripts run to hundreds of KB; filter, do not pull the file into
-   context whole.
-4. **Ask when anything is open.** If more than one session matches, or the topic
-   is not one you named, put the candidates up and wait. `chats/` holds dead
-   ends and things we later rejected, so choosing the topic is not yours to do.
-   When both session and topic are pinned, go on to the preview.
-5. **`session` and `agent`** describe the **source** session, not the current
-   one. `created` and `updated` are today.
-6. **`verified`.** Re-run the transcript's command in the scratchpad. If it
-   passes, `verified: <today>` with exactly that command under `## Verified`. If
-   it fails, is not safely repeatable, or depends on state from back then, leave
-   `verified` out entirely and put one sentence in the body: the command comes
-   from the session of `<date>` and was not re-checked today.
 
 ## Style
 
