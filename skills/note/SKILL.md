@@ -162,8 +162,9 @@ verified: 2026-08-13
   unquoted scalar containing `: ` is read as a mapping and breaks the whole
   frontmatter, which Obsidian then reports as invalid properties. Either quote
   the value or write the line without a colon.
-- `type` is `note` or `hub`, nothing else. What a note is about is carried by
-  its hub and its tags, not by a category.
+- `type` is `note`, nothing else. A Hub is a distinct file type with its own
+  contract below. What a Note is about is carried by its Hub and its tags, not
+  by a category.
 - `topic` is the one hub, written as a quoted link. Obsidian indexes links in
   properties as real links, which is what makes the hub's list and its backlinks
   work. Exactly one, never a list.

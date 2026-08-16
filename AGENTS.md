@@ -91,12 +91,12 @@ me what you are relying on. The vault holds only what I captured on command:
 nothing records a session by itself, so a session that produced neither a note
 nor a draft left nothing in the vault. `docs/adr/0005` records why.
 
-## Note and draft contract
+## Note, hub and draft contract
 
-One note is one topic, one draft is one subject in one project. The format, the
-frontmatter, the duplicate rule and the whole write procedure live in
-`skills/note/SKILL.md` and `skills/draft/SKILL.md`, because both skills also run
-in projects where this file is not loaded.
+One note is one topic, one hub is one subject area, one draft is one subject in
+one project. The format, the frontmatter, the duplicate rule and the whole write
+procedure live in `skills/note/SKILL.md` and `skills/draft/SKILL.md`, because
+both skills also run in projects where this file is not loaded.
 
 ## Vocabulary and decisions
 

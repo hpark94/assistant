@@ -15,13 +15,15 @@ unfinished thinking, and nothing else.\
 _Avoid_: notes folder, knowledge base, wiki
 
 **Note**:\
-One self contained topic, one file in `notes/`. May be three lines long. Stands
-on its own: a reader who never saw the session it came from can use it.\
+One self contained topic, one file with `type: note` in `notes/`. May be three
+lines long. Stands on its own: a reader who never saw the session it came from
+can use it. Distinct from a Hub and a Draft.\
 _Avoid_: entry, article, doc, page
 
 **Hub**:\
-The Note that names a subject area and lists the Notes belonging to it. Carries
-no knowledge of its own, only its own Summary and a generated list.\
+One subject area, one file with `type: hub` in `notes/`. Lists the Notes that
+belong to it and carries no knowledge of its own, only its own Summary and a
+generated list. Distinct from a Note and a Draft.\
 _Avoid_: MOC, index note, category, folder
 
 **Topic**:\
@@ -31,8 +33,8 @@ not a second Topic.\
 _Avoid_: parent, category, section, folder
 
 **Summary**:\
-The one line a Note says about itself, written to be read in a list next to nine
-others rather than inside the Note.\
+The one line a Note, Hub or Draft says about itself, written to be read in a
+list next to nine others rather than inside the file.\
 _Avoid_: description, abstract, excerpt
 
 **Index**:\
