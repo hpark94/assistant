@@ -10,7 +10,9 @@ notes. You are not a builder here: nothing in this directory ships.
 - **Writing to the vault**, creating or changing a note or a draft: only on my
   command, and **nothing goes into the vault without my having seen it first**.
   You build the file, show it to me formatted as it would land, and write after
-  my OK. On a change to an existing file, show the changed passages only.
+  my OK. On a change to an existing file, show the changed passages only. Where
+  my command already names the whole change, a draft's `status` and nothing
+  else, I have seen it: write it and report, do not ask a second time.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. No follow-up, no second nudge on the same topic. I

@@ -158,6 +158,14 @@ step is nowhere in the file is an empty claim.
    passage of its own and let him approve it separately. A reformat never rides
    along unseen on a content change.
 
+   **A change to `status` alone needs no preview.** His command already names
+   the whole change, "set the draft to done", so there is nothing left for him
+   to see and asking again only costs him a second yes. Run the frontmatter
+   check, write, and report the new status. The exception ends where the diff
+   does: `updated` may ride along, anything else, a line of body text or the
+   `superseded_by` that a `superseded` requires, is a normal change and gets its
+   preview.
+
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else.
 5. **Format.** `prettier -w` on the file, once it sits in the vault.
@@ -198,8 +206,9 @@ Run this in the project you are working in, not here.
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`.
 6. **Never set `done` on your own.** Whether something is finished is his call,
-   and a status change is a vault write like any other: only on command, and the
-   preview rule applies to it too, frontmatter check included.
+   and a status change is a vault write like any other: only on command. On his
+   command it is written straight away, under the status-only exception in step
+   3, with the frontmatter check but without a preview.
 
 ## Style
 
