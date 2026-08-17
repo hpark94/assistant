@@ -30,9 +30,10 @@ way, or why something does not work, prove it. Do not answer from memory.
 
 ### Where tests run
 
-In a scratch directory, never in my live setup. Every proof opens with
-`SCRATCH=$(mktemp -d)`, so the commands you hand me rebuild their own
-environment from nothing. Copy configs, redirect paths, use minimal fixtures:
+In a scratch directory, never in my live setup. Every proof that runs a tool or
+creates a file opens with `SCRATCH=$(mktemp -d)`, so the commands you hand me
+rebuild their own environment from nothing. Copy configs, redirect paths, use
+minimal fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
@@ -47,6 +48,11 @@ it to me.
 
 `~/dots` and `~/.config` are read, never written. The proof is still real
 because the tool actually runs, and it stays repeatable because I have the
+command.
+
+A proof that only reads needs no scratch directory. A `grep` over a config,
+`git ls-files`, a parse of `config.toml`: there is nothing to isolate and
+nothing that could be written. It is still a proof and still comes with its
 command.
 
 Verify the isolation itself before trusting a result. `nvim -u <file>` replaces

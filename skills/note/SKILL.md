@@ -38,9 +38,10 @@ nothing unless it was checked. Build the smallest demonstration that settles it
 and put **both the result and the exact command** into the note, under
 `## Verified` with a `verified` date.
 
-Every proof runs in a scratch directory, never in his live setup, so it opens
-with `SCRATCH=$(mktemp -d)` and the command in the note rebuilds its own
-environment from nothing. Copy configs, redirect paths, use minimal fixtures:
+A proof that runs a tool or creates a file runs in a scratch directory, never in
+his live setup, so it opens with `SCRATCH=$(mktemp -d)` and the command in the
+note rebuilds its own environment from nothing. Copy configs, redirect paths,
+use minimal fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
@@ -49,6 +50,10 @@ XDG_CONFIG_HOME="${SCRATCH}/config" XDG_DATA_HOME="${SCRATCH}/data" some-tool
 
 Verify the isolation itself before trusting the result: a tool that still reads
 its live config proves nothing about a clean environment.
+
+A proof that only reads needs no scratch directory. A `grep` over a config or a
+parse of it isolates nothing and changes nothing, and it goes into the note with
+its command like any other proof.
 
 If no cheap or safe test exists, say so and write the claim down as unverified,
 without `verified` and without a `## Verified` section. A guess in the tone of a
