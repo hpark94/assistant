@@ -150,6 +150,7 @@ step is nowhere in the file is an empty claim.
    bad  = [f"missing {k}" for k in ("title","type","project","summary","status","created","updated") if k not in f]
    bad += ["type must be draft"] * (f.get("type") != "draft")
    bad += [f"{k} must be a string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
+   bad += ["project must be [a-z0-9-]+"] * (not re.fullmatch(r"[a-z0-9-]+", str(f.get("project"))))
    bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
    s = f.get("superseded_by")
    bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(r"\[\[[^]]+\]\]", s)))
