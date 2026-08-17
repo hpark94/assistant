@@ -37,9 +37,11 @@ for skill in note draft; do
   link "${repo}/skills/${skill}" "${HOME}/.agents/skills/${skill}"
 done
 
-# The skills call these in their preview and lookup steps. A missing one fails
-# in the middle of a capture with an error that does not say why, so name it
-# here instead. Installing them is mise's and dots' job, not this repo's.
+# The skills call prettier, python3 and rg in their preview and lookup steps. A
+# missing one fails in the middle of a capture with an error that does not say
+# why, so name it here instead. No skill calls ffd; the naming rules exist for
+# it, so a missing one only makes the notes harder to find. Installing them is
+# mise's and dots' job, not this repo's.
 printf '\nTools:\n'
 for tool in prettier python3 rg ffd; do
   if command -v "${tool}" >/dev/null 2>&1; then
