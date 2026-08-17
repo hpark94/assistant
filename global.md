@@ -139,10 +139,10 @@ behaviour in memory, subject matter in the vault.
   "merk dir das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of the project I am
-  working in, reads the one I pick, and asks how to proceed. It never fires on
-  its own reading of the conversation, only when I invoke it. I point at a draft
-  when I want it; nothing searches for drafts unasked. It never grills: an
-  interview happens before it, on its own trigger, and ends with the
+  working in, reads the one it settles on, and asks how to proceed. It never
+  fires on its own reading of the conversation, only when I invoke it. I point
+  at a draft when I want it; nothing searches for drafts unasked. It never
+  grills: an interview happens before it, on its own trigger, and ends with the
   `entwurfswuerdig` line above.
 
 ## Which agent you are
@@ -167,7 +167,8 @@ Facts about the setup, not commands to run:
   `install.sh` symlinks all of them into place, relatively, so the links survive
   a different user name or a moved home. Nothing else about the setup is
   versioned: neither `~/.claude` nor `~/.agents/skills`, where the other skills
-  live.
+  live. The skill directories in the table are mine; each agent's own built-ins
+  sit apart again, Codex's in `~/.codex/skills/.system/`.
 - `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
   list the model chooses from. Claude honours it, Codex does not: it lists such
   a skill with its full description in `<skills_instructions>` anyway, checked
