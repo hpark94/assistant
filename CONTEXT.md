@@ -57,9 +57,10 @@ never to a Hub, and no query over `notes/` ever sees it.\
 _Avoid_: note, spec, plan, scratch
 
 **Status**:\
-Where a Draft stands: `todo`, `wip`, `done`, `superseded` or `dropped`. Changed
-on command, never by the agent's own judgement, and a `dropped` Draft stays on
-disk because the rejected option is what cannot be reconstructed later.\
+Where a Draft stands: `todo`, `wip`, `done`, `superseded` or `dropped`. A new
+Draft is `todo`. Changed on command, never by the agent's own judgement and
+never on a remark that something is now carried out, and a `dropped` Draft stays
+on disk because the rejected option is what cannot be reconstructed later.\
 _Avoid_: state, phase, progress
 
 ### Working in it

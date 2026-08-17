@@ -67,7 +67,10 @@ Whatever the brainstorm produced.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
-- `status` is one of:
+- `status` is one of the five below, and a new draft gets `todo` unless his
+  command names another. It stands in the preview, so correcting it costs one
+  word, and a draft that stays listed as open too long is the cheap error where
+  a `done` that is not one would be the expensive one.
 
   | Value        | Meaning                                     |
   | ------------ | ------------------------------------------- |
@@ -163,6 +166,10 @@ step is nowhere in the file is an empty claim.
    your subject never touched, so put that formatting change up as a second
    passage of its own and let him approve it separately. A reformat never rides
    along unseen on a content change.
+
+   **Only an explicit command writes a status.** A remark that something is now
+   carried out states a fact and authorises nothing. You may offer the change
+   once, in a single line, and never bring it up a second time.
 
    **A change to `status` alone needs no preview.** His command already names
    the whole change, "set the draft to done", so there is nothing left for him
