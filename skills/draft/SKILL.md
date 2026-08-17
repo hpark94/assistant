@@ -1,10 +1,10 @@
 ---
 name: draft
 description:
-  "Capture a brainstorm about a project as a draft in Hyeong-Gyu's Obsidian
-  vault at ~/projects/vault/drafts/, and pick up the open drafts of the project
-  you are working in with --open. Triggers, and nothing else: the command /draft
-  or $draft. Never invoke this because the conversation mentions a draft, an
+  "Capture a brainstorm about a project as a draft in the Obsidian vault at
+  ~/projects/vault/drafts/, and pick up the open drafts of the project you are
+  working in with --open. Triggers, and nothing else: the command /draft or
+  $draft. Never invoke this because the conversation mentions a draft, an
   outline, a sketch or a brainstorm."
 disable-model-invocation: true
 ---
@@ -13,11 +13,17 @@ disable-model-invocation: true
 
 A draft is thinking about one project, written down while it is still
 unfinished. It lives in `~/projects/vault/drafts/`, it is not knowledge, and it
-is not a note. This file is the complete contract: it must work in projects
-whose `AGENTS.md` you have never seen.
+is not a note. This file owns the whole Draft operation and its lifecycle, and
+assumes `global.md`, which is loaded in every project, and nothing else.
 
 Writing to the vault happens only on command, never on your own initiative, and
-nothing goes into the vault before he has seen it.
+nothing goes into the vault before I have seen it.
+
+**This skill never grills.** Sharpening the thinking is a separate interview on
+its own trigger, and it ends by offering the `entwurfswuerdig` line that brings
+me here. By the time `/draft` runs, the thinking is as sharp as it is going to
+get: write it down, do not reopen it. What is still undecided is content for the
+draft, not a reason to start an interview.
 
 ## Two modes
 
@@ -75,14 +81,14 @@ Whatever the brainstorm produced.
   properties.
 - `type` is `draft`. It stays even though the folder already says so: if the
   file ever moves to `notes/`, this is where you see what it was.
-- `project` is the directory name. It comes from the argument where his
+- `project` is the directory name. It comes from the argument where my
   invocation named one, otherwise from the conversation, and it is never asked
   for. It is visible in the preview and in the file name, so correcting it costs
   one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
-- `status` is one of the five below, and a new draft gets `todo` unless his
+- `status` is one of the five below, and a new draft gets `todo` unless my
   command names another. It stands in the preview, so correcting it costs one
   word, and a draft that stays listed as open too long is the cheap error where
   a `done` that is not one would be the expensive one.
@@ -124,12 +130,12 @@ step is nowhere in the file is an empty claim.
    subject. On a hit, extend that draft and bump `updated` instead of writing a
    second one. If the new thinking contradicts what that draft decided, say so
    and offer to replace it; never fold both decisions into one file silently.
-   Replacing it is `superseded` and happens only on his word, because a
-   successor is a second file and a status he did not ask for. The successor is
-   the old name plus `-v2`, then `-v3`: a supersede is by definition the same
-   subject, otherwise it would be a new draft, so only the counter moves. That
-   is the one exception to the duplicate rule, and it keeps the chain together
-   under `ffd` and `rg`.
+   Replacing it is `superseded` and happens only on my word, because a successor
+   is a second file and a status I did not ask for. The successor is the old
+   name plus `-v2`, then `-v3`: a supersede is by definition the same subject,
+   otherwise it would be a new draft, so only the counter moves. That is the one
+   exception to the duplicate rule, and it keeps the chain together under `ffd`
+   and `rg`.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -175,11 +181,11 @@ step is nowhere in the file is an empty claim.
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
-   Nothing is on disk until he says yes; on an extension show only the changed
+   Nothing is on disk until I say yes; on an extension show only the changed
    passages. Run `prettier --check` on the target file before you build the
    extension. If it fails, the `prettier -w` in step 5 will reformat passages
    your subject never touched, so put that formatting change up as a second
-   passage of its own and let him approve it separately. A reformat never rides
+   passage of its own and let me approve it separately. A reformat never rides
    along unseen on a content change.
 
    **Only an explicit command writes a status.** A remark that something is now
@@ -187,10 +193,10 @@ step is nowhere in the file is an empty claim.
    once, in a single line, and never bring it up a second time.
 
    **A change to `status` alone needs no preview.** His command already names
-   the whole change, "set the draft to done", so there is nothing left for him
-   to see and asking again only costs him a second yes. Run the frontmatter
-   check, write, and report the new status. The exception ends where the diff
-   does: `updated` may ride along, anything else, a line of body text or the
+   the whole change, "set the draft to done", so there is nothing left for me to
+   see and asking again only costs me a second yes. Run the frontmatter check,
+   write, and report the new status. The exception ends where the diff does:
+   `updated` may ride along, anything else, a line of body text or the
    `superseded_by` that a `superseded` requires, is a normal change and gets its
    preview.
 
@@ -247,15 +253,7 @@ Run this in the project you are working in, or name the project as an argument:
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`.
-6. **Never set `done` on your own.** Whether something is finished is his call,
-   and a status change is a vault write like any other: only on command. On his
+6. **Never set `done` on your own.** Whether something is finished is my call,
+   and a status change is a vault write like any other: only on command. On my
    command it is written straight away, under the status-only exception in step
    3, with the frontmatter check but without a preview.
-
-## Style
-
-- Drafts are English, even though we speak German.
-- No em dashes. Use commas, periods, semicolons, colons.
-- Minimal diffs when extending a draft: touch only what the subject requires.
-- YAGNI: the simplest draft that carries the thought. No empty sections, no
-  placeholders.
