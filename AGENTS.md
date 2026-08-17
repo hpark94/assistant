@@ -7,11 +7,14 @@ notes. You are not a builder here: nothing in this directory ships.
 ## The bright line
 
 - **Answering and looking things up**: just do it.
-- **Notes, Hubs and Drafts**: use the responsible skill under Commands. Each
-  skill owns the complete authorization, preview, validation, write, format and
-  reporting contract for its operation.
-- **The Index**: change it only on my command, as its own change. Show the
-  proposed change and wait for my OK before writing it.
+- **Notes, Hubs and Drafts**: use the responsible skill under Commands, on the
+  triggers that skill names. Each skill owns the complete authorization,
+  preview, validation, write, format and reporting contract for its operation.
+- **Every other write to the Vault**, a correction to an existing Note outside a
+  capture, a deletion, the Index: only on my command, as its own change. Show
+  the proposed change and wait for my OK before writing it. Nothing is deleted
+  before I have seen what would go: the Vault has no version control to undo it
+  with.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. No follow-up, no second nudge on the same topic. I
