@@ -36,9 +36,14 @@ environment from nothing. Copy configs, redirect paths, use minimal fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
+printf 'vim.cmd.colorscheme("habamax")\n' > "${SCRATCH}/init.lua"
 nvim --headless --clean -u "${SCRATCH}/init.lua" +'lua print(vim.g.colors_name)' +qa
 XDG_CONFIG_HOME="${SCRATCH}/config" XDG_DATA_HOME="${SCRATCH}/data" some-tool
 ```
+
+A fixture the proof needs is part of the proof: a command that reads
+`${SCRATCH}/init.lua` without a line that writes it does not run when you hand
+it to me.
 
 `~/dots` and `~/.config` are read, never written. The proof is still real
 because the tool actually runs, and it stays repeatable because I have the
@@ -167,6 +172,10 @@ Facts about the setup, not commands to run:
   with `codex debug prompt-input`. A skill that must not fire by itself
   therefore says so in its own `description`, which is the only part Codex
   reads.
+- The draft skill carries that flag, the note skill deliberately does not: only
+  the model matches "merk dir das", so the flag would leave `/note` as the sole
+  trigger. What keeps a capture from firing unbidden is the bright line and the
+  skill's `description`, not the frontmatter.
 - Neither Agent configures the Vault as an MCP server. Both work with its
   Markdown files directly.
 
