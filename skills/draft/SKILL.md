@@ -104,8 +104,14 @@ step is nowhere in the file is an empty claim.
    must be carried out before another.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
-   second one; if the thinking replaced the old one, that is `superseded`, not a
-   silent overwrite.
+   second one. If the new thinking contradicts what that draft decided, say so
+   and offer to replace it; never fold both decisions into one file silently.
+   Replacing it is `superseded` and happens only on his word, because a
+   successor is a second file and a status he did not ask for. The successor is
+   the old name plus `-v2`, then `-v3`: a supersede is by definition the same
+   subject, otherwise it would be a new draft, so only the counter moves. That
+   is the one exception to the duplicate rule, and it keeps the chain together
+   under `ffd` and `rg`.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -166,8 +172,17 @@ step is nowhere in the file is an empty claim.
    `superseded_by` that a `superseded` requires, is a normal change and gets its
    preview.
 
+   **A supersede is one approval unit.** It touches two files, the new successor
+   and the predecessor's frontmatter, but it is one decision and gets one
+   preview and one yes: the whole successor first, then the predecessor's
+   changed lines. Its `status` moves together with `superseded_by`, so it is
+   never covered by the status-only exception above.
+
 4. **Write.** Write the approved content directly to its absolute path under
-   `~/projects/vault/drafts/`. Never write anywhere else.
+   `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
+   the successor first: a `superseded_by` pointing at a file that does not exist
+   is the broken half, while a successor whose predecessor is not yet marked is
+   only untidy.
 5. **Format.** `prettier -w` on the file, once it sits in the vault.
 6. **Report.** One or two sentences: which file, created or extended, for which
    project, at which status.
