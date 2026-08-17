@@ -46,6 +46,11 @@ lookup below correct: it anchors the name in a regular expression and passes the
 paths through `xargs`, so a dot in the name would match a second project and a
 space would split one path into two.
 
+`<topic>` is a short slug of the subject and, unlike a note's file name, not the
+slug of the title: a `-v2` successor keeps the title of the draft it replaces,
+so the two cannot be tied together. Keep it short enough to type in `ffd` and
+close enough to the title to be recognised there.
+
 ## Draft contract
 
 ```markdown
@@ -209,7 +214,8 @@ step is nowhere in the file is an empty claim.
 
 ## Picking one up: `--open`
 
-Run this in the project you are working in, not here.
+Run this in the project you are working in, or name the project as an argument:
+`/draft --open dots` works from any directory, this repo included.
 
 1. **Find.** The project is the argument where one was given, otherwise the
    directory name of the working directory. Name the project you searched for in
