@@ -5,7 +5,7 @@ Your role there, and how work gets done there, are the project's to define and
 never this file's: where the two seem to disagree about that, the project wins.
 The Vault is the exception, because it is one and the same from everywhere.
 
-## The bright line
+## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
 - **Notes, Hubs and Drafts**: use the responsible skill under Commands, on the
@@ -90,8 +90,8 @@ to a config.
 
 **Read, search and write on disk** with Grep, Glob, Read and the agent's file
 editing tool. The Vault is plain Markdown at a known path and needs no API. That
-is a tool choice and not a permission: what may be written is the bright line
-above.
+is a tool choice and not a permission: what may be written is settled under
+Writing to the Vault above.
 
 ## Answering from the vault
 
