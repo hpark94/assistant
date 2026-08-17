@@ -174,9 +174,11 @@ fact is the one failure mode he cannot catch.
 8. **Report.** One or two sentences: which file, created or extended, under
    which hub, and what changed if it was an extension.
 
-**Never edit `index.md`, and never edit a hub's list.** Both are Dataview
-queries over what the notes declare about themselves. Adding a line by hand
-there creates a second truth that immediately drifts.
+**A capture never edits `index.md` and never edits a hub's list.** Both are
+Dataview queries over what the notes declare about themselves. Adding a line by
+hand there creates a second truth that immediately drifts. `index.md` changes
+only when he asks for that change itself, as its own preview and its own OK,
+never on the way past a note.
 
 ## Note contract
 

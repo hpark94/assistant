@@ -209,8 +209,10 @@ step is nowhere in the file is an empty claim.
 6. **Report.** One or two sentences: which file, created or extended, for which
    project, at which status.
 
-**Never edit `index.md`.** Its list of open drafts is a Dataview query over
-`status`, and a line added by hand there is a second truth that drifts.
+**Writing a draft never edits `index.md`.** Its list of open drafts is a
+Dataview query over `status`, and a line added by hand there is a second truth
+that drifts. The index changes only on a command that asks for that change
+itself, with its own preview.
 
 ## Picking one up: `--open`
 
