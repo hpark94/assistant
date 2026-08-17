@@ -26,6 +26,12 @@ nothing goes into the vault before he has seen it.
 | bare, `/draft`  | Turn this conversation into a draft for the project it is about |
 | `/draft --open` | List the open drafts of the current project and pick one up     |
 
+Either form takes the project as an argument, `/draft --open dots` and
+`/draft dots: <subject>`, where the colon separates the project from the
+subject. Without a colon the whole argument is the subject. The argument beats
+the working directory, and it is what makes both forms usable from a
+subdirectory of the project.
+
 ## Where drafts live
 
 `~/projects/vault/drafts/<project>-<topic>.md`, a sibling of `notes/`, never
@@ -61,9 +67,10 @@ Whatever the brainstorm produced.
   properties.
 - `type` is `draft`. It stays even though the folder already says so: if the
   file ever moves to `notes/`, this is where you see what it was.
-- `project` is the directory name, and it is derived from the conversation, not
-  asked for. It is visible in the preview and in the file name, so correcting it
-  costs one word.
+- `project` is the directory name. It comes from the argument where his
+  invocation named one, otherwise from the conversation, and it is never asked
+  for. It is visible in the preview and in the file name, so correcting it costs
+  one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -201,8 +208,11 @@ step is nowhere in the file is an empty claim.
 
 Run this in the project you are working in, not here.
 
-1. **Find.** The project is the directory name of the working directory. List
-   the drafts whose `project` matches and whose `status` is `todo` or `wip`:
+1. **Find.** The project is the argument where one was given, otherwise the
+   directory name of the working directory. Name the project you searched for in
+   your answer: from a subdirectory the directory name is not the project, and a
+   wrong one has to be visible rather than silent. List the drafts whose
+   `project` matches and whose `status` is `todo` or `wip`:
 
    ```sh
    rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs -r rg -l '^status: (todo|wip)$'
