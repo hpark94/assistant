@@ -56,9 +56,12 @@ without `verified` and without a `## Verified` section.
      would have gone under a different hub as a new note, say so in one line,
      name that hub, and leave the move to me in Obsidian. It is one line and not
      a question, and it may fall again in a later session, because nothing
-     records that it was already said. Never offer and never run `mv` on a note:
-     renaming in Obsidian carries the incoming wiki links along, `mv` leaves
-     them pointing nowhere on four devices.
+     records that it was already said. The title you do correct, in `title` and
+     in the `# H1` together, and the file name then no longer is its slug: say
+     in one line what the file should be called, and leave the rename to me.
+     Never offer and never run `mv` on a note: renaming in Obsidian carries the
+     incoming wiki links along, `mv` leaves them pointing nowhere on four
+     devices.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `topic`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview
@@ -155,7 +158,8 @@ without `verified` and without a `## Verified` section.
    sits in the vault. Prettier reads the `.prettierrc` next to the file, so
    formatting a copy elsewhere silently loses `proseWrap: always`.
 8. **Report.** One or two sentences: which file, created or extended, under
-   which hub, and what changed if it was an extension.
+   which hub, and what changed if it was an extension. A corrected title puts
+   the name the file should get here, as the one line from step 2.
 
 **A capture never edits `index.md` and never edits a hub's list.** Both are
 Dataview queries over what the notes declare about themselves. Adding a line by
