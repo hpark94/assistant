@@ -243,7 +243,9 @@ what every child's file name starts with.
 Hubs have no `topic`, no tags and no prose. Create one only together with its
 first child, so that no `topic` link ever points at a file that does not exist.
 
-A hub has no `updated` either. Nothing ever edits an existing hub, so the field
-could only repeat `created` forever, and a date that cannot move is worse than
-no date: it looks like an answer to "when did this subject last change", which
-the children's `updated` in the hub's own list already gives.
+A hub has no `updated` either. No capture ever edits an existing hub, and a
+correction on my command is rare enough that the field would repeat `created`
+for months at a time. A date that cannot move is worse than no date: it looks
+like an answer to "when did this subject last change", which the children's
+`updated` in the hub's own list already gives. Such a correction runs the hub
+check above like any other write, and never adds the field.
