@@ -64,6 +64,13 @@ fact is the one failure mode he cannot catch.
    before deciding.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
+     Its hub is the one thing you never correct: if the content you are adding
+     would have gone under a different hub as a new note, say so in one line,
+     name that hub, and leave the move to him in Obsidian. It is one line and
+     not a question, and it may fall again in a later session, because nothing
+     records that it was already said. Never offer and never run `mv` on a note:
+     renaming in Obsidian carries the incoming wiki links along, `mv` leaves
+     them pointing nowhere on four devices.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `topic`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview

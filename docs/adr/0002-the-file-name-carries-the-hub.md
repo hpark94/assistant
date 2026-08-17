@@ -18,3 +18,8 @@ title as an ASCII slug, which is what marksman needs to resolve wiki links.
   file names it does not.
 - The Hub is stored twice, in the name and in `topic`. Accepted, because one
   skill writes both in one step and neither is ever edited alone.
+- Moving a Note to another Hub is therefore not Capture's job: it would have to
+  rewrite `topic`, rename the file, carry the incoming links and delete the old
+  path in a Vault without version control. Capture names the better Hub in one
+  line and leaves the move to Obsidian, where renaming a file updates all the
+  links to it: <https://obsidian.md/help/Files+and+folders/Manage+notes>.

@@ -68,8 +68,9 @@ _Avoid_: state, phase, progress
 **Capture**:\
 Turning a finished topic into a Note. Happens only on command, never on the
 agent's initiative. It writes the Note and may create its Hub, but never edits
-an existing Hub or the Index. Together with writing a Draft it is the only thing
-that writes to the Vault, and every file is shown before it is written.\
+an existing Hub or the Index and never moves a Note to another Hub. Together
+with writing a Draft it is the only thing that writes to the Vault, and every
+file is shown before it is written.\
 _Avoid_: save, log, dump
 
 **Project**:\
