@@ -33,10 +33,11 @@ draft, not a reason to start an interview.
 | `/draft --open` | List the open drafts of the current project and pick one up     |
 
 Either form takes the project as an argument, `/draft --open dots` and
-`/draft dots: <subject>`, where the colon separates the project from the
-subject. Without a colon the whole argument is the subject. The argument beats
-the working directory, and it is what makes both forms usable from a
-subdirectory of the project.
+`/draft dots: <subject>`, and the two read it differently. In `--open` the
+argument is the project and nothing else. In the bare form a colon separates the
+project from the subject, and without a colon the whole argument is the subject.
+The argument beats the working directory, and it is what makes both forms usable
+from a subdirectory of the project.
 
 ## Where drafts live
 
@@ -52,10 +53,10 @@ lookup below correct: it anchors the name in a regular expression and passes the
 paths through `xargs`, so a dot in the name would match a second project and a
 space would split one path into two.
 
-`<topic>` is a short slug of the subject and, unlike a note's file name, not the
-slug of the title: a `-v2` successor keeps the title of the draft it replaces,
-so the two cannot be tied together. Keep it short enough to type in `ffd` and
-close enough to the title to be recognised there.
+`<topic>` is a short ASCII slug of the subject and, unlike a note's file name,
+not the slug of the title: a `-v2` successor keeps the title of the draft it
+replaces, so the two cannot be tied together. Keep it short enough to type in
+`ffd` and close enough to the title to be recognised there.
 
 ## Draft contract
 
@@ -191,11 +192,12 @@ step is nowhere in the file is an empty claim.
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
    Nothing is on disk until I say yes; on an extension show only the changed
-   passages. Run `prettier --check` on the target file before you build the
-   extension. If it fails, the `prettier -w` in step 5 will reformat passages
-   your subject never touched, so put that formatting change up as a second
-   passage of its own and let me approve it separately. A reformat never rides
-   along unseen on a content change.
+   passages, while the check above still runs on the whole file as it will land.
+   Run `prettier --check` on the target file before you build the extension. If
+   it fails, the `prettier -w` in step 5 will reformat passages your subject
+   never touched, so put that formatting change up as a second passage of its
+   own and let me approve it separately. A reformat never rides along unseen on
+   a content change.
 
    **Only an explicit command writes a status.** A remark that something is now
    carried out states a fact and authorises nothing. You may offer the change
