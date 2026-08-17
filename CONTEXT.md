@@ -75,7 +75,9 @@ _Avoid_: save, log, dump
 **Project**:\
 A directory I work in, named by its directory: `routing-lab`, `dots`, `fuseki`.
 A Draft names the one it belongs to, and the name is the directory's, so that
-the same string finds it in the Vault and on disk.\
+the same string finds it in the Vault and on disk. It is `[a-z0-9-]+`, so a
+lookup can anchor it in a regular expression and pass paths through `xargs`
+without escaping either.\
 _Avoid_: repo, workspace, codebase
 
 **Notizwuerdig**:\

@@ -41,7 +41,10 @@ invisible to them. Only the index's dedicated open-drafts block queries
 
 `<project>` is the directory name of the project, `routing-lab` for
 `~/repos/routing-lab`, so that `ffd routing` and `rg 'project: routing-lab'`
-find the same set.
+find the same set. It is `[a-z0-9-]+` and nothing else, which is what keeps the
+lookup below correct: it anchors the name in a regular expression and passes the
+paths through `xargs`, so a dot in the name would match a second project and a
+space would split one path into two.
 
 ## Draft contract
 
