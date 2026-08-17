@@ -102,11 +102,14 @@ nor a draft left nothing in the vault.
 
 ## Operational ownership
 
-The note skill owns every Note and Hub operation under its triggers, the draft
-skill every Draft operation and its lifecycle. What no trigger reaches, a
-correction outside a capture among it, is a write under Writing to the Vault
-above. Each skill assumes this file and nothing else. This section routes to
-them and does not repeat their procedures.
+The note skill owns every Note and Hub operation, the draft skill every Draft
+operation and its lifecycle. A trigger decides only whether a skill fires on its
+own; it never narrows what an explicit command means. A Note, a Hub or a Draft
+written on a plain instruction is therefore still written under its skill's
+contract, with the frontmatter check, the format step and the preview rules
+including their exceptions. Only what no skill covers, a deletion or the Index,
+falls to Writing to the Vault above. Each skill assumes this file and nothing
+else. This section routes to them and does not repeat their procedures.
 
 ## Images and the web
 
