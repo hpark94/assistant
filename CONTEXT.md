@@ -1,8 +1,7 @@
 # Assistant
 
-Vocabulary for this repo: how the curated knowledge in the Obsidian vault is
-organised, what may be written there and on whose command, and what the two
-agents that read `AGENTS.md` have in common.
+Vocabulary and structural invariants for the curated knowledge in the Obsidian
+vault and for the two agents that work with it.
 
 ## Language
 
@@ -18,8 +17,7 @@ _Avoid_: notes folder, knowledge base, wiki
 **Machinery**:\
 Everything in the Vault directory that is not knowledge: `.obsidian/`,
 `.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`. It configures the tools that
-read and write the Notes and carries none of their content, so a tool changing
-it is not a write to the Vault and needs no command and no preview.\
+read and write the Notes and carries none of their content.\
 _Avoid_: config, dotfiles, plumbing
 
 **Note**:\
@@ -57,42 +55,36 @@ never to a Hub, and no query over `notes/` ever sees it.\
 _Avoid_: note, spec, plan, scratch
 
 **Status**:\
-Where a Draft stands: `todo`, `wip`, `done`, `superseded` or `dropped`. A new
-Draft is `todo`. Changed on command, never by the agent's own judgement and
-never on a remark that something is now carried out, and a `dropped` Draft stays
-on disk because the rejected option is what cannot be reconstructed later.\
+Where a Draft stands. `todo` is recorded but not begun, `wip` is being worked
+on, `done` was carried out or became knowledge, `superseded` was replaced, and
+`dropped` records a rejected idea instead of deleting it.\
 _Avoid_: state, phase, progress
 
 ### Working in it
 
 **Capture**:\
-Turning a finished topic into a Note. Happens only on command, never on the
-agent's initiative. It writes the Note and may create its Hub, but never edits
-an existing Hub or the Index and never moves a Note to another Hub. Together
-with writing a Draft it is the only thing that writes to the Vault, and every
-file is shown before it is written.\
+Turning one finished Topic into a Note, optionally together with the first Hub
+for that subject.\
 _Avoid_: save, log, dump
 
 **Project**:\
 A directory I work in, named by its directory: `routing-lab`, `dots`, `fuseki`.
 A Draft names the one it belongs to, and the name is the directory's, so that
-the same string finds it in the Vault and on disk. It is `[a-z0-9-]+`, so a
-lookup can anchor it in a regular expression and pass paths through `xargs`
-without escaping either.\
+the same string finds it in the Vault and on disk. It is `[a-z0-9-]+`.\
 _Avoid_: repo, workspace, codebase
 
 **Notizwuerdig**:\
-The single line an answer may end with when it produced something durable. A
-suggestion, not an action, and never repeated for the same topic.\
+The marker `notizwuerdig: <topic>` for an answer whose result may be worth a
+future Capture. A suggestion, not a Capture.\
 _Avoid_: reminder, nudge, follow up
 
 **Proof**:\
-A claim settled by actually running something, kept in the Note together with
-the exact command. A Note without a Proof may still be right, it just does not
-claim to have been checked.\
+A claim settled by an executed demonstration whose result and exact command are
+recorded. A Note without a Proof may still be right, it just does not claim to
+have been checked.\
 _Avoid_: test, validation, evidence
 
 **Agent**:\
-Claude or Codex. The contract in `AGENTS.md` and in the note and draft skills is
-identical for both, only paths and invocation differ.\
+Claude or Codex. Both use `AGENTS.md` as this Project's router and the same Note
+and Draft skills; only paths and invocation differ.\
 _Avoid_: model, assistant, bot

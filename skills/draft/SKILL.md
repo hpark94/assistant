@@ -211,8 +211,7 @@ step is nowhere in the file is an empty claim.
 
 **Writing a draft never edits `index.md`.** Its list of open drafts is a
 Dataview query over `status`, and a line added by hand there is a second truth
-that drifts. The index changes only on a command that asks for that change
-itself, with its own preview.
+that drifts.
 
 ## Picking one up: `--open`
 

@@ -7,12 +7,11 @@ notes. You are not a builder here: nothing in this directory ships.
 ## The bright line
 
 - **Answering and looking things up**: just do it.
-- **Writing to the vault**, creating or changing a note or a draft: only on my
-  command, and **nothing goes into the vault without my having seen it first**.
-  You build the file, show it to me formatted as it would land, and write after
-  my OK. On a change to an existing file, show the changed passages only. Where
-  my command already names the whole change, a draft's `status` and nothing
-  else, I have seen it: write it and report, do not ask a second time.
+- **Notes, Hubs and Drafts**: use the responsible skill under Commands. Each
+  skill owns the complete authorization, preview, validation, write, format and
+  reporting contract for its operation.
+- **The Index**: change it only on my command, as its own change. Show the
+  proposed change and wait for my OK before writing it.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. No follow-up, no second nudge on the same topic. I
@@ -77,33 +76,17 @@ the result and the commands instead of fifty tool outputs.
 `~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices.
 No version control: what is deleted there is gone on every device.
 
-| Path       | What it is                                                       |
-| ---------- | ---------------------------------------------------------------- |
-| `notes/`   | The curated knowledge, notes and hubs alike. Flat, no subfolders |
-| `drafts/`  | Unfinished thinking about one project. Never inside `notes/`     |
-| `index.md` | Entry point. Dataview queries, no hand-written results           |
+`CONTEXT.md` owns the vocabulary and structural invariants of the Vault.
+`docs/adr/` records the decisions that produced them and the alternatives they
+replaced.
 
-These three are the vault. What else sits in the directory, `.obsidian/`,
-`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`, is machinery: it configures
-the tools that read and write the knowledge, and a tool changing it is not a
-write to the vault. `docs/adr/0006` records the boundary.
-
-A note declares the one hub it belongs to; a hub lists its children with a
-Dataview block and holds no knowledge of its own. A capture writes the note and,
-if necessary, creates its hub; it never edits an existing hub or the index. The
-index derives its views from notes, hubs, drafts and maintenance conditions, so
-it changes only on a command that asks for that change itself, with its own
-preview, never as a side effect of a capture. `docs/adr/0001` to `0003` record
-why.
-
-A draft is not knowledge and not a note: it is thinking about one project while
-it is still unfinished, it carries a `status`, and every hub query is scoped
-`FROM "notes"`, so no draft ever shows up as knowledge. `docs/adr/0004` records
-why they live here rather than in the project.
+What sits in the directory besides the Vault, `.obsidian/`, `.obsidian.vimrc`,
+`.prettierrc`, `.marksman.toml`, is Machinery. It configures the tools that read
+and write the knowledge, and changing it is not a write to the Vault.
+`docs/adr/0006` records the distinction.
 
 **Read, search and write on disk** with Grep, Glob, Read and the agent's file
-editing tool. The Vault is plain Markdown at a known path and needs no API. The
-preview and OK rule still applies to every write.
+editing tool. The Vault is plain Markdown at a known path and needs no API.
 
 ## Answering from the vault
 
@@ -112,19 +95,20 @@ me what you are relying on. The vault holds only what I captured on command:
 nothing records a session by itself, so a session that produced neither a note
 nor a draft left nothing in the vault. `docs/adr/0005` records why.
 
-## Note, hub and draft contract
+## Operational ownership
 
-One note is one topic, one hub is one subject area, one draft is one subject in
-one project. The format, the frontmatter, the duplicate rule and the whole write
-procedure live in `skills/note/SKILL.md` and `skills/draft/SKILL.md`, because
-both skills also run in projects where this file is not loaded.
+`skills/note/SKILL.md` owns every Note and Hub operation.
+`skills/draft/SKILL.md` owns every Draft operation and its lifecycle. Both are
+complete without this Project. This file routes to them and does not repeat
+their procedures.
 
 ## Vocabulary and decisions
 
-`CONTEXT.md` is the glossary: what a note, a hub, a topic and a capture are, and
-which words I do not want used for them. `docs/adr/` holds the decisions that
-shaped the vault and the alternatives they beat. Both are yours to extend when a
-term or a decision actually changes, never in passing.
+`CONTEXT.md` is the glossary: it owns meanings and structural invariants, not
+authorization, procedure, ordering, tool choice or exceptions. `docs/adr/` holds
+self-contained historical records of the decisions that shaped the Vault and the
+alternatives they beat, not current operating policy. Both are yours to extend
+when a term or a decision actually changes, never in passing.
 
 ## Images and the web
 
@@ -145,7 +129,6 @@ behaviour in memory, subject matter in the vault.
 - The note skill: distill the last topic into a note. Claude invokes it as
   `/note`, Codex as `$note`. These phrases do the same as a bare invocation:
   "merk dir das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
-  The skill carries its own procedure, including `prettier -w`.
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of the project I am
   working in, reads the one I pick, and asks how to proceed. It never fires on
@@ -182,8 +165,8 @@ Facts about the setup, not commands to run:
   reads.
 - The draft skill carries that flag, the note skill deliberately does not: only
   the model matches "merk dir das", so the flag would leave `/note` as the sole
-  trigger. What keeps a capture from firing unbidden is the bright line and the
-  skill's `description`, not the frontmatter.
+  trigger. What keeps a Capture from firing unbidden is the skill's
+  `description`, not the frontmatter.
 - Neither Agent configures the Vault as an MCP server. Both work with its
   Markdown files directly.
 
@@ -192,8 +175,7 @@ Facts about the setup, not commands to run:
 - Speak German with me. Everything written down is English: notes, this file,
   `CONTEXT.md`, the ADRs, code, identifiers and commit messages.
 - No em dashes. Use commas, periods, semicolons, colons.
-- Minimal diffs: when extending a note, touch only what the topic requires. No
-  rewording in passing, no reformatting of untouched sections, or I cannot see
-  in Obsidian what actually changed.
-- YAGNI: the simplest note that carries the point. No empty sections, no
-  placeholders, no scaffolding for notes that do not exist yet.
+- Minimal diffs: touch only what the subject requires. No rewording or
+  reformatting in passing.
+- YAGNI: the simplest change that carries the point. No empty sections,
+  placeholders or scaffolding for work that does not exist yet.
