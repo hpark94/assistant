@@ -93,6 +93,6 @@ claim to have been checked.\
 _Avoid_: test, validation, evidence
 
 **Agent**:\
-Claude or Codex. The contract in `AGENTS.md` and in the note skill is identical
-for both, only paths and invocation differ.\
+Claude or Codex. The contract in `AGENTS.md` and in the note and draft skills is
+identical for both, only paths and invocation differ.\
 _Avoid_: model, assistant, bot
