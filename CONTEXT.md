@@ -63,8 +63,9 @@ _Avoid_: state, phase, progress
 ### Working in it
 
 **Capture**:\
-Turning one finished Topic into a Note, optionally together with the first Hub
-for that subject.\
+Turning one Topic into a Note, a new one or an extension of the one that already
+holds it, optionally together with the first Hub for that subject. The Topic is
+one the session settled or one established for the Capture.\
 _Avoid_: save, log, dump
 
 **Project**:\
