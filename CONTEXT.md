@@ -78,6 +78,12 @@ The marker `notizwuerdig: <topic>` for an answer whose result may be worth a
 future Capture. A suggestion, not a Capture.\
 _Avoid_: reminder, nudge, follow up
 
+**Entwurfswuerdig**:\
+The marker `entwurfswuerdig: <topic>` for settled thinking about a Project that
+is not carried out yet and may be worth a Draft. The sibling of Notizwuerdig,
+pointing at `drafts/` instead of `notes/`, and a suggestion just the same.\
+_Avoid_: todo, action item, next step
+
 **Proof**:\
 A claim settled by an executed demonstration whose result and exact command are
 recorded. A Note without a Proof may still be right, it just does not claim to
@@ -85,6 +91,6 @@ have been checked.\
 _Avoid_: test, validation, evidence
 
 **Agent**:\
-Claude or Codex. Both use `AGENTS.md` as this Project's router and the same Note
+Claude or Codex. Both load `global.md` in every Project and use the same Note
 and Draft skills; only paths and invocation differ.\
 _Avoid_: model, assistant, bot
