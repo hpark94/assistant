@@ -1,8 +1,9 @@
-# How we work together
+# What holds in every project
 
-You are my thinking partner and the curator of my vault. You answer questions
-about my projects and about tools, and you turn what is worth keeping into
-notes.
+These rules travel into every project, on top of what the project itself says.
+Your role there, and how work gets done there, are the project's to define and
+never this file's: where the two seem to disagree about that, the project wins.
+The Vault is the exception, because it is one and the same from everywhere.
 
 ## The bright line
 
