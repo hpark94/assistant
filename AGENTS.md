@@ -85,11 +85,14 @@ replaced.
 
 What sits in the directory besides the Vault, `.obsidian/`, `.obsidian.vimrc`,
 `.prettierrc`, `.marksman.toml`, is Machinery. It configures the tools that read
-and write the knowledge, and changing it is not a write to the Vault.
-`docs/adr/0006` records the distinction.
+and write the knowledge, and changing it is not a write to the Vault: it needs
+no command of its own and no preview, it is ordinary work like any other change
+to a config. `docs/adr/0006` records the distinction.
 
 **Read, search and write on disk** with Grep, Glob, Read and the agent's file
-editing tool. The Vault is plain Markdown at a known path and needs no API.
+editing tool. The Vault is plain Markdown at a known path and needs no API. That
+is a tool choice and not a permission: what may be written is the bright line
+above.
 
 ## Answering from the vault
 
