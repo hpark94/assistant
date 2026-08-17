@@ -129,11 +129,11 @@ fact is the one failure mode he cannot catch.
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
    except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
-   bad  = [f"missing {k}" for k in ("title","type","summary","created","updated") if k not in f]
+   bad  = [f"missing {k}" for k in ("title","type","summary","created") if k not in f]
    bad += ["type must be hub"] * (f.get("type") != "hub")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
-   bad += [f"{k} is not allowed on a hub" for k in ("topic","tags") if k in f]
-   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
+   bad += [f"{k} is not allowed on a hub" for k in ("topic","tags","updated") if k in f]
+   bad += ["created must be YYYY-MM-DD"] * (type(f.get("created")) is not datetime.date)
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
    <the whole hub, frontmatter and dataview block>
@@ -243,7 +243,6 @@ title: Disk Management
 type: hub
 summary: Measuring disk usage, cleaning up, keeping file systems in view.
 created: 2026-08-13
-updated: 2026-08-13
 ---
 
 # Disk Management
@@ -262,6 +261,11 @@ what every child's file name starts with.
 
 Hubs have no `topic`, no tags and no prose. Create one only together with its
 first child, so that no `topic` link ever points at a file that does not exist.
+
+A hub has no `updated` either. Nothing ever edits an existing hub, so the field
+could only repeat `created` forever, and a date that cannot move is worse than
+no date: it looks like an answer to "when did this subject last change", which
+the children's `updated` in the hub's own list already gives.
 
 ## Style
 
