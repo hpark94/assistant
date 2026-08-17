@@ -136,15 +136,17 @@ behaviour in memory, subject matter in the vault.
 
 Both Claude and Codex read this file, Claude as `~/.claude/CLAUDE.md`, Codex as
 `~/.codex/AGENTS.md`, both symlinks to `~/repos/assistant/global.md`. A
-project's own `AGENTS.md` is appended to this file, it never replaces it. The
-contract is the same for both agents; only these facts differ.
+project's own file is added to this one and never replaces it, but the two
+agents pick different files, so a repo meant for both carries both. The contract
+is the same for both agents; only these facts differ.
 
-| What              | Claude                              | Codex                                                |
-| ----------------- | ----------------------------------- | ---------------------------------------------------- |
-| Skill directory   | `~/.claude/skills/`                 | `~/.agents/skills/`, plus `.agents/skills` in a repo |
-| Invoking a skill  | `/note`, `/draft`                   | `$note`, `$draft`, or pick it from `/skills`         |
-| MCP configuration | `~/.claude.json`                    | `~/.codex/config.toml`                               |
-| Memory            | `~/.claude/projects/<slug>/memory/` | Codex's own memories                                 |
+| What              | Claude                                            | Codex                                                |
+| ----------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| Project file      | `CLAUDE.md`; an `AGENTS.md` only via `@AGENTS.md` | `AGENTS.md`; a `CLAUDE.md` is ignored                |
+| Skill directory   | `~/.claude/skills/`                               | `~/.agents/skills/`, plus `.agents/skills` in a repo |
+| Invoking a skill  | `/note`, `/draft`                                 | `$note`, `$draft`, or pick it from `/skills`         |
+| MCP configuration | `~/.claude.json`                                  | `~/.codex/config.toml`                               |
+| Memory            | `~/.claude/projects/<slug>/memory/`               | Codex's own memories                                 |
 
 Facts about the setup, not commands to run:
 
