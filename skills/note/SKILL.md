@@ -1,18 +1,18 @@
 ---
 name: note
 description:
-  "Distill one topic into a note in Hyeong-Gyu's Obsidian vault at
-  ~/projects/vault. Triggers, and nothing else: the command /note or $note, or
-  the German phrases 'merk dir das', 'mach eine Notiz draus', 'das ist wichtig',
-  'halt das fest'."
+  "Distill one topic into a note in the Obsidian vault at ~/projects/vault.
+  Triggers, and nothing else: the command /note or $note, or the German phrases
+  'merk dir das', 'mach eine Notiz draus', 'das ist wichtig', 'halt das fest'."
 ---
 
 # note
 
 Turn one self contained topic into a note in `~/projects/vault/notes/`. Writing
 to the vault happens only on command, never on your own initiative, and nothing
-goes into the vault before he has seen it. This file is the complete contract:
-it must work in projects whose `AGENTS.md` you have never seen.
+goes into the vault before I have seen it. This file owns the whole Note and Hub
+operation and assumes `global.md`, which is loaded in every project, and nothing
+else.
 
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
@@ -34,30 +34,13 @@ that contradicts another, goes in one or two sentences next to the preview.
 ## Proving a claim
 
 A note that says something is possible, or behaves a certain way, is worth
-nothing unless it was checked. Build the smallest demonstration that settles it
-and put **both the result and the exact command** into the note, under
-`## Verified` with a `verified` date.
-
-A proof that runs a tool or creates a file runs in a scratch directory, never in
-his live setup, so it opens with `SCRATCH=$(mktemp -d)` and the command in the
-note rebuilds its own environment from nothing. Copy configs, redirect paths,
-use minimal fixtures:
-
-```sh
-SCRATCH=$(mktemp -d)
-XDG_CONFIG_HOME="${SCRATCH}/config" XDG_DATA_HOME="${SCRATCH}/data" some-tool
-```
-
-Verify the isolation itself before trusting the result: a tool that still reads
-its live config proves nothing about a clean environment.
-
-A proof that only reads needs no scratch directory. A `grep` over a config or a
-parse of it isolates nothing and changes nothing, and it goes into the note with
-its command like any other proof.
+nothing unless it was checked. Prove it the way `global.md` prescribes, then put
+**both the result and the exact command** into the note, under `## Verified`
+with a `verified` date. The command has to rebuild its own environment, because
+the note is read on a day when nothing of this session is left.
 
 If no cheap or safe test exists, say so and write the claim down as unverified,
-without `verified` and without a `## Verified` section. A guess in the tone of a
-fact is the one failure mode he cannot catch.
+without `verified` and without a `## Verified` section.
 
 ## Procedure
 
@@ -71,8 +54,8 @@ fact is the one failure mode he cannot catch.
      Never delete existing content silently, and say afterwards what changed.
      Its hub is the one thing you never correct: if the content you are adding
      would have gone under a different hub as a new note, say so in one line,
-     name that hub, and leave the move to him in Obsidian. It is one line and
-     not a question, and it may fall again in a later session, because nothing
+     name that hub, and leave the move to me in Obsidian. It is one line and not
+     a question, and it may fall again in a later session, because nothing
      records that it was already said. Never offer and never run `mv` on a note:
      renaming in Obsidian carries the incoming wiki links along, `mv` leaves
      them pointing nowhere on four devices.
@@ -93,7 +76,7 @@ fact is the one failure mode he cannot catch.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
    check, then put every result up with the path it would get. Nothing is on
-   disk at this point, and nothing is written until he says so.
+   disk at this point, and nothing is written until I say so.
 
    For a Note:
 
@@ -141,7 +124,7 @@ fact is the one failure mode he cannot catch.
    ```
 
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
-   though the file does not exist yet, so what he reads is byte for byte what
+   though the file does not exist yet, so what I read is byte for byte what
    lands. The check passes prettier's output through unchanged, so what gets
    validated is exactly the text you show and later write. The content rides in
    the heredoc, so no temporary file exists either: nothing is on disk before
@@ -161,7 +144,7 @@ fact is the one failure mode he cannot catch.
    point of a minimal diff is that the change is visible. Run `prettier --check`
    on the target file before you build the extension. If it fails, the
    `prettier -w` in step 7 will reformat passages your topic never touched, so
-   put that formatting change up as a second passage of its own and let him
+   put that formatting change up as a second passage of its own and let me
    approve it separately. A reformat never rides along unseen on a content
    change.
 
@@ -264,12 +247,3 @@ A hub has no `updated` either. Nothing ever edits an existing hub, so the field
 could only repeat `created` forever, and a date that cannot move is worse than
 no date: it looks like an answer to "when did this subject last change", which
 the children's `updated` in the hub's own list already gives.
-
-## Style
-
-- Notes are English, even though we speak German.
-- No em dashes. Use commas, periods, semicolons, colons.
-- Minimal diffs when extending a note: touch only what the topic requires, no
-  rewording in passing, no reformatting of untouched sections.
-- YAGNI: the simplest note that carries the point. No empty sections, no
-  placeholders.
