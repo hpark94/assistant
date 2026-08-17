@@ -93,6 +93,13 @@ editing tool. The Vault is plain Markdown at a known path and needs no API. That
 is a tool choice and not a permission: what may be written is settled under
 Writing to the Vault above.
 
+**An ASCII slug**, which is what both skills build a file name from, is the text
+lowercased, every run of characters outside `[a-z0-9]` collapsed into one
+hyphen, and leading and trailing hyphens dropped. An umlaut keeps its vowel
+rather than losing it, `ae oe ue ss`, which is why the marker above is
+`notizwuerdig` and not `notizwurdig`. Titles are English, so that case is the
+rare one.
+
 ## Answering from the vault
 
 For any question about my projects or my tools, search `notes/` first and tell
