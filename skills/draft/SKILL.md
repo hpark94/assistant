@@ -193,9 +193,9 @@ step is nowhere in the file is an empty claim.
    carried out states a fact and authorises nothing. You may offer the change
    once, in a single line, and never bring it up a second time.
 
-   **A change to `status` alone needs no preview.** His command already names
-   the whole change, "set the draft to done", so there is nothing left for me to
-   see and asking again only costs me a second yes. Run the frontmatter check,
+   **A change to `status` alone needs no preview.** My command already names the
+   whole change, "set the draft to done", so there is nothing left for me to see
+   and asking again only costs me a second yes. Run the frontmatter check,
    write, and report the new status. The exception ends where the diff does:
    `updated` may ride along, anything else, a line of body text or the
    `superseded_by` that a `superseded` requires, is a normal change and gets its
