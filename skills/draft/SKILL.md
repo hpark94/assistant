@@ -106,10 +106,13 @@ Whatever the brainstorm produced.
   gets a backlink and its history is visible from there.
 - `depends_on: ["[[routing-lab-ospf-metrics]]"]` names the drafts that must be
   carried out first. It is always a list, even with one entry, and every value
-  is a quoted wiki link, so the blocking draft gets a backlink. It exists only
-  where the order is real: the later draft's decision cannot be made until the
-  earlier one is. A session that produces several drafts records the order here,
-  because otherwise it lives only in that conversation and is gone with it.
+  is a quoted wiki link, so the blocking draft gets a backlink. Every target has
+  to exist as a file in `drafts/`, which the check enforces: a link with a typo
+  in it is not a weak dependency, it is no dependency at all, and nothing else
+  would ever notice. It exists only where the order is real: the later draft's
+  decision cannot be made until the earlier one is. A session that produces
+  several drafts records the order here, because otherwise it lives only in that
+  conversation and is gone with it.
 - A `dropped` draft is **not** deleted. The vault has no version control, so a
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
@@ -142,7 +145,7 @@ step is nowhere in the file is an empty claim.
    ```sh
    prettier --stdin-filepath ~/projects/vault/drafts/<name>.md <<'EOF' \
      | python3 -c '
-   import sys, yaml, re, datetime
+   import sys, yaml, re, datetime, os
    t = sys.stdin.read(); sys.stdout.write(t)
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
@@ -157,6 +160,7 @@ step is nowhere in the file is an empty claim.
    bad += ["superseded_by exists only when status is superseded"] * (f.get("status") != "superseded" and "superseded_by" in f)
    d = f.get("depends_on")
    bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
+   bad += [f"depends_on target does not exist: {x}" for x in (d or []) if isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) and not os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md"))]
    bad += [f"{k} is not allowed on a draft" for k in ("tags","topic","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
@@ -175,8 +179,12 @@ step is nowhere in the file is an empty claim.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is
-   why the values are checked too. On a failure repair the frontmatter and run
-   it again; never show a preview that did not pass.
+   why the values are checked too. The `depends_on` line is the one check that
+   reads the disk, because a link's target is not something the text can tell
+   you. It strips an alias after `|`, appends `.md` and looks in `drafts/`; a
+   session writing several drafts shows them in dependency order, so the target
+   is already there when the dependent one is checked. On a failure repair the
+   frontmatter and run it again; never show a preview that did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
@@ -244,8 +252,10 @@ Run this in the project you are working in, or name the project as an argument:
 
 2. **Choose.** More than one hit: put them up with `summary` and `status` and
    wait. A draft whose `depends_on` still points at a `todo` or `wip` draft is
-   blocked, so say that with it instead of offering it as an equal choice.
-   Exactly one: name it and go on.
+   blocked, so say that with it instead of offering it as an equal choice. A
+   target that is gone is the deletion case the write check cannot catch: report
+   it as broken rather than reading the draft as unblocked. Exactly one: name it
+   and go on.
 3. **Read it whole**, on disk with Read. It is a draft, not an order: it may
    contain options that were never decided and thinking that the code has since
    overtaken.
