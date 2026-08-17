@@ -40,7 +40,10 @@ with a `verified` date. The command has to rebuild its own environment, because
 the note is read on a day when nothing of this session is left.
 
 If no cheap or safe test exists, say so and write the claim down as unverified,
-without `verified` and without a `## Verified` section.
+without `verified` and without a `## Verified` section. A `## Not verified`
+section is where that goes: what was not shown, and what stood in the way. It is
+the only other section the contract names, because an unverified claim that says
+nothing about its own gap reads like a checked one.
 
 ## Procedure
 
@@ -144,12 +147,14 @@ without `verified` and without a `## Verified` section.
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
    **On an extension show only the changed passages**, never the whole file: the
-   point of a minimal diff is that the change is visible. Run `prettier --check`
-   on the target file before you build the extension. If it fails, the
-   `prettier -w` in step 7 will reformat passages your topic never touched, so
-   put that formatting change up as a second passage of its own and let me
-   approve it separately. A reformat never rides along unseen on a content
-   change.
+   point of a minimal diff is that the change is visible. The check above still
+   runs on the whole file as it will land, only the display is narrowed;
+   `updated` moves on every extension, so the frontmatter changes and wants
+   checking. Run `prettier --check` on the target file before you build the
+   extension. If it fails, the `prettier -w` in step 7 will reformat passages
+   your topic never touched, so put that formatting change up as a second
+   passage of its own and let me approve it separately. A reformat never rides
+   along unseen on a content change.
 
 6. **Write.** After the OK for every previewed file, write the approved content
    directly to its absolute path under `~/projects/vault/notes/`. If the Hub is
