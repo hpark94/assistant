@@ -8,8 +8,8 @@ The Vault is the exception, because it is one and the same from everywhere.
 ## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
-- **Notes, Hubs and Drafts**: use the responsible skill under Commands, on the
-  triggers that skill names. Each skill owns the complete authorization,
+- **Notes, Hubs and Drafts**: use the responsible skill under Vault commands, on
+  the triggers that skill names. Each skill owns the complete authorization,
   preview, validation, write, format and reporting contract for its operation.
 - **Every other write to the Vault**, a correction to an existing Note outside a
   capture, a deletion, the Index: only on my command, as its own change. Show
@@ -120,7 +120,7 @@ What changes how you work goes into your own memory, wherever the agent you are
 keeps it. What I want to look up later goes into the vault. Rule of thumb:
 behaviour in memory, subject matter in the vault.
 
-## Commands
+## Vault commands
 
 - The note skill: distill the last topic into a note. Claude invokes it as
   `/note`, Codex as `$note`. These phrases do the same as a bare invocation:
@@ -169,7 +169,7 @@ Facts about the setup, not commands to run:
 - Neither Agent configures the Vault as an MCP server. Both work with its
   Markdown files directly.
 
-## Style
+## Writing style
 
 - Speak German with me. Everything written down is English: notes, this file,
   `CONTEXT.md`, the ADRs, code, identifiers and commit messages.
