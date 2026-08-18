@@ -168,32 +168,32 @@ project's own file is added to this one and never replaces it, but the two
 agents pick different files, so a repo meant for both carries both. The contract
 is the same for both agents; only these facts differ.
 
-| What              | Claude                                            | Codex                                                |
-| ----------------- | ------------------------------------------------- | ---------------------------------------------------- |
-| Project file      | `CLAUDE.md`; an `AGENTS.md` only via `@AGENTS.md` | `AGENTS.md`; a `CLAUDE.md` is ignored                |
-| Skill directory   | `~/.claude/skills/`                               | `~/.agents/skills/`, plus `.agents/skills` in a repo |
-| Invoking a skill  | `/note`, `/draft`                                 | `$note`, `$draft`, or pick it from `/skills`         |
-| MCP configuration | `~/.claude.json`                                  | `~/.codex/config.toml`                               |
-| Memory            | `~/.claude/projects/<slug>/memory/`               | Codex's own memories                                 |
+| What              | Claude                                            | Codex                                                        |
+| ----------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| Project file      | `CLAUDE.md`; an `AGENTS.md` only via `@AGENTS.md` | `AGENTS.md`; a `CLAUDE.md` is ignored                        |
+| Skill directory   | `~/.claude/skills/`                               | `~/.agents/skills/`, plus `.agents/skills` in a repo         |
+| Invoking a skill  | `/note`, `/draft`, `/deep-search`                 | `$note`, `$draft`, `$deep-search`, or pick it from `/skills` |
+| MCP configuration | `~/.claude.json`                                  | `~/.codex/config.toml`                                       |
+| Memory            | `~/.claude/projects/<slug>/memory/`               | Codex's own memories                                         |
 
 Facts about the setup, not commands to run:
 
-- `~/repos/assistant` holds this file and the note and draft skills. Its
-  `install.sh` symlinks all of them into place, relatively, so the links survive
-  a different user name or a moved home. Nothing else about the setup is
-  versioned: neither `~/.claude` nor `~/.agents/skills`, where the other skills
-  live. The skill directories in the table are mine; each agent's own built-ins
-  sit apart again, Codex's in `~/.codex/skills/.system/`.
+- `~/repos/assistant` holds this file and the note, draft and deep-search
+  skills. Its `install.sh` symlinks all of them into place, relatively, so the
+  links survive a different user name or a moved home. Nothing else about the
+  setup is versioned: neither `~/.claude` nor `~/.agents/skills`, where the
+  other skills live. The skill directories in the table are mine; each agent's
+  own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
 - `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
   list the model chooses from. Claude honours it, Codex does not: it lists such
   a skill with its full description in `<skills_instructions>` anyway, checked
   with `codex debug prompt-input`. A skill that must not fire by itself
   therefore says so in its own `description`, which is the only part Codex
   reads.
-- The draft skill carries that flag, the note skill deliberately does not: only
-  the model matches "merk dir das", so the flag would leave `/note` as the sole
-  trigger. What keeps a Capture from firing unbidden is the skill's
-  `description`, not the frontmatter.
+- The draft and deep-search skills carry that flag, the note skill deliberately
+  does not: only the model matches "merk dir das", so the flag would leave
+  `/note` as the sole trigger. What keeps a Capture from firing unbidden is the
+  skill's `description`, not the frontmatter.
 - Neither Agent configures the Vault as an MCP server. Both work with its
   Markdown files directly.
 

@@ -92,6 +92,6 @@ have been checked.\
 _Avoid_: test, validation, evidence
 
 **Agent**:\
-Claude or Codex. Both load `global.md` in every Project and use the same Note
-and Draft skills; only paths and invocation differ.\
+Claude or Codex. Both load `global.md` in every Project and use the same skills;
+only paths and invocation differ.\
 _Avoid_: model, assistant, bot
