@@ -175,9 +175,12 @@ claim.
    though the file does not exist yet. The check passes prettier's output
    through unchanged, so what gets validated is exactly the text you show and
    later write. The content rides in the heredoc, so no temporary file exists
-   either: nothing is on disk before the OK. The delimiter must not occur in the
-   content: a draft that itself contains a line `EOF` needs `<<'DRAFT'` or any
-   other word that does not.
+   either: nothing is on disk before the OK. The command formats and checks, it
+   does not show: its output is a tool result that stays folded up in the
+   transcript, so copy it into the answer itself, in a fenced block under the
+   path the file would get. The delimiter must not occur in the content: a draft
+   that itself contains a line `EOF` needs `<<'DRAFT'` or any other word that
+   does not.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is

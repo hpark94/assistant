@@ -81,8 +81,12 @@ nothing about its own gap reads like a checked one.
    names, never frontmatter, which is why the two agree.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
-   check, then put every result up with the path it would get. Nothing is on
-   disk at this point, and nothing is written until I say so.
+   check, then put every result up with the path it would get. The command
+   formats and checks, it does not show: its output is a tool result that stays
+   folded up in the transcript, so a preview I have to unfold is no preview.
+   Copy that output into the answer itself, one fenced block per file under the
+   path it would get. Nothing is on disk at this point, and nothing is written
+   until I say so.
 
    For a Note:
 
