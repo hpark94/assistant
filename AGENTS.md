@@ -21,6 +21,8 @@ have to be made in two files is a sign that the rule is in the wrong place.
 ## Commands
 
 - `./install.sh`: symlink `global.md` and the three skills into place.
-  Idempotent, and it reports missing tools instead of installing them.
+  Idempotent, and it reports the missing command line tools instead of
+  installing them. The MCP tools `deep-search` needs are not among them, and the
+  script says why.
 - `git -C ~/repos/assistant commit`: after every change in this repo, subject
   `docs(agents): what changed`. No trailing `Co-Authored-By` lines.
