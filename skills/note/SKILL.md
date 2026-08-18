@@ -68,12 +68,12 @@ nothing about its own gap reads like a checked one.
      incoming wiki links along, `mv` leaves them pointing nowhere on four
      devices.
    - **On no hit**: create a new note.
-3. **Pick the hub.** Every note belongs to exactly one hub, named in `topic`. If
+3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview
-   carry it: it shows the same name in the file name, in the title and in
-   `topic`, which is more than a question would. A hub name is expensive, it is
-   a prefix of every child's file name, so renaming it later renames files. Say
-   in one line that the hub is new, so it is not mistaken for an existing one.
+   carry it: it shows the same name in the file name, in the title and in `hub`,
+   which is more than a question would. A hub name is expensive, it is a prefix
+   of every child's file name, so renaming it later renames files. Say in one
+   line that the hub is new, so it is not mistaken for an existing one.
 4. **Name the file.** `<hub-slug>-<short-name>.md`, the title as an ASCII slug:
    `disk-management-memory-usage.md` with the title
    `Disk Management: Memory Usage`. The hub carries the context, so keep the
@@ -101,10 +101,10 @@ nothing about its own gap reads like a checked one.
    try: f = yaml.safe_load(m.group(1))
    except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
    d = lambda k: type(f.get(k)) is datetime.date
-   bad  = [f"missing {k}" for k in ("title","type","topic","summary","created","updated") if k not in f]
+   bad  = [f"missing {k}" for k in ("title","type","hub","summary","created","updated") if k not in f]
    bad += ["type must be note"] * (f.get("type") != "note")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
-   bad += ["topic must be a quoted \"[[hub]]\""] * (not isinstance(f.get("topic"), str) or not re.fullmatch(r"\[\[[^]]+\]\]", str(f.get("topic"))))
+   bad += ["hub must be a quoted \"[[hub]]\""] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[^]]+\]\]", str(f.get("hub"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
@@ -127,7 +127,7 @@ nothing about its own gap reads like a checked one.
    bad  = [f"missing {k}" for k in ("title","type","summary","created") if k not in f]
    bad += ["type must be hub"] * (f.get("type") != "hub")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
-   bad += [f"{k} is not allowed on a hub" for k in ("topic","tags","updated") if k in f]
+   bad += [f"{k} is not allowed on a hub" for k in ("hub","tags","updated") if k in f]
    bad += ["created must be YYYY-MM-DD"] * (type(f.get("created")) is not datetime.date)
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
@@ -143,10 +143,10 @@ nothing about its own gap reads like a checked one.
    the OK. The delimiter must not occur in the content: a note that itself
    contains a line `EOF` needs `<<'NOTE'` or any other word that does not.
 
-   A frontmatter that merely parses is not enough: `topic: [[hub]]` without
-   quotes parses silently into a list and is no link in Obsidian, which is why
-   the values are checked too. On a failure repair the frontmatter and run it
-   again; never show a preview that did not pass.
+   A frontmatter that merely parses is not enough: `hub: [[disk-management]]`
+   without quotes parses silently into a list and is no link in Obsidian, which
+   is why the values are checked too. On a failure repair the frontmatter and
+   run it again; never show a preview that did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
@@ -185,7 +185,7 @@ hand there creates a second truth that immediately drifts.
 ---
 title: "Disk Management: Memory Usage"
 type: note
-topic: "[[disk-management]]"
+hub: "[[disk-management]]"
 summary: du, ncdu and df, and why the three disagree.
 tags: [linux, disk, cli]
 created: 2026-08-13
@@ -214,7 +214,7 @@ verified: 2026-08-13
 - `type` is `note`, nothing else. A Hub is a distinct file type with its own
   contract below. What a Note is about is carried by its Hub and its tags, not
   by a category.
-- `topic` is the one hub, written as a quoted link. Obsidian indexes links in
+- `hub` names the one hub, written as a quoted link. Obsidian indexes links in
   properties as real links, which is what makes the hub's list and its backlinks
   work. Exactly one, never a list.
 - `summary` is one line, written to be read in a list next to nine others. It
@@ -255,11 +255,11 @@ SORT file.name ASC
 ````
 
 A hub's file name is its title as an ASCII slug and nothing else,
-`second-brain.md` for `Second Brain`. That slug is what `topic` links to and
-what every child's file name starts with.
+`second-brain.md` for `Second Brain`. That slug is what `hub` links to and what
+every child's file name starts with.
 
-Hubs have no `topic`, no tags and no prose. Create one only together with its
-first child, so that no `topic` link ever points at a file that does not exist.
+Hubs have no `hub`, no tags and no prose. Create one only together with its
+first child, so that no `hub` link ever points at a file that does not exist.
 
 A hub has no `updated` either. No capture ever edits an existing hub, and a
 correction on my command is rare enough that the field would repeat `created`

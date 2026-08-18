@@ -38,8 +38,7 @@ _Avoid_: MOC, index note, category, folder
 **Topic**:\
 The one self contained subject a Note, a Draft or a marker is about, which is
 what the skills mean by topic and never the Hub it files under. A Note is one
-Topic. The `topic` property is named for an older meaning and holds the Hub
-link.\
+Topic; the Hub it files under is its `hub` property.\
 _Avoid_: subject area, theme, item
 
 **Summary**:\

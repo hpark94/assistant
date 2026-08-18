@@ -117,7 +117,7 @@ Whatever the brainstorm produced.
 - A `dropped` draft is **not** deleted. The vault has no version control, so a
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
-- No `tags`, no `topic`, no hub.
+- No `tags` and no `hub`.
 
 Below the frontmatter only the `# Title` is required. Write the sections the
 conversation actually produced, no fixed skeleton, no empty headings. The draft
@@ -166,7 +166,7 @@ claim.
    d = f.get("depends_on")
    bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
    bad += [f"depends_on target does not exist: {x}" for x in (d or []) if isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) and not os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md"))]
-   bad += [f"{k} is not allowed on a draft" for k in ("tags","topic","hub") if k in f]
+   bad += [f"{k} is not allowed on a draft" for k in ("tags","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
    '
