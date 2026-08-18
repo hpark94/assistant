@@ -120,9 +120,11 @@ Whatever the brainstorm produced.
 - No `tags`, no `topic`, no hub.
 
 Below the frontmatter only the `# Title` is required. Write the sections the
-conversation actually produced, no fixed skeleton, no empty headings. If the
-conversation says what should happen next, write it down; a `todo` whose next
-step is nowhere in the file is an empty claim.
+conversation actually produced, no fixed skeleton, no empty headings. The draft
+is read in a session that was not part of this conversation: what is only in the
+context now is gone with it. If the conversation says what should happen next,
+write it down; a `todo` whose next step is nowhere in the file is an empty
+claim.
 
 ## Writing a draft
 
