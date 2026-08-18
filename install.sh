@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Symlink global.md and the note and draft skills into place, for Claude and
-# Codex. Idempotent. Links are relative, so they survive a different user name
-# or a moved home. Missing tools are reported, never installed.
+# Symlink global.md and the note, draft and deep-search skills into place, for
+# Claude and Codex. Idempotent. Links are relative, so they survive a different
+# user name or a moved home. Missing tools are reported, never installed.
 set -euo pipefail
 
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
@@ -32,7 +32,7 @@ link() {
 printf 'Links:\n'
 link "${repo}/global.md" "${HOME}/.claude/CLAUDE.md"
 link "${repo}/global.md" "${HOME}/.codex/AGENTS.md"
-for skill in note draft; do
+for skill in note draft deep-search; do
   link "${repo}/skills/${skill}" "${HOME}/.claude/skills/${skill}"
   link "${repo}/skills/${skill}" "${HOME}/.agents/skills/${skill}"
 done
