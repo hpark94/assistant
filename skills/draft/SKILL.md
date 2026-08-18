@@ -112,8 +112,7 @@ Whatever the brainstorm produced.
   in it is not a weak dependency, it is no dependency at all, and nothing else
   would ever notice. It exists only where the order is real: the later draft's
   decision cannot be made until the earlier one is. A session that produces
-  several drafts records the order here, because otherwise it lives only in that
-  conversation and is gone with it.
+  several drafts records the order here.
 - A `dropped` draft is **not** deleted. The vault has no version control, so a
   deleted file is gone on every device, and "we considered this and rejected it"
   is exactly what cannot be reconstructed later.
