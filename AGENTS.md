@@ -16,7 +16,11 @@ decision actually changes, never in passing.
 
 Each rule has exactly one owner. `global.md` owns what holds in every project, a
 skill owns its own operation, and neither repeats the other. A change that would
-have to be made in two files is a sign that the rule is in the wrong place.
+have to be made in two files is a sign that the rule is in the wrong place. The
+YAML quoting rule, the summary length and the date check stand in both writing
+skills anyway: they are frontmatter rules and hold nowhere else, so `global.md`
+is the wrong owner and a third shared file would be scaffolding. That is a named
+exception, not a licence for the next one.
 
 ## Commands
 
