@@ -29,14 +29,17 @@ _Avoid_: entry, article, doc, page
 **Hub**:\
 One subject area, one file with `type: hub` in `notes/`. Lists the Notes that
 belong to it and carries no knowledge of its own, only its own Summary and a
-generated list. Distinct from a Note and a Draft.\
+generated list. A Note declares the one Hub it belongs to and the Hub never
+declares its Notes; subjects that cut across Hubs are tags and not a second Hub.
+Distinct from a Note and a Draft.\
 _Avoid_: MOC, index note, category, folder
 
 **Topic**:\
-The single Hub a Note belongs to, declared by the Note and never by the Hub. A
-Note has exactly one, a Hub has none. Subjects that cut across Hubs are tags,
-not a second Topic.\
-_Avoid_: parent, category, section, folder
+The one self contained subject a Note, a Draft or a marker is about, which is
+what the skills mean by topic and never the Hub it files under. A Note is one
+Topic. The `topic` property is named for an older meaning and holds the Hub
+link.\
+_Avoid_: subject area, theme, item
 
 **Summary**:\
 The one line a Note, Hub or Draft says about itself, written to be read in a
