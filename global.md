@@ -86,7 +86,9 @@ What sits in the directory besides the Vault, `.obsidian/`, `.obsidian.vimrc`,
 `.prettierrc`, `.marksman.toml`, is Machinery. It configures the tools that read
 and write the knowledge, and changing it is not a write to the Vault: it needs
 no command of its own and no preview, it is ordinary work like any other change
-to a config.
+to a config. Anything else that turns up in the directory is neither Vault nor
+Machinery, and it falls under Writing to the Vault above until I have said what
+it is.
 
 **Read, search and write on disk** with Grep, Glob, Read and the agent's file
 editing tool. The Vault is plain Markdown at a known path and needs no API. That

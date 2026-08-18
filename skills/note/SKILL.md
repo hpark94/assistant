@@ -52,7 +52,9 @@ nothing about its own gap reads like a checked one.
    things are worth keeping, write two notes.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
-   before deciding.
+   before deciding. More than one that fits: put them up with their `summary`
+   and wait, because picking one silently is how a vault grows two notes on one
+   topic.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
      Its hub is the one thing you never correct: if the content you are adding
@@ -160,12 +162,15 @@ nothing about its own gap reads like a checked one.
    passage of its own and let me approve it separately. A reformat never rides
    along unseen on a content change.
 
-6. **Write.** After the OK for every previewed file, write the approved content
-   directly to its absolute path under `~/projects/vault/notes/`. If the Hub is
-   new, write both approved files in the same step. Never write anywhere else.
+6. **Write.** A Note and the new Hub it needs are one approval unit: two files,
+   one preview and one yes. After the OK write the approved content directly to
+   its absolute path under `~/projects/vault/notes/`, both files in the same
+   step. Never write anywhere else.
 7. **Format.** `prettier -w` on every file you touched, no flags, once the file
    sits in the vault. Prettier reads the `.prettierrc` next to the file, so
-   formatting a copy elsewhere silently loses `proseWrap: always`.
+   formatting a copy elsewhere silently loses `proseWrap: always`. A formatting
+   passage I refused in step 5 is the one exception: that file is written and
+   not reformatted, so what I kept stays as it was.
 8. **Report.** One or two sentences: which file, created or extended, under
    which hub, and what changed if it was an extension. A corrected title puts
    the name the file should get here, as the one line from step 2.

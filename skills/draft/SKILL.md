@@ -83,9 +83,10 @@ Whatever the brainstorm produced.
 - `type` is `draft`. It stays even though the folder already says so: if the
   file ever moves to `notes/`, this is where you see what it was.
 - `project` is the directory name. It comes from the argument where my
-  invocation named one, otherwise from the conversation, and it is never asked
-  for. It is visible in the preview and in the file name, so correcting it costs
-  one word.
+  invocation named one, otherwise from the working directory, which is the rule
+  `--open` uses too. Where the working directory is not a project of mine, it
+  comes from the conversation and the preview says so. It is never asked for: it
+  stands in the preview and in the file name, so correcting it costs one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -133,14 +134,16 @@ claim.
    must be carried out before another.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
-   second one. If the new thinking contradicts what that draft decided, say so
-   and offer to replace it; never fold both decisions into one file silently.
-   Replacing it is `superseded` and happens only on my word, because a successor
-   is a second file and a status I did not ask for. The successor is the old
-   name plus `-v2`, then `-v3`: a supersede is by definition the same subject,
-   otherwise it would be a new draft, so only the counter moves. That is the one
-   exception to the duplicate rule, and it keeps the chain together under `ffd`
-   and `rg`.
+   second one. A `done`, `superseded` or `dropped` draft is not a hit: extending
+   it files new thinking under a closed status where `--open` never surfaces it
+   again, so write a new draft and name the closed one in the preview. If the
+   new thinking contradicts what that draft decided, say so and offer to replace
+   it; never fold both decisions into one file silently. Replacing it is
+   `superseded` and happens only on my word, because a successor is a second
+   file and a status I did not ask for. The successor is the old name plus
+   `-v2`, then `-v3`: a supersede is by definition the same subject, otherwise
+   it would be a new draft, so only the counter moves. That is the one exception
+   to the duplicate rule, and it keeps the chain together under `ffd` and `rg`.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -226,7 +229,9 @@ claim.
    the successor first: a `superseded_by` pointing at a file that does not exist
    is the broken half, while a successor whose predecessor is not yet marked is
    only untidy.
-5. **Format.** `prettier -w` on the file, once it sits in the vault.
+5. **Format.** `prettier -w` on the file, once it sits in the vault. A
+   formatting passage I refused in step 3 is the one exception: the file is
+   written and not reformatted, so what I kept stays as it was.
 6. **Report.** One or two sentences: which file, created or extended, for which
    project, at which status.
 

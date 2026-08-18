@@ -16,8 +16,9 @@ _Avoid_: notes folder, knowledge base, wiki
 
 **Machinery**:\
 Everything in the Vault directory that is not knowledge: `.obsidian/`,
-`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`. It configures the tools that
-read and write the Notes and carries none of their content.\
+`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`. Those four are the whole
+list and not examples. It configures the tools that read and write the Notes and
+carries none of their content.\
 _Avoid_: config, dotfiles, plumbing
 
 **Note**:\
