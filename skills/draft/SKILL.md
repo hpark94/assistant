@@ -47,11 +47,11 @@ invisible to them. Only the index's dedicated open-drafts block queries
 `drafts/`, which is the point: unfinished thinking never appears as knowledge.
 
 `<project>` is the directory name of the project, `routing-lab` for
-`~/repos/routing-lab`, so that `ffd routing` and `rg 'project: routing-lab'`
-find the same set. It is `[a-z0-9-]+` and nothing else, which is what keeps the
-lookup below correct: it anchors the name in a regular expression and passes the
-paths through `xargs`, so a dot in the name would match a second project and a
-space would split one path into two.
+`~/repos/routing-lab`, so that the same string names it on disk and finds its
+drafts with `rg 'project: routing-lab'` in the vault. It is `[a-z0-9-]+` and
+nothing else, which is what keeps the lookup below correct: it anchors the name
+in a regular expression and passes the paths through `xargs`, so a dot in the
+name would match a second project and a space would split one path into two.
 
 `<topic>` is a short ASCII slug of the subject and, unlike a note's file name,
 not the slug of the title: a `-v2` successor keeps the title of the draft it
