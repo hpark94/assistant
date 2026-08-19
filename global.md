@@ -9,8 +9,8 @@ The Vault is the exception, because it is one and the same from everywhere.
 
 - **Answering and looking things up**: just do it.
 - **Notes, Hubs and Drafts**: use the responsible skill under Vault commands.
-  Each skill owns the complete authorization, preview, validation, write, format
-  and reporting contract for its operation.
+  Each skill owns the preview, validation, write, format and reporting contract
+  for its operation. The permission is this file's.
 - **Every other write to the Vault**, a correction to an existing Note outside a
   capture, a deletion, the Index: only on my command, as its own change. Show
   the proposed change and wait for my OK before writing it. Nothing is deleted
@@ -120,9 +120,9 @@ including their exceptions. A skill that `disable-model-invocation` keeps out of
 your skill list is no less its contract: read its file under the skill directory
 named below and follow it. A deletion and the Index, which no skill covers, fall
 to Writing to the Vault above; a correction outside a capture takes its command
-and its preview from there and its mechanics from the skill. Each skill assumes
-this file and nothing else. This section routes to them and does not repeat
-their procedures.
+from there and its preview and mechanics from the skill. Each skill assumes this
+file and nothing else. This section routes to them and does not repeat their
+procedures.
 
 ## Images
 
@@ -161,11 +161,7 @@ behaviour in memory, subject matter in the vault.
   ist wichtig", "halt das fest".
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of the project I am
-  working in, reads the one it settles on, and asks how to proceed. It never
-  fires on its own reading of the conversation, only when I invoke it. I point
-  at a draft when I want it; nothing searches for drafts unasked. It never
-  grills: an interview happens before it, on its own trigger, and ends with the
-  `entwurfswuerdig` line above.
+  working in, reads the one it settles on, and asks how to proceed.
 
 ## Which agent you are
 
