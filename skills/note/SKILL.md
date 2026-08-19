@@ -8,11 +8,9 @@ description:
 
 # note
 
-Turn one self contained topic into a note in `~/projects/vault/notes/`. Writing
-to the vault happens only on command, never on your own initiative, and nothing
-goes into the vault before I have seen it. This file owns the whole Note and Hub
-operation and assumes `global.md`, which is loaded in every project, and nothing
-else.
+Turn one self contained topic into a note in `~/projects/vault/notes/`. This
+file owns the whole Note and Hub operation and assumes `global.md`, which is
+loaded in every project, and nothing else.
 
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
@@ -39,10 +37,10 @@ nothing unless it was checked. Prove it the way `global.md` prescribes, then put
 with a `verified` date. The command has to rebuild its own environment, because
 the note is read on a day when nothing of this session is left.
 
-If no cheap or safe test exists, say so and write the claim down as unverified.
-A `## Not verified` section is where that goes: what was not shown, and what
-stood in the way. It is the only other section the contract names, because an
-unverified claim that says nothing about its own gap reads like a checked one.
+An unverified claim goes into a `## Not verified` section: what was not shown,
+and what stood in the way. It is the only other section the contract names,
+because an unverified claim that says nothing about its own gap reads like a
+checked one.
 
 Both sections are about claims and not about the note, so one that proved one
 thing and could not prove another carries both. `verified` is then the date of

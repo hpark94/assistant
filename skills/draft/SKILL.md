@@ -16,9 +16,6 @@ unfinished. It lives in `~/projects/vault/drafts/`, it is not knowledge, and it
 is not a note. This file owns the whole Draft operation and its lifecycle, and
 assumes `global.md`, which is loaded in every project, and nothing else.
 
-Writing to the vault happens only on command, never on your own initiative, and
-nothing goes into the vault before I have seen it.
-
 **This skill never grills.** Sharpening the thinking is a separate interview on
 its own trigger, and it ends by offering the `entwurfswuerdig` line that brings
 me here. By the time `/draft` runs, the thinking is as sharp as it is going to
