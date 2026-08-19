@@ -30,10 +30,10 @@ as present. `depends_on` uses the same helper, which costs nothing where a
 session writes its drafts one at a time and covers the case where it does not.
 
 This is stricter than the state before the check existed, not laxer. The name
-passed in is the path the successor is actually written to, so a wiki link that
-disagrees with it fails, and a supersede that names nothing fails too. Both
-failures now happen before anything is on disk, where the broken half used to
-surface at `--open` weeks later:
+passed in is what the successor's own link is written as, its file name without
+the `.md`, so a wiki link that disagrees with it fails, and a supersede that
+names nothing fails too. Both failures now happen before anything is on disk,
+where the broken half used to surface at `--open` weeks later:
 
 | case                                       | result                              |
 | ------------------------------------------ | ----------------------------------- |
@@ -72,10 +72,11 @@ decision, and the skill argues in place that a supersede is one decision.
 
 - The invocation line of the draft check ends in
   `' <every draft file name this same yes also writes>`, empty in every ordinary
-  write. The note skill's checks are untouched, and not because the case is
-  absent: a Note and its new Hub are one approval unit too, and the Note's `hub`
-  links to the Hub by name. They read no disk at all, only the shape of that
-  link, so nothing there can ask for a file that is not written yet.
+  write. This decision leaves the note skill's checks alone, and not because the
+  case is absent: a Note and its new Hub are one approval unit too, and the
+  Note's `hub` links to the Hub by name. They read no disk at all, only the
+  shape of that link, so nothing there can ask for a file that is not written
+  yet.
 - The paragraph beside the check states the asymmetry rather than the mechanism
   twice: several drafts are written each on their own, so their targets are
   already there, and a supersede is the one case where they are not.
