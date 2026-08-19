@@ -155,9 +155,10 @@ behaviour in memory, subject matter in the vault.
 
 ## Vault commands
 
-- The note skill: distill the last topic into a note. Claude invokes it as
-  `/note`, Codex as `$note`. These phrases do the same as a bare invocation:
-  "merk dir das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
+- The note skill: distill one topic into a note, the last one unless arguments
+  name another. Claude invokes it as `/note`, Codex as `$note`. These phrases do
+  the same as a bare invocation: "merk dir das", "mach eine Notiz draus", "das
+  ist wichtig", "halt das fest".
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of the project I am
   working in, reads the one it settles on, and asks how to proceed. It never
@@ -186,10 +187,12 @@ Facts about the setup, not commands to run:
 
 - `~/repos/assistant` holds this file and the note, draft and deep-search
   skills. Its `install.sh` symlinks all of them into place, relatively, so the
-  links survive a different user name or a moved home. Nothing else about the
-  setup is versioned: neither `~/.claude` nor `~/.agents/skills`, where the
-  other skills live. The skill directories in the table are mine; each agent's
-  own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
+  links survive a different user name or a moved home while the repo sits under
+  that home. A repo elsewhere gets a link that is relative on paper and anchored
+  to the absolute path all the same. Nothing else about the setup is versioned:
+  neither `~/.claude` nor `~/.agents/skills`, where the other skills live. The
+  skill directories in the table are mine; each agent's own built-ins sit apart
+  again, Codex's in `~/.codex/skills/.system/`.
 - `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
   list the model chooses from. Claude honours it, Codex does not: it lists such
   a skill with its full description in `<skills_instructions>` anyway, checked
