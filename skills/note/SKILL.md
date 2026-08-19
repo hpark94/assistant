@@ -84,7 +84,10 @@ go stale, which is the only thing the field is for.
    title itself short and the file name follows:
    `Virtualization: Docker libvirt NAT`, not
    `Virtualization: Docker Breaks libvirt VM NAT`. `ffd` matches paths and file
-   names, never frontmatter, which is why the two agree.
+   names, never frontmatter, which is why the two agree. A title corrected on an
+   existing note suspends that agreement until I do the rename from step 2: `mv`
+   is what would break the incoming links, so the mismatch is the cheaper of the
+   two and it is stated rather than repaired.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
    check, then put every result up with the path it would get. The command
