@@ -201,7 +201,7 @@ decided something, never for its own sake.
    bad += [f"{k} must be a string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
    bad += ["project must be [a-z0-9-]+"] * (not re.fullmatch(r"[a-z0-9-]+", str(f.get("project"))))
    bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
-   bad += [f"{k} must be written unquoted, the --open lookup is a text search" for k in ("project","status") if not re.search(rf"^{k}: [a-z0-9-]+$", m.group(1), re.M)]
+   bad += [f"{k} must stand once, unquoted, as the --open lookup reads it" for k in ("project","status") if re.findall(rf"^{k}:.*$", m.group(1), re.M) != [f"{k}: {f.get(k)}"]]
    ex = lambda x: os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md")) or x[2:-2].split("|")[0] in sys.argv[1:]
    s = f.get("superseded_by")
    bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(link, s)))
@@ -221,13 +221,13 @@ decided something, never for its own sake.
    `--stdin-filepath` resolves the vault's `.prettierrc` from that path even
    though the file does not exist yet. The check passes prettier's output
    through unchanged, so what gets validated is exactly the text you show and
-   later write. The content rides in the heredoc, so no temporary file exists
-   either: nothing is on disk before the OK. The command formats and checks, it
-   does not show: its output is a tool result that stays folded up in the
-   transcript, so copy it into the answer itself, in a fenced block under the
-   path the file would get. The delimiter must not occur in the content: a draft
-   that itself contains a line `EOF` needs `<<'DRAFT'` or any other word that
-   does not.
+   later write. The content rides in the heredoc, so nothing of it reaches the
+   vault: nothing is on disk there before the OK. The command formats and
+   checks, it does not show: its output is a tool result that stays folded up in
+   the transcript, so copy it into the answer itself, in a fenced block under
+   the path the file would get. The delimiter must not occur in the content: a
+   draft that itself contains a line `EOF` needs `<<'DRAFT'` or any other word
+   that does not.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is
