@@ -191,20 +191,23 @@ decided something, never for its own sake.
    t = sys.stdin.read(); sys.stdout.write(t)
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
-   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   except (yaml.YAMLError, ValueError) as e: sys.exit(f"frontmatter: {e}")
+   isinstance(f, dict) or sys.exit("frontmatter: not a mapping")
+   link = r"\[\[[a-z0-9-]+(\|[^]]*)?\]\]"
    bad  = [f"missing {k}" for k in ("title","type","project","summary","status","created","updated") if k not in f]
    bad += ["type must be draft"] * (f.get("type") != "draft")
    bad += [f"{k} must be a string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
    bad += ["project must be [a-z0-9-]+"] * (not re.fullmatch(r"[a-z0-9-]+", str(f.get("project"))))
    bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
+   bad += [f"{k} must be written unquoted, the --open lookup is a text search" for k in ("project","status") if not re.search(rf"^{k}: [a-z0-9-]+$", m.group(1), re.M)]
    ex = lambda x: os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md")) or x[2:-2].split("|")[0] in sys.argv[1:]
    s = f.get("superseded_by")
-   bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(r"\[\[[^]]+\]\]", s)))
+   bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(link, s)))
    bad += ["superseded_by exists only when status is superseded"] * (f.get("status") != "superseded" and "superseded_by" in f)
-   bad += [f"superseded_by target does not exist: {s}"] * (isinstance(s, str) and bool(re.fullmatch(r"\[\[[^]]+\]\]", s)) and not ex(s))
+   bad += [f"superseded_by target does not exist: {s}"] * (isinstance(s, str) and bool(re.fullmatch(link, s)) and not ex(s))
    d = f.get("depends_on")
-   bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
-   bad += [f"depends_on target does not exist: {x}" for x in (d or []) if isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) and not ex(x)]
+   bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(link, x) for x in d)))
+   bad += [f"depends_on target does not exist: {x}" for x in (d if isinstance(d, list) else []) if isinstance(x, str) and re.fullmatch(link, x) and not ex(x)]
    bad += [f"{k} is not allowed on a draft" for k in ("tags","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
