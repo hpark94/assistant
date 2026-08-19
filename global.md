@@ -160,9 +160,9 @@ behaviour in memory, subject matter in the vault.
 
 ## Vault commands
 
-- The note skill: distill one topic into a note. Claude invokes it as `/note`,
-  Codex as `$note`. These phrases do the same as a bare invocation: "merk dir
-  das", "mach eine Notiz draus", "das ist wichtig", "halt das fest".
+- The note skill: distill one topic into a note. These phrases do the same as a
+  bare invocation: "merk dir das", "mach eine Notiz draus", "das ist wichtig",
+  "halt das fest".
 - The draft skill: `/draft` writes this conversation down as a draft for the
   project it is about, `/draft --open` lists the open drafts of a project, reads
   the one it settles on, and asks how to proceed.
