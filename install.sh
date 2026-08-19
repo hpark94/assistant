@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Symlink global.md and the note, draft and deep-search skills into place, for
-# Claude and Codex. Idempotent. Links are relative, so they survive a different
-# user name or a moved home. A link that points somewhere else is replaced and
+# Claude and Codex. Idempotent. Links are relative to what the home and this
+# repo have in common, so a renamed user survives, and a moved home survives
+# while the repo moves with it. A link that points somewhere else is replaced and
 # said so, because a silent one would take a deliberate override with it.
 # Missing tools are reported, never installed.
 set -euo pipefail
@@ -10,11 +11,10 @@ repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 refused=0
 
 link() {
-  local target=$1 name=$2 dir rel old=
+  local target=$1 name=$2 dir rel err old=
   dir=$(dirname -- "${name}")
-  if ! mkdir -p -- "${dir}" 2>/dev/null; then
-    printf '  %-6s %s cannot be created; something in its path is a file\n' \
-      KEEP "${dir/#"${HOME}"/\~}" >&2
+  if ! err=$(mkdir -p -- "${dir}" 2>&1); then
+    printf '  %-6s %s: %s\n' KEEP "${name/#"${HOME}"/\~}" "${err#mkdir: }" >&2
     refused=1
     return
   fi
@@ -33,7 +33,11 @@ link() {
     return
   fi
 
-  ln -sfn -- "${rel}" "${name}"
+  if ! err=$(ln -sfn -- "${rel}" "${name}" 2>&1); then
+    printf '  %-6s %s: %s\n' KEEP "${name/#"${HOME}"/\~}" "${err#ln: }" >&2
+    refused=1
+    return
+  fi
   if [[ -n ${old} ]]; then
     printf '  %-6s %s -> %s, was %s\n' relink "${name/#"${HOME}"/\~}" "${rel}" "${old}"
   else
