@@ -16,8 +16,8 @@ The Vault is the exception, because it is one and the same from everywhere.
 - **Every other write to the Vault**, a correction to an existing Note outside a
   capture, a deletion, the Index: only on my command, as its own change. Show
   the proposed change and wait for my OK before writing it. Nothing is deleted
-  before I have seen what would go: the Vault has no version control to undo it
-  with.
+  before I have seen its path and the whole of what it holds: the Vault has no
+  version control to undo it with.
 
 A no is a full stop: nothing is written, and whether the preview is built again
 is mine to say.
