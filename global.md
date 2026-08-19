@@ -9,10 +9,10 @@ The Vault is the exception, because it is one and the same from everywhere.
 
 - **Answering and looking things up**: just do it.
 - **Notes, Hubs and Drafts**: use the responsible skill under Vault commands. It
-  writes when I ask for it, by command or by a trigger it names, and never on
-  its own reading of the conversation. That permission is this file's; each
-  skill owns the preview, validation, write, format and reporting contract for
-  its operation.
+  writes when I ask for it, by command or by a trigger it names, and never on a
+  topic it judged noteworthy itself. That permission is this file's; each skill
+  owns the preview, validation, write, format and reporting contract for its
+  operation.
 - **Every other write to the Vault**, a correction to an existing Note outside a
   capture, a deletion, the Index: only on my command, as its own change. Show
   the proposed change and wait for my OK before writing it. Nothing is deleted
