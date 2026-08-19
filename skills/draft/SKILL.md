@@ -281,9 +281,9 @@ decided something, never for its own sake.
    command. Where it fails, write the status and leave `prettier -w` off that
    file, the same as a formatting passage I refused, and say in the report that
    the file is still unformatted. The exception ends where the diff does:
-   `updated` may ride along, anything else, another line of body text or the
-   `superseded_by` that a `superseded` requires, is a normal change and gets its
-   preview.
+   `updated` moves with the write as it does everywhere else, anything beyond
+   it, another line of body text or the `superseded_by` that a `superseded`
+   requires, is a normal change and gets its preview.
 
    **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
    tick claims something happened in the world, and the vault has no version
