@@ -19,12 +19,12 @@ by the agent on an explicit command, under the rule that already governs
 `status`. A set `- [x]` is untouchable: it claims something happened in the
 world, and the vault has no version control that would expose the lie.
 
-Nothing else moved. No new skill, no new type, no new folder, no new frontmatter
-field, no change to `global.md`. The frontmatter check stays frontmatter and
-does not learn to read boxes, because nothing consumes them mechanically: the
-index block queries `status`, and `--open` reads the whole file anyway. Without
-a silent consumer there is nothing to deceive. That flips the day a Dataview
-block counts progress.
+Nothing else was built for it. No new skill, no new type, no new folder, no new
+frontmatter field, no change to `global.md`. The frontmatter check stays
+frontmatter and does not learn to read boxes, because nothing consumes them
+mechanically: the index block queries `status`, and `--open` reads the whole
+file anyway. Without a silent consumer there is nothing to deceive. That flips
+the day a Dataview block counts progress.
 
 ## Considered Options
 
@@ -43,11 +43,11 @@ conversation that just settled it and once at the command line. A wrong guess
 costs one word in the preview; a third format costs every invocation.
 
 **`--open` executing the checks (rejected).** It would make the `Check:` line
-load-bearing instead of decorative and could report the true state rather than
-the recorded one. It was rejected because `--open` is a read, and a check lifted
-out of a draft runs against the live environment, while the proof rule in
-`global.md` demands a scratch directory. Reconciling those two is a decision of
-its own and not something a read command settles in passing.
+load-bearing instead of something only a reader acts on, and could report the
+true state rather than the recorded one. It was rejected because `--open` is a
+read, and a check lifted out of a draft runs against the live environment, while
+the proof rule in `global.md` demands a scratch directory. Reconciling those two
+is a decision of its own and not something a read command settles in passing.
 
 **Body rules in the frontmatter check (rejected).** The failure class is real: a
 task line stranded in a weighing section looks like a step and would falsify any
@@ -72,10 +72,12 @@ are valid YAML with the values the queries expect.
 - `CONTEXT.md` gains **Checkpoint**. The untouchability of a set tick is a
   structural invariant and belongs there; the authorization and preview rules
   stay in the skill.
-- Three questions the thinking had left open are settled here. `Check:` and
-  `Watch:` are the labels an optional bullet carries, an extension keeps the
-  body form it finds, and a tick set in error comes out in Obsidian rather than
-  on a command to the agent, which is the one prohibition here that no command
-  lifts.
+- Five questions the first cut of these rules left unanswered are settled here.
+  `## Steps` holds task lines and their bullets and nothing else. A session that
+  decided anything at all gets a checklist, with whatever it is still weighing
+  as prose above the list. `Check:` and `Watch:` are the labels an optional
+  bullet carries. An extension never takes the form away. And a tick set in
+  error comes out in Obsidian rather than on a command to the agent, which is
+  the one prohibition here that no command lifts.
 - `install.sh` is unchanged. Both agents' skill paths already resolve to the
   repo file, so the new rules reach them together.

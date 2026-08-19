@@ -129,16 +129,18 @@ claim.
 
 ## The checklist body
 
-A session that decided something gets a checklist, one still weighing options
-stays prose. The skill picks the form and there is no flag for it: the preview
-catches a wrong guess and correcting it costs one word, the same way `project`
-and `status` are already handled.
+A session that decided anything gets a checklist, one that decided nothing stays
+prose. A mixed session is not a third case: what was decided becomes steps, what
+is still being weighed stays in the prose above them. The skill picks the form
+and there is no flag for it: the preview catches a wrong guess and correcting it
+costs one word, the same way `project` and `status` are already handled.
 
 `## Steps` is the last section of the body and the only place a task line may
-stand. Above it the prose that carries the why, in whatever shape the
-conversation produced. A task line stranded in a weighing looks like a step and
-is not, and no query counts the boxes, so its place in the file is the only
-thing that tells a step from an option.
+stand, and it holds nothing but task lines and their bullets. Above it the prose
+that carries the why, in whatever shape the conversation produced, the closing
+remark that something needs no change at all included. A task line stranded in a
+weighing looks like a step and is not, and no query counts the boxes, so its
+place in the file is the only thing that tells a step from an option.
 
 A step is a checkpoint: after it something is demonstrably different, a command
 runs through, a file exists, a check goes green. Steps with nothing to observe
@@ -156,7 +158,7 @@ two labels.
   - Watch: Codex reads `~/.agents/skills`, Claude `~/.claude/skills`
 ```
 
-An extension keeps the form it finds. New prose goes above `## Steps`, which
+An extension never takes the form away. New prose goes above `## Steps`, which
 stays the last section, and new steps go at the end of the list, below the
 ticked ones. A draft that was prose gains a `## Steps` where the new session
 decided something, never for its own sake.
@@ -253,25 +255,26 @@ decided something, never for its own sake.
    is nothing left for me to see and asking again only costs me a second yes.
    Run the frontmatter check, write, and report the new status or the step you
    ticked. The exception ends where the diff does: `updated` may ride along,
-   anything else, a line of body text or the `superseded_by` that a `superseded`
-   requires, is a normal change and gets its preview.
+   anything else, another line of body text or the `superseded_by` that a
+   `superseded` requires, is a normal change and gets its preview.
 
    **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
    tick claims something happened in the world, and the vault has no version
    control that would expose the lie. Something the work overtook becomes a new
    step that takes it back, a real contradiction goes through the supersede
    rule. No command lifts this: an `x` set in error comes out in Obsidian, where
-   it costs a click. An open box carries no such protection: it is body text
-   like any other and changes under the rules above. It also survives a `done`,
-   because a finished draft with empty boxes records what was deliberately not
-   done, which is why `dropped` exists instead of deletion. Do not ask about
-   them on the status change.
+   it costs a click, and the `prettier -w` of step 5 is no exception to it
+   because rewrapping a line is not rewriting a step. An open box carries no
+   such protection: it is body text like any other and changes under the rules
+   above. It also survives a `done`, because a finished draft with empty boxes
+   records what was deliberately not done, which is why `dropped` exists instead
+   of deletion. Do not ask about them on the status change.
 
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one
    preview and one yes: the whole successor first, then the predecessor's
    changed lines. Its `status` moves together with `superseded_by`, so it is
-   never covered by the exception above.
+   never covered by the no-preview exception above.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
@@ -319,12 +322,13 @@ Run this in the project you are working in, or name the project as an argument:
 3. **Read it whole**, on disk with Read. It is a draft, not an order: it may
    contain options that were never decided and thinking that the code has since
    overtaken.
-4. **Say what you understood.** Three sentences: what the draft wants, what of
-   it is already in the code, and where it contradicts what you see. Where it
-   has a `## Steps` section, name how many of how many boxes are ticked and what
-   the next open step is. Run none of its checks: `--open` is a read, and a
-   check out of a draft would run against the live environment, which is what
-   the proof rule in `global.md` sends to a scratch directory.
+4. **Say what you understood.** Three sentences on the draft itself: what it
+   wants, what of it is already in the code, and where it contradicts what you
+   see. Where it has a `## Steps` section, add how many of its boxes are ticked,
+   out of how many, and what the next open step is. Run none of its checks:
+   `--open` is a read, and a check out of a draft would run against the live
+   environment, which is what the proof rule in `global.md` sends to a scratch
+   directory.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`.
