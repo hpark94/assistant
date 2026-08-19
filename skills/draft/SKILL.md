@@ -113,9 +113,10 @@ Whatever the brainstorm produced.
   would ever notice. It exists only where the order is real: the later draft's
   decision cannot be made until the earlier one is. A session that produces
   several drafts records the order here.
-- A `dropped` draft is **not** deleted. The vault has no version control, so a
-  deleted file is gone on every device, and "we considered this and rejected it"
-  is exactly what cannot be reconstructed later.
+- A `dropped` draft is **not** deleted on its own, and deleting one is a command
+  under Writing to the Vault. The vault has no version control, so a deleted
+  file is gone on every device, and "we considered this and rejected it" is
+  exactly what cannot be reconstructed later.
 - No `tags` and no `hub`.
 
 Below the frontmatter the `# Title` is required, and `## Steps` wherever the

@@ -120,11 +120,10 @@ written on a plain instruction is therefore still written under its skill's
 contract, with the frontmatter check, the format step and the preview rules
 including their exceptions. A skill that `disable-model-invocation` keeps out of
 your skill list is no less its contract: read its file under the skill directory
-named below and follow it. A deletion and the Index, which no skill covers, fall
-to Writing to the Vault above; a correction outside a capture takes its command
-from there and its preview and mechanics from the skill. Each skill assumes this
-file and nothing else. This section routes to them and does not repeat their
-procedures.
+named below and follow it. A deletion and the Index fall to Writing to the Vault
+above; a correction outside a capture takes its command from there and its
+preview and mechanics from the skill. Each skill assumes this file and nothing
+else. This section routes to them and does not repeat their procedures.
 
 ## Images
 
