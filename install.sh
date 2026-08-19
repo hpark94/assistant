@@ -12,27 +12,32 @@ refused=0
 link() {
   local target=$1 name=$2 dir rel old=
   dir=$(dirname -- "${name}")
-  mkdir -p -- "${dir}"
+  if ! mkdir -p -- "${dir}" 2>/dev/null; then
+    printf '  %-6s %s cannot be created; something in its path is a file\n' \
+      KEEP "${dir/#"${HOME}"/\~}" >&2
+    refused=1
+    return
+  fi
   rel=$(realpath --relative-to="${dir}" -- "${target}")
 
   if [[ -L ${name} ]]; then
     old=$(readlink -- "${name}")
     if [[ ${old} == "${rel}" ]]; then
-      printf '  %-6s %s\n' ok "${name/#${HOME}/\~}"
+      printf '  %-6s %s\n' ok "${name/#"${HOME}"/\~}"
       return
     fi
   elif [[ -e ${name} ]]; then
     printf '  %-6s %s exists and is not a symlink; move it away, then rerun\n' \
-      KEEP "${name/#${HOME}/\~}" >&2
+      KEEP "${name/#"${HOME}"/\~}" >&2
     refused=1
     return
   fi
 
   ln -sfn -- "${rel}" "${name}"
   if [[ -n ${old} ]]; then
-    printf '  %-6s %s -> %s, was %s\n' relink "${name/#${HOME}/\~}" "${rel}" "${old}"
+    printf '  %-6s %s -> %s, was %s\n' relink "${name/#"${HOME}"/\~}" "${rel}" "${old}"
   else
-    printf '  %-6s %s -> %s\n' link "${name/#${HOME}/\~}" "${rel}"
+    printf '  %-6s %s -> %s\n' link "${name/#"${HOME}"/\~}" "${rel}"
   fi
 }
 
