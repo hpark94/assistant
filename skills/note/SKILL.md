@@ -39,11 +39,15 @@ nothing unless it was checked. Prove it the way `global.md` prescribes, then put
 with a `verified` date. The command has to rebuild its own environment, because
 the note is read on a day when nothing of this session is left.
 
-If no cheap or safe test exists, say so and write the claim down as unverified,
-without `verified` and without a `## Verified` section. A `## Not verified`
-section is where that goes: what was not shown, and what stood in the way. It is
-the only other section the contract names, because an unverified claim that says
-nothing about its own gap reads like a checked one.
+If no cheap or safe test exists, say so and write the claim down as unverified.
+A `## Not verified` section is where that goes: what was not shown, and what
+stood in the way. It is the only other section the contract names, because an
+unverified claim that says nothing about its own gap reads like a checked one.
+
+Both sections are about claims and not about the note, so one that proved one
+thing and could not prove another carries both. `verified` is then the date of
+the proof it does hold: without it the note keeps no date for the claim that can
+go stale, which is the only thing the field is for.
 
 ## Procedure
 
