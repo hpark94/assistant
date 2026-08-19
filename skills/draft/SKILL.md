@@ -308,11 +308,12 @@ decided something, never for its own sake.
    the successor first: a `superseded_by` pointing at a file that does not exist
    is the broken half, while a successor whose predecessor is not yet marked is
    only untidy.
-5. **Format.** `prettier -w` on the file, once it sits in the vault. A
-   formatting passage I refused in step 3 is the one exception: the file is
-   written and not reformatted, so what I kept stays as it was.
-6. **Report.** One or two sentences: which file, created or extended, for which
-   project, at which status.
+5. **Format.** `prettier -w` on every file the write touched, both of them on a
+   supersede, once they sit in the vault. A formatting passage I refused in step
+   3 is the one exception: that file is written and not reformatted, so what I
+   kept stays as it was.
+6. **Report.** One or two sentences: which file, both of them on a supersede,
+   created or extended, for which project, at which status.
 
 **Writing a draft never edits `index.md`.** Its list of open drafts is a
 Dataview query over `status`, and a line added by hand there is a second truth
