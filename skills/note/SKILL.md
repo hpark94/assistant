@@ -164,7 +164,11 @@ go stale, which is the only thing the field is for.
    extension. If it fails, the `prettier -w` in step 7 will reformat passages
    your topic never touched, so put that formatting change up as a second
    passage of its own and let me approve it separately. A reformat never rides
-   along unseen on a content change.
+   along unseen on a content change. Refused, the file keeps its old bytes and
+   takes the approved passage as shown. That is the one place where what lands
+   is not byte for byte what the check ran on; its verdict still holds, because
+   prettier folds lines and never changes a value, so the frontmatter it reads
+   is the same either way.
 
 6. **Write.** A Note and the new Hub it needs are one approval unit: two files,
    one preview and one yes. After the OK write the approved content directly to

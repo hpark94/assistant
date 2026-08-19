@@ -241,7 +241,11 @@ decided something, never for its own sake.
    it fails, the `prettier -w` in step 5 will reformat passages your subject
    never touched, so put that formatting change up as a second passage of its
    own and let me approve it separately. A reformat never rides along unseen on
-   a content change.
+   a content change. Refused, the file keeps its old bytes and takes the
+   approved passage as shown. That is the one place where what lands is not byte
+   for byte what the check ran on; its verdict still holds, because prettier
+   folds lines and never changes a value, so the frontmatter it reads is the
+   same either way.
 
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
