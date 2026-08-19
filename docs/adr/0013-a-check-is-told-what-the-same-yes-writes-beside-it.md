@@ -14,6 +14,7 @@ at cannot be there, and the skill's own rule that a preview which did not pass
 is never shown then closed the path completely:
 
 ```sh
+# draft-check.py is the python3 check from the skill's step 3, put in a file
 printf -- '---\ntitle: "T"\ntype: draft\nproject: assistant\nsummary: s\nstatus: superseded\nsuperseded_by: "[[assistant-ospf-metrics-v2]]"\ncreated: 2026-08-19\nupdated: 2026-08-19\n---\n\n# T\n' \
   | python3 draft-check.py
 frontmatter: superseded_by target does not exist: [[assistant-ospf-metrics-v2]]
