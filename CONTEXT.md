@@ -22,9 +22,9 @@ carries none of their content.\
 _Avoid_: config, dotfiles, plumbing
 
 **Note**:\
-One self contained topic, one file with `type: note` in `notes/`. May be three
-lines long. Stands on its own: a reader who never saw the session it came from
-can use it. Distinct from a Hub and a Draft.\
+One self contained topic, one file with `type: note` in `notes/`. Its body may
+be three lines long. Stands on its own: a reader who never saw the session it
+came from can use it. Distinct from a Hub and a Draft.\
 _Avoid_: entry, article, doc, page
 
 **Hub**:\
@@ -66,8 +66,8 @@ _Avoid_: state, phase, progress
 **Checkpoint**:\
 One step of a Draft's `## Steps` list, cut so that carrying it out leaves
 something observable behind: a command that runs through, a file that exists, a
-check that goes green. A set tick is untouchable: it claims something happened
-in the world that nothing here can undo.\
+check that goes green. A set tick is untouchable for an Agent: it claims
+something happened in the world that nothing here can undo.\
 _Avoid_: todo, milestone, action item
 
 ### Working in it
@@ -79,9 +79,10 @@ one the session settled or one established for the Capture.\
 _Avoid_: save, log, dump
 
 **Project**:\
-A directory I work in, named by its directory: `routing-lab`, `dots`, `fuseki`.
-A Draft names the one it belongs to, and the name is the directory's, so that
-the same string finds it in the Vault and on disk. It is `[a-z0-9-]+`.\
+A directory I work in, named by its directory: `routing-lab`, `dots`,
+`assistant`. A Draft names the one it belongs to, and the name is the
+directory's, so that the same string finds it in the Vault and on disk. It is
+`[a-z0-9-]+`.\
 _Avoid_: repo, workspace, codebase
 
 **Notizwuerdig**:\
@@ -102,6 +103,6 @@ have been checked.\
 _Avoid_: test, validation, evidence
 
 **Agent**:\
-Claude or Codex. Both load `global.md` in every Project and use the same skills;
-only paths and invocation differ.\
+Claude or Codex. Both load `global.md` in every Project and use the same note,
+draft and deep-search skills; only paths and invocation differ.\
 _Avoid_: model, assistant, bot
