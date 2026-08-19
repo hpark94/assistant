@@ -53,7 +53,7 @@ check on one claim must not hide a stale one beside it.
 
 1. **Scope.** Identify the last self contained topic, not the whole session. If
    arguments name a topic, they win. One note is one topic; if two unrelated
-   things are worth keeping, write two notes.
+   things are worth keeping, write two notes, each with its own preview and yes.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
    before deciding. More than one that fits: put them up with their `summary`
