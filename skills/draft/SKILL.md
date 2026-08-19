@@ -119,12 +119,41 @@ Whatever the brainstorm produced.
   is exactly what cannot be reconstructed later.
 - No `tags` and no `hub`.
 
-Below the frontmatter only the `# Title` is required. Write the sections the
+Below the frontmatter the `# Title` is required, and `## Steps` wherever the
+body takes the checklist form below. Everything else is the sections the
 conversation actually produced, no fixed skeleton, no empty headings. The draft
 is read in a session that was not part of this conversation: what is only in the
 context now is gone with it. If the conversation says what should happen next,
 write it down; a `todo` whose next step is nowhere in the file is an empty
 claim.
+
+## The checklist body
+
+A session that decided something gets a checklist, one still weighing options
+stays prose. The skill picks the form and there is no flag for it: the preview
+catches a wrong guess and correcting it costs one word, the same way `project`
+and `status` are already handled.
+
+`## Steps` is the last section of the body and the only place a task line may
+stand. Above it the prose that carries the why, in whatever shape the
+conversation produced. A task line stranded in a weighing looks like a step and
+is not, and nothing counts the boxes mechanically, so its place in the file is
+the only thing that tells a step from an option.
+
+A step is a checkpoint: after it something is demonstrably different, a command
+runs through, a file exists, a check goes green. Steps with nothing to observe
+are folded together. The reason is resumption, because after three weeks the
+last tick has to say what state the world is in.
+
+An entry is a task line with optional indented bullets, the check that justifies
+the tick and the warning that saves you before the step. Only the task line is
+required.
+
+```markdown
+- [ ] `install.sh` links the skill into both agent directories
+  - Check: `ls -l ~/.claude/skills/draft` shows a relative link
+  - Watch: Codex reads `~/.agents/skills`, Claude `~/.claude/skills`
+```
 
 ## Writing a draft
 
@@ -218,6 +247,24 @@ claim.
    `superseded_by` that a `superseded` requires, is a normal change and gets its
    preview.
 
+   **A tick follows the same rules as a status.** Only an explicit command sets
+   an `x`: a remark that a step is now carried out states a fact and authorises
+   nothing, and you may offer the tick once. It needs no preview either, for the
+   reason the status has none, my command already names the whole change. Run
+   the frontmatter check, write, and report which step. Ticking in Obsidian is
+   the ordinary way and the point of the file living in the vault, where the box
+   is clickable on all four devices; the agent is the second hand, not the
+   first.
+
+   **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
+   tick claims something happened in the world, and the vault has no version
+   control that would expose the lie. Something the work overtook becomes a new
+   step that takes it back, a real contradiction goes through the supersede
+   rule. Open boxes stay freely editable and they survive a `done`: a finished
+   draft with empty boxes records what was deliberately not done, which is why
+   `dropped` exists instead of deletion. Do not ask about them on the status
+   change.
+
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one
    preview and one yes: the whole successor first, then the predecessor's
@@ -271,7 +318,11 @@ Run this in the project you are working in, or name the project as an argument:
    contain options that were never decided and thinking that the code has since
    overtaken.
 4. **Say what you understood.** Three sentences: what the draft wants, what of
-   it is already in the code, and where it contradicts what you see.
+   it is already in the code, and where it contradicts what you see. Where it
+   has a `## Steps` section, name how many of how many boxes are ticked and what
+   the next open step is. Run none of its checks: `--open` is a read, and a
+   check out of a draft would run against the live environment, which is what
+   the proof rule in `global.md` sends to a scratch directory.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`.

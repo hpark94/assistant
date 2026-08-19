@@ -63,6 +63,14 @@ on, `done` was carried out or became knowledge, `superseded` was replaced, and
 `dropped` records a rejected idea instead of deleting it.\
 _Avoid_: state, phase, progress
 
+**Checkpoint**:\
+One step of a Draft's `## Steps` list, cut so that carrying it out leaves
+something observable behind: a command that runs through, a file that exists, a
+check that goes green. Its box is ticked by hand in Obsidian or by an Agent on
+command, and a set tick is untouchable, because it claims something happened in
+the world that nothing here can undo.\
+_Avoid_: task, todo, milestone
+
 ### Working in it
 
 **Capture**:\
