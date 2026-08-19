@@ -176,10 +176,12 @@ decided something, never for its own sake.
    new thinking contradicts what that draft decided, say so and offer to replace
    it; never fold both decisions into one file silently. Replacing it is
    `superseded` and happens only on my word, because a successor is a second
-   file and a status I did not ask for. The successor is the old name plus
-   `-v2`, then `-v3`: a supersede is by definition the same subject, otherwise
-   it would be a new draft, so only the counter moves. That is the one exception
-   to the duplicate rule, and it keeps the chain together under `ffd` and `rg`.
+   file and a status I did not ask for. A new draft on the subject of a closed
+   one takes that name with the next free counter, `-v2`, then `-v3`, whether it
+   replaces the closed draft or only follows it: the subject is the same,
+   otherwise it would be a new draft, so only the counter moves. That is the one
+   exception to the duplicate rule, and it keeps the chain together under `ffd`
+   and `rg`. Replacing adds `superseded_by` on top, nothing about the name.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
