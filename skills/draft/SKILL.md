@@ -137,23 +137,29 @@ and `status` are already handled.
 `## Steps` is the last section of the body and the only place a task line may
 stand. Above it the prose that carries the why, in whatever shape the
 conversation produced. A task line stranded in a weighing looks like a step and
-is not, and nothing counts the boxes mechanically, so its place in the file is
-the only thing that tells a step from an option.
+is not, and no query counts the boxes, so its place in the file is the only
+thing that tells a step from an option.
 
 A step is a checkpoint: after it something is demonstrably different, a command
 runs through, a file exists, a check goes green. Steps with nothing to observe
 are folded together. The reason is resumption, because after three weeks the
 last tick has to say what state the world is in.
 
-An entry is a task line with optional indented bullets, the check that justifies
-the tick and the warning that saves you before the step. Only the task line is
-required.
+An entry is a task line with optional indented bullets, `Check:` for what
+justifies the tick and `Watch:` for the warning that saves you before the step.
+Only the task line is required, and a bullet that is there carries one of those
+two labels.
 
 ```markdown
 - [ ] `install.sh` links the skill into both agent directories
   - Check: `ls -l ~/.claude/skills/draft` shows a relative link
   - Watch: Codex reads `~/.agents/skills`, Claude `~/.claude/skills`
 ```
+
+An extension keeps the form it finds. New prose goes above `## Steps`, which
+stays the last section, and new steps go at the end of the list, below the
+ticked ones. A draft that was prose gains a `## Steps` where the new session
+decided something, never for its own sake.
 
 ## Writing a draft
 
@@ -235,41 +241,37 @@ required.
    own and let me approve it separately. A reformat never rides along unseen on
    a content change.
 
-   **Only an explicit command writes a status.** A remark that something is now
-   carried out states a fact and authorises nothing. You may offer the change
-   once, in a single line, and never bring it up a second time.
+   **Only an explicit command writes a status or sets a tick.** A remark that
+   something is now carried out states a fact and authorises nothing. You may
+   offer the change once, in a single line, and never bring it up a second time.
+   Ticking in Obsidian is the ordinary way and the point of the file living in
+   the vault, where the box is clickable on all four devices; the agent is the
+   second hand, not the first.
 
-   **A change to `status` alone needs no preview.** My command already names the
-   whole change, "set the draft to done", so there is nothing left for me to see
-   and asking again only costs me a second yes. Run the frontmatter check,
-   write, and report the new status. The exception ends where the diff does:
-   `updated` may ride along, anything else, a line of body text or the
-   `superseded_by` that a `superseded` requires, is a normal change and gets its
-   preview.
-
-   **A tick follows the same rules as a status.** Only an explicit command sets
-   an `x`: a remark that a step is now carried out states a fact and authorises
-   nothing, and you may offer the tick once. It needs no preview either, for the
-   reason the status has none, my command already names the whole change. Run
-   the frontmatter check, write, and report which step. Ticking in Obsidian is
-   the ordinary way and the point of the file living in the vault, where the box
-   is clickable on all four devices; the agent is the second hand, not the
-   first.
+   **A change to `status` or a tick alone needs no preview.** My command already
+   names the whole change, "set the draft to done", "tick step three", so there
+   is nothing left for me to see and asking again only costs me a second yes.
+   Run the frontmatter check, write, and report the new status or the step you
+   ticked. The exception ends where the diff does: `updated` may ride along,
+   anything else, a line of body text or the `superseded_by` that a `superseded`
+   requires, is a normal change and gets its preview.
 
    **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
    tick claims something happened in the world, and the vault has no version
    control that would expose the lie. Something the work overtook becomes a new
    step that takes it back, a real contradiction goes through the supersede
-   rule. Open boxes stay freely editable and they survive a `done`: a finished
-   draft with empty boxes records what was deliberately not done, which is why
-   `dropped` exists instead of deletion. Do not ask about them on the status
-   change.
+   rule. No command lifts this: an `x` set in error comes out in Obsidian, where
+   it costs a click. An open box carries no such protection: it is body text
+   like any other and changes under the rules above. It also survives a `done`,
+   because a finished draft with empty boxes records what was deliberately not
+   done, which is why `dropped` exists instead of deletion. Do not ask about
+   them on the status change.
 
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one
    preview and one yes: the whole successor first, then the predecessor's
    changed lines. Its `status` moves together with `superseded_by`, so it is
-   never covered by the status-only exception above.
+   never covered by the exception above.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
@@ -328,5 +330,5 @@ Run this in the project you are working in, or name the project as an argument:
    `status` should go to `wip`.
 6. **Never set `done` on your own.** Whether something is finished is my call,
    and a status change is a vault write like any other: only on command. On my
-   command it is written straight away, under the status-only exception in step
+   command it is written straight away, under the no-preview exception in step
    3, with the frontmatter check but without a preview.

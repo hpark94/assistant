@@ -51,23 +51,31 @@ its own and not something a read command settles in passing.
 
 **Body rules in the frontmatter check (rejected).** The failure class is real: a
 task line stranded in a weighing section looks like a step and would falsify any
-count. But no count exists, and teaching the check to parse the body would break
-its single responsibility, that the file's properties are valid YAML with the
-values the queries expect.
+count. But no query counts them, and the one thing that does, `--open`, reads
+the whole file and sees a stranded line for what it is. Teaching the check to
+parse the body would break its single responsibility, that the file's properties
+are valid YAML with the values the queries expect.
 
 ## Consequences
 
 - The draft skill's sentence "Below the frontmatter only the `# Title` is
   required" is amended rather than left standing beside its own exception.
   `## Steps` is required wherever the checklist form applies.
-- The tick rules sit next to the status-only preview exception in the same
-  skill, in one wording. A tick and a status change are one family: an explicit
-  command, no preview, the frontmatter check, a report.
+- A tick and a status change are one rule and not two. The paragraphs that
+  already carried the status carry both: an explicit command, no preview, the
+  frontmatter check, a report, and `updated` may ride along. A second,
+  differently worded exception beside them would have been the thing to keep in
+  step forever.
 - Status wins over open boxes. A `done` draft with empty boxes keeps them, for
   the reason `dropped` exists instead of deletion: what was deliberately not
   done is exactly what cannot be reconstructed later.
 - `CONTEXT.md` gains **Checkpoint**. The untouchability of a set tick is a
   structural invariant and belongs there; the authorization and preview rules
   stay in the skill.
+- Three questions the thinking had left open are settled here. `Check:` and
+  `Watch:` are the labels an optional bullet carries, an extension keeps the
+  body form it finds, and a tick set in error comes out in Obsidian rather than
+  on a command to the agent, which is the one prohibition here that no command
+  lifts.
 - `install.sh` is unchanged. Both agents' skill paths already resolve to the
   repo file, so the new rules reach them together.
