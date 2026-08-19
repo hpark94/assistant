@@ -97,9 +97,9 @@ and it takes my command and a preview like the write itself. Anything else that
 turns up in the directory is neither Vault nor Machinery, and it falls under
 Writing to the Vault above until I have said what it is.
 
-**Read, search and write on disk** with Grep, Glob, Read and the agent's file
-editing tool. The Vault is plain Markdown at a known path and needs no API. That
-is a tool choice and not a permission: what may be written is settled under
+**Read, search and write on disk** with the agent's own file tools or plain
+shell commands. The Vault is plain Markdown at a known path and needs no API.
+That is a tool choice and not a permission: what may be written is settled under
 Writing to the Vault above.
 
 **An ASCII slug**, which is what both skills build a file name from, is the text
