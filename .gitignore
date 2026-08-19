@@ -1,2 +1,4 @@
-# Claude Code writes machine local permissions here.
+# Claude Code writes machine local permissions here, and a session resume file
+# next to them. Both are this machine's and neither is part of the contract.
 .claude/settings.local.json
+.claude/RESUME.md
