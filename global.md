@@ -8,9 +8,9 @@ The Vault is the exception, because it is one and the same from everywhere.
 ## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
-- **Notes, Hubs and Drafts**: use the responsible skill under Vault commands, on
-  the triggers that skill names. Each skill owns the complete authorization,
-  preview, validation, write, format and reporting contract for its operation.
+- **Notes, Hubs and Drafts**: use the responsible skill under Vault commands.
+  Each skill owns the complete authorization, preview, validation, write, format
+  and reporting contract for its operation.
 - **Every other write to the Vault**, a correction to an existing Note outside a
   capture, a deletion, the Index: only on my command, as its own change. Show
   the proposed change and wait for my OK before writing it. Nothing is deleted
