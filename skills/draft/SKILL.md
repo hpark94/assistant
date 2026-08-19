@@ -1,7 +1,7 @@
 ---
 name: draft
 description:
-  "Capture a brainstorm about a project as a draft in the Obsidian vault at
+  "Write down a brainstorm about a project as a draft in the Obsidian vault at
   ~/projects/vault/drafts/, and pick up the open drafts of the project you are
   working in with --open. Triggers, and nothing else: the command /draft or
   $draft. Never invoke this because the conversation mentions a draft, an
