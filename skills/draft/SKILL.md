@@ -322,17 +322,19 @@ Run this in the project you are working in, or name the project as an argument:
    If nothing matches the directory name, say so and offer the open drafts of
    all projects rather than guessing.
 
-2. **Choose.** More than one hit: put them up with `summary` and `status` and
-   wait. A draft whose `depends_on` still points at a `todo` or `wip` draft is
-   blocked, so say that with it instead of offering it as an equal choice.
-   `superseded` is no answer by itself: follow `superseded_by` to the draft that
-   replaced it and read that one's status, on to the end of the chain, and
-   report a chain that comes back to a draft it already passed like a gone
-   target. A `dropped` dependency is neither blocked nor free, because nothing
-   is coming: report it and let me say whether the dependency goes or the draft
-   does. A target that is gone is the deletion case the write check cannot
-   catch: report it as broken rather than reading the draft as unblocked.
-   Exactly one: name it and go on.
+2. **Choose.** Read every hit's `depends_on` first, whether one came back or
+   several. A draft whose `depends_on` still points at a `todo` or `wip` draft
+   is blocked. `superseded` is no answer by itself: follow `superseded_by` to
+   the draft that replaced it and read that one's status, on to the end of the
+   chain, and report a chain that comes back to a draft it already passed like a
+   gone target. A `dropped` dependency is neither blocked nor free, because
+   nothing is coming: report it and let me say whether the dependency goes or
+   the draft does. A target that is gone is the deletion case the write check
+   cannot catch: report it as broken rather than reading the draft as unblocked.
+   More than one hit: put them up with `summary` and `status` and wait, saying
+   of a blocked one that it is blocked instead of offering it as an equal
+   choice. Exactly one: name it, say the same about it where it applies, and go
+   on.
 3. **Read it whole**, on disk with Read. It is a draft, not an order: it may
    contain options that were never decided and thinking that the code has since
    overtaken.
