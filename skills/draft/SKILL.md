@@ -234,19 +234,22 @@ decided something, never for its own sake.
    why the values are checked too. `project` and `status` are checked twice
    over, once as values and once as the raw line: the `--open` lookup is a text
    search, so a quoted `project: "assistant"` parses to the same string and is
-   still invisible to it. The `depends_on` and `superseded_by` lines are the
-   checks that read the disk, because a link's target is not something the text
-   can tell you. A target is a draft's file name and nothing else, `[a-z0-9-]+`,
-   so no link walks out of the folder it is looked up in. They strip an alias
-   after `|`, append `.md` and look in `drafts/`; a session writing several
-   drafts writes each on its own, so the target is already there when the
-   dependent one is checked. A supersede is one approval unit, so there the
-   successor is not on disk yet when the predecessor is checked. That is what
-   the names after the closing quote are for: each of them counts as present.
-   Pass the file name the successor is actually written to and nothing else, so
-   a link with a typo in it still fails, and so does a supersede that left the
-   name out. On a failure repair the frontmatter and run it again; never show a
-   preview that did not pass.
+   still invisible to it. That is also why a name YAML reads as something else
+   is no project name: `yes` and `2026` are `[a-z0-9-]+` and parse to a boolean
+   and a number, and quoting them to survive that loses the text search. The
+   `depends_on` and `superseded_by` lines are the checks that read the disk,
+   because a link's target is not something the text can tell you. A target is a
+   draft's file name and nothing else, `[a-z0-9-]+`, so no link walks out of the
+   folder it is looked up in. They strip an alias after `|`, append `.md` and
+   look in `drafts/`; a session writing several drafts writes each on its own,
+   so the target is already there when the dependent one is checked. A supersede
+   is one approval unit, so there the successor is not on disk yet when the
+   predecessor is checked. That is what the names after the closing quote are
+   for: each of them counts as present. Pass what the successor's link is
+   written as, the file name without its `.md`, and nothing else: a link with a
+   typo in it still fails, and so does a supersede that left the name out. On a
+   failure repair the frontmatter and run it again; never show a preview that
+   did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
@@ -278,10 +281,12 @@ decided something, never for its own sake.
    ticked. `prettier --check` on the file still comes first, because the
    `prettier -w` after the write does not care how small the change was: a draft
    that was never formatted would be rewrapped whole on the back of a one word
-   command. Where it fails, say so and let me decide, and write the status
-   either way. The exception ends where the diff does: `updated` may ride along,
-   anything else, another line of body text or the `superseded_by` that a
-   `superseded` requires, is a normal change and gets its preview.
+   command. Where it fails, write the status and leave `prettier -w` off that
+   file, the same as a formatting passage I refused, and say in the report that
+   the file is still unformatted. The exception ends where the diff does:
+   `updated` may ride along, anything else, another line of body text or the
+   `superseded_by` that a `superseded` requires, is a normal change and gets its
+   preview.
 
    **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
    tick claims something happened in the world, and the vault has no version
@@ -363,7 +368,9 @@ Run this in the project you are working in, or name the project as an argument:
    directory.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
-   `status` should go to `wip`.
+   `status` should go to `wip`. A draft that step 2 found blocked is not offered
+   for carrying out: its dependency is the thing to decide first, and a
+   `dropped` or missing one is a decision of mine before anything else.
 6. **Never set `done` on your own.** Whether something is finished is my call,
    and a status change is a vault write like any other: only on command. On my
    command it is written straight away, under the no-preview exception in step
