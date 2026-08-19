@@ -1,32 +1,39 @@
 #!/usr/bin/env bash
 # Symlink global.md and the note, draft and deep-search skills into place, for
 # Claude and Codex. Idempotent. Links are relative, so they survive a different
-# user name or a moved home. Missing tools are reported, never installed.
+# user name or a moved home. A link that points somewhere else is replaced and
+# said so, because a silent one would take a deliberate override with it.
+# Missing tools are reported, never installed.
 set -euo pipefail
 
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 refused=0
 
 link() {
-  local target=$1 name=$2 dir rel
+  local target=$1 name=$2 dir rel old=
   dir=$(dirname -- "${name}")
   mkdir -p -- "${dir}"
   rel=$(realpath --relative-to="${dir}" -- "${target}")
 
   if [[ -L ${name} ]]; then
-    if [[ $(readlink -- "${name}") == "${rel}" ]]; then
-      printf '  ok    %s\n' "${name/#${HOME}/\~}"
+    old=$(readlink -- "${name}")
+    if [[ ${old} == "${rel}" ]]; then
+      printf '  %-6s %s\n' ok "${name/#${HOME}/\~}"
       return
     fi
   elif [[ -e ${name} ]]; then
-    printf '  KEEP  %s exists and is not a symlink; move it away, then rerun\n' \
-      "${name/#${HOME}/\~}" >&2
+    printf '  %-6s %s exists and is not a symlink; move it away, then rerun\n' \
+      KEEP "${name/#${HOME}/\~}" >&2
     refused=1
     return
   fi
 
   ln -sfn -- "${rel}" "${name}"
-  printf '  link  %s -> %s\n' "${name/#${HOME}/\~}" "${rel}"
+  if [[ -n ${old} ]]; then
+    printf '  %-6s %s -> %s, was %s\n' relink "${name/#${HOME}/\~}" "${rel}" "${old}"
+  else
+    printf '  %-6s %s -> %s\n' link "${name/#${HOME}/\~}" "${rel}"
+  fi
 }
 
 printf 'Links:\n'
@@ -50,15 +57,15 @@ done
 printf '\nTools:\n'
 for tool in prettier python3 rg ffd; do
   if command -v "${tool}" >/dev/null 2>&1; then
-    printf '  ok    %s\n' "${tool}"
+    printf '  %-6s %s\n' ok "${tool}"
   else
-    printf '  MISS  %s\n' "${tool}"
+    printf '  %-6s %s\n' MISS "${tool}"
   fi
 done
 if python3 -c 'import yaml' >/dev/null 2>&1; then
-  printf '  ok    python3 yaml\n'
+  printf '  %-6s python3 yaml\n' ok
 else
-  printf '  MISS  python3 yaml\n'
+  printf '  %-6s python3 yaml\n' MISS
 fi
 
 exit "${refused}"
