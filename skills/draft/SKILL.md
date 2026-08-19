@@ -6,7 +6,6 @@ description:
   working in with --open. Triggers, and nothing else: the command /draft or
   $draft. Never invoke this because the conversation mentions a draft, an
   outline, a sketch or a brainstorm."
-disable-model-invocation: true
 ---
 
 # draft

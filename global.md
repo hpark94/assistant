@@ -120,10 +120,8 @@ operation and its lifecycle. A trigger decides only whether a skill fires on its
 own; it never narrows what an explicit command means. A Note, a Hub or a Draft
 written on a plain instruction is therefore still written under its skill's
 contract, with the frontmatter check, the format step and the preview rules
-including their exceptions. A skill that `disable-model-invocation` keeps out of
-your skill list is no less its contract: read its file under the skill directory
-named below and follow it. A deletion and the Index fall to Writing to the Vault
-above; a correction outside a capture takes its command from there and its
+including their exceptions. A deletion and the Index fall to Writing to the
+Vault above; a correction outside a capture takes its command from there and its
 preview and mechanics from the skill. This section routes to them and does not
 repeat their procedures.
 
@@ -190,16 +188,6 @@ Facts about the setup, not commands to run:
   the setup is versioned: neither `~/.claude` nor `~/.agents/skills`, where the
   other skills live. The skill directories in the table are mine; each agent's
   own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
-- `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
-  list the model chooses from. Claude honours it, Codex does not: it lists such
-  a skill with its full description in `<skills_instructions>` anyway, checked
-  with `codex debug prompt-input`. A skill that must not fire by itself
-  therefore says so in its own `description`, which is the only part Codex
-  reads.
-- The draft and deep-search skills carry that flag, the note skill deliberately
-  does not: only the model matches "merk dir das", so the flag would leave
-  `/note` as the sole trigger. What keeps a Capture from firing unbidden is the
-  skill's `description`, not the frontmatter.
 - Neither Agent configures the Vault as an MCP server. Both work with its
   Markdown files directly.
 

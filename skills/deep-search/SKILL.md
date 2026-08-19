@@ -5,7 +5,6 @@ description:
   and named on the claim. Triggers, and nothing else: the command /deep-search
   or $deep-search. Never invoke this because the conversation mentions research,
   a deep dive, sources or the web."
-disable-model-invocation: true
 ---
 
 # deep-search
