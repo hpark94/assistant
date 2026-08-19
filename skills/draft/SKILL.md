@@ -32,8 +32,8 @@ Either form takes the project as an argument, `/draft --open dots` and
 `/draft dots: <subject>`, and the two read it differently. In `--open` the
 argument is the project and nothing else. In the bare form a colon separates the
 project from the subject, and without a colon the whole argument is the subject.
-The argument beats the working directory, and it is what makes both forms usable
-from a subdirectory of the project.
+Where the argument names a project it beats the working directory, and that is
+what makes both forms usable from a subdirectory of the project.
 
 ## Where drafts live
 
