@@ -112,7 +112,7 @@ check on one claim must not hide a stale one beside it.
    bad  = [f"missing {k}" for k in ("title","type","hub","summary","created","updated") if k not in f]
    bad += ["type must be note"] * (f.get("type") != "note")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
-   bad += ["hub must be a quoted \"[[hub]]\", the hub's slug and nothing else"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[a-z0-9-]+(\|[^]]*)?\]\]", str(f.get("hub"))))
+   bad += ["hub must be a quoted \"[[hub]]\", the hub's slug and nothing else"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[a-z0-9-]+\]\]", str(f.get("hub"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
