@@ -44,7 +44,9 @@ from a subdirectory of the project.
 `~/projects/vault/drafts/<project>-<topic>.md`, a sibling of `notes/`, never
 inside it. Every hub and knowledge query is scoped `FROM "notes"`, so a draft is
 invisible to them. Only the index's dedicated open-drafts block queries
-`drafts/`, which is the point: unfinished thinking never appears as knowledge.
+`drafts/` by name, which is the point: unfinished thinking never appears as
+knowledge. Its sync-conflict block is scoped to nothing at all and does see
+them, which is what a hunt for conflicted copies is for.
 
 `<project>` is the directory name of the project, `routing-lab` for
 `~/repos/routing-lab`, so that the same string names it on disk and finds its
@@ -229,17 +231,22 @@ decided something, never for its own sake.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is
-   why the values are checked too. The `depends_on` and `superseded_by` lines
-   are the checks that read the disk, because a link's target is not something
-   the text can tell you. They strip an alias after `|`, append `.md` and look
-   in `drafts/`; a session writing several drafts writes each on its own, so the
-   target is already there when the dependent one is checked. A supersede is one
-   approval unit, so there the successor is not on disk yet when the predecessor
-   is checked. That is what the names after the closing quote are for: each of
-   them counts as present. Pass the file name the successor is actually written
-   to and nothing else, so a link with a typo in it still fails, and so does a
-   supersede that left the name out. On a failure repair the frontmatter and run
-   it again; never show a preview that did not pass.
+   why the values are checked too. `project` and `status` are checked twice
+   over, once as values and once as the raw line: the `--open` lookup is a text
+   search, so a quoted `project: "assistant"` parses to the same string and is
+   still invisible to it. The `depends_on` and `superseded_by` lines are the
+   checks that read the disk, because a link's target is not something the text
+   can tell you. A target is a draft's file name and nothing else, `[a-z0-9-]+`,
+   so no link walks out of the folder it is looked up in. They strip an alias
+   after `|`, append `.md` and look in `drafts/`; a session writing several
+   drafts writes each on its own, so the target is already there when the
+   dependent one is checked. A supersede is one approval unit, so there the
+   successor is not on disk yet when the predecessor is checked. That is what
+   the names after the closing quote are for: each of them counts as present.
+   Pass the file name the successor is actually written to and nothing else, so
+   a link with a typo in it still fails, and so does a supersede that left the
+   name out. On a failure repair the frontmatter and run it again; never show a
+   preview that did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
@@ -268,7 +275,11 @@ decided something, never for its own sake.
    names the whole change, "set the draft to done", "tick step three", so there
    is nothing left for me to see and asking again only costs me a second yes.
    Run the frontmatter check, write, and report the new status or the step you
-   ticked. The exception ends where the diff does: `updated` may ride along,
+   ticked. `prettier --check` on the file still comes first, because the
+   `prettier -w` after the write does not care how small the change was: a draft
+   that was never formatted would be rewrapped whole on the back of a one word
+   command. Where it fails, say so and let me decide, and write the status
+   either way. The exception ends where the diff does: `updated` may ride along,
    anything else, another line of body text or the `superseded_by` that a
    `superseded` requires, is a normal change and gets its preview.
 
