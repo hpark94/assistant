@@ -48,8 +48,8 @@ Both sections are about claims and not about the note, so one that proved one
 thing and could not prove another carries both. `verified` is then the date of
 the proof it does hold: without it the note keeps no date for the claim that can
 go stale, which is the only thing the field is for. Several proofs make it the
-newest of them, because that is the day from which the whole note is no longer
-younger than what it checked.
+oldest of them: the index asks for proofs older than six months, and a fresh
+check on one claim must not hide a stale one beside it.
 
 ## Procedure
 
@@ -114,7 +114,7 @@ younger than what it checked.
    bad  = [f"missing {k}" for k in ("title","type","hub","summary","created","updated") if k not in f]
    bad += ["type must be note"] * (f.get("type") != "note")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
-   bad += ["hub must be a quoted \"[[hub]]\""] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[^]]+\]\]", str(f.get("hub"))))
+   bad += ["hub must be a quoted \"[[hub]]\", the hub's slug and nothing else"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[a-z0-9-]+(\|[^]]*)?\]\]", str(f.get("hub"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
@@ -150,9 +150,10 @@ younger than what it checked.
    though the file does not exist yet, so what I read is byte for byte what
    lands. The check passes prettier's output through unchanged, so what gets
    validated is exactly the text you show and later write. The content rides in
-   the heredoc, so no temporary file exists either: nothing is on disk before
-   the OK. The delimiter must not occur in the content: a note that itself
-   contains a line `EOF` needs `<<'NOTE'` or any other word that does not.
+   the heredoc, so nothing of it reaches the vault: nothing is on disk there
+   before the OK. The delimiter must not occur in the content: a note that
+   itself contains a line `EOF` needs `<<'NOTE'` or any other word that does
+   not.
 
    A frontmatter that merely parses is not enough: `hub: [[disk-management]]`
    without quotes parses silently into a list and is no link in Obsidian, which
