@@ -37,10 +37,10 @@ way, or why something does not work, prove it. Do not answer from memory.
 
 ### Where tests run
 
-In a scratch directory, never in my live setup. Every proof that runs a tool or
-creates a file opens with `SCRATCH=$(mktemp -d)`, so the commands you hand me
-rebuild their own environment from nothing. Copy configs, redirect paths, use
-minimal fixtures:
+In a scratch directory, never in my live setup. Every proof that could write
+anything opens with `SCRATCH=$(mktemp -d)`, so the commands you hand me rebuild
+their own environment from nothing. Copy configs, redirect paths, use minimal
+fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
