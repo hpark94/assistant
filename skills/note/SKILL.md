@@ -47,7 +47,9 @@ unverified claim that says nothing about its own gap reads like a checked one.
 Both sections are about claims and not about the note, so one that proved one
 thing and could not prove another carries both. `verified` is then the date of
 the proof it does hold: without it the note keeps no date for the claim that can
-go stale, which is the only thing the field is for.
+go stale, which is the only thing the field is for. Several proofs make it the
+newest of them, because that is the day from which the whole note is no longer
+younger than what it checked.
 
 ## Procedure
 
@@ -106,7 +108,8 @@ go stale, which is the only thing the field is for.
    t = sys.stdin.read(); sys.stdout.write(t)
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
-   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   except (yaml.YAMLError, ValueError) as e: sys.exit(f"frontmatter: {e}")
+   isinstance(f, dict) or sys.exit("frontmatter: not a mapping")
    d = lambda k: type(f.get(k)) is datetime.date
    bad  = [f"missing {k}" for k in ("title","type","hub","summary","created","updated") if k not in f]
    bad += ["type must be note"] * (f.get("type") != "note")
@@ -130,7 +133,8 @@ go stale, which is the only thing the field is for.
    t = sys.stdin.read(); sys.stdout.write(t)
    m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
    try: f = yaml.safe_load(m.group(1))
-   except yaml.YAMLError as e: sys.exit(f"frontmatter: {e}")
+   except (yaml.YAMLError, ValueError) as e: sys.exit(f"frontmatter: {e}")
+   isinstance(f, dict) or sys.exit("frontmatter: not a mapping")
    bad  = [f"missing {k}" for k in ("title","type","summary","created") if k not in f]
    bad += ["type must be hub"] * (f.get("type") != "hub")
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
