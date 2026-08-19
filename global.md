@@ -209,7 +209,7 @@ Facts about the setup, not commands to run:
 ## Writing style
 
 - Speak German with me. Everything written down is English: notes, this file,
-  `CONTEXT.md`, the ADRs, code, identifiers and commit messages.
+  code, identifiers and commit messages.
 - No em dashes. Use commas, periods, semicolons, colons.
 - Minimal diffs: touch only what the subject requires. No rewording or
   reformatting in passing.
