@@ -19,6 +19,9 @@ The Vault is the exception, because it is one and the same from everywhere.
   before I have seen what would go: the Vault has no version control to undo it
   with.
 
+A no is a full stop: nothing is written, and whether the preview is built again
+is mine to say.
+
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
 is not carried out yet, the line is `entwurfswuerdig: <topic>` instead, which is
