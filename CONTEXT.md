@@ -96,6 +96,13 @@ is not carried out yet and may be worth a Draft. The sibling of Notizwuerdig,
 pointing at `drafts/` instead of `notes/`, and a suggestion just the same.\
 _Avoid_: todo, action item, next step
 
+**Grilling**:\
+An interview that stress tests a plan before it is written down. It fires on its
+own trigger and its skill lives outside this repo, so nothing here says when it
+runs; it ordinarily ends by offering the Entwurfswuerdig marker that leads into
+a Draft.\
+_Avoid_: review, discussion, brainstorming
+
 **Proof**:\
 A claim settled by an executed demonstration whose result and exact command are
 recorded. A Note without a Proof may still be right, it just does not claim to
