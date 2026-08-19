@@ -197,12 +197,14 @@ decided something, never for its own sake.
    bad += [f"{k} must be a string" for k in ("title","summary","project") if not isinstance(f.get(k), str)]
    bad += ["project must be [a-z0-9-]+"] * (not re.fullmatch(r"[a-z0-9-]+", str(f.get("project"))))
    bad += ["status must be todo|wip|done|superseded|dropped"] * (f.get("status") not in ("todo","wip","done","superseded","dropped"))
+   ex = lambda x: os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md"))
    s = f.get("superseded_by")
    bad += ["superseded_by must be a quoted \"[[draft]]\" when status is superseded"] * (f.get("status") == "superseded" and (not isinstance(s, str) or not re.fullmatch(r"\[\[[^]]+\]\]", s)))
    bad += ["superseded_by exists only when status is superseded"] * (f.get("status") != "superseded" and "superseded_by" in f)
+   bad += [f"superseded_by target does not exist: {s}"] * (isinstance(s, str) and bool(re.fullmatch(r"\[\[[^]]+\]\]", s)) and not ex(s))
    d = f.get("depends_on")
    bad += ["depends_on must be a non-empty list of quoted \"[[draft]]\" links"] * ("depends_on" in f and (not isinstance(d, list) or not d or not all(isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) for x in d)))
-   bad += [f"depends_on target does not exist: {x}" for x in (d or []) if isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) and not os.path.exists(os.path.expanduser("~/projects/vault/drafts/" + x[2:-2].split("|")[0] + ".md"))]
+   bad += [f"depends_on target does not exist: {x}" for x in (d or []) if isinstance(x, str) and re.fullmatch(r"\[\[[^]]+\]\]", x) and not ex(x)]
    bad += [f"{k} is not allowed on a draft" for k in ("tags","hub") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if type(f.get(k)) is not datetime.date]
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
@@ -224,12 +226,13 @@ decided something, never for its own sake.
 
    A frontmatter that merely parses is not enough: `status: open` is valid YAML
    and still outside the table, and no query would ever see that draft, which is
-   why the values are checked too. The `depends_on` line is the one check that
-   reads the disk, because a link's target is not something the text can tell
-   you. It strips an alias after `|`, appends `.md` and looks in `drafts/`; a
-   session writing several drafts shows them in dependency order, so the target
-   is already there when the dependent one is checked. On a failure repair the
-   frontmatter and run it again; never show a preview that did not pass.
+   why the values are checked too. The two link lines are the checks that read
+   the disk, because a link's target is not something the text can tell you.
+   They strip an alias after `|`, append `.md` and look in `drafts/`; a session
+   writing several drafts shows them in dependency order and a supersede writes
+   the successor first, so the target is already there when the draft pointing
+   at it is checked. On a failure repair the frontmatter and run it again; never
+   show a preview that did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
