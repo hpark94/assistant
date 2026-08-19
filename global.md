@@ -186,13 +186,10 @@ is the same for both agents; only these facts differ.
 Facts about the setup, not commands to run:
 
 - `~/repos/assistant` holds this file and the note, draft and deep-search
-  skills. Its `install.sh` symlinks all of them into place, relatively, so the
-  links survive a different user name or a moved home while the repo sits under
-  that home. A repo elsewhere is linked relative to whatever the two have in
-  common, so only a move that keeps them in that same relation survives. Nothing
-  else about the setup is versioned: neither `~/.claude` nor `~/.agents/skills`,
-  where the other skills live. The skill directories in the table are mine; each
-  agent's own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
+  skills. Its `install.sh` symlinks all of them into place. Nothing else about
+  the setup is versioned: neither `~/.claude` nor `~/.agents/skills`, where the
+  other skills live. The skill directories in the table are mine; each agent's
+  own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
 - `disable-model-invocation: true` in a skill's frontmatter keeps it out of the
   list the model chooses from. Claude honours it, Codex does not: it lists such
   a skill with its full description in `<skills_instructions>` anyway, checked
