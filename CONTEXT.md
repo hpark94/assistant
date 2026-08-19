@@ -15,7 +15,7 @@ with the Machinery.\
 _Avoid_: notes folder, knowledge base, wiki
 
 **Machinery**:\
-Everything in the Vault directory that is not knowledge: `.obsidian/`,
+The four files in the Vault directory that are not knowledge: `.obsidian/`,
 `.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`. Those four are the whole
 list and not examples. It configures the tools that read and write the Notes and
 carries none of their content.\
