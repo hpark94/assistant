@@ -16,14 +16,12 @@ decision actually changes, never in passing.
 
 Each rule has exactly one owner. `global.md` owns what holds in every project, a
 skill owns its own operation, and neither repeats the other. A change that would
-have to be made in two files is a sign that the rule is in the wrong place. The
-frontmatter rules stand in both writing skills anyway, the YAML quoting, the
-summary length, the date check and whatever the checks themselves have to guard
-against: they hold nowhere else, so `global.md` is the wrong owner and a third
-shared file would be scaffolding. A definition `CONTEXT.md` owns is restated in
-a skill wherever the skill needs it: `CONTEXT.md` is not loaded outside this
-repo, and the restatement is what keeps a skill self contained. Those are the
-two named exceptions, not a licence for a third.
+have to be made in two files is a sign that the rule is in the wrong place. What
+a file needs to stand on its own stands in that file, even where a second file
+needs the same: the frontmatter rules and the mechanics that carry a write out
+hold nowhere else, and a definition `CONTEXT.md` owns is not loaded outside this
+repo. A third shared file would be scaffolding. That is the one exception, not a
+licence for a second.
 
 ## Commands
 
