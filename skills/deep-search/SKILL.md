@@ -74,8 +74,8 @@ never reported.
 
 1. **Search.** Start from the question, not from a guess at the answer.
 2. **Pick.** Choose the sources worth a full read, primary ones first.
-3. **Delegate.** Two readers in parallel, each with its own URLs.
-4. **Integrate.** Fold both reports into what is now known and what is still
+3. **Delegate.** Up to two readers in parallel, each with its own URLs.
+4. **Integrate.** Fold the reports into what is now known and what is still
    open.
 5. **Saturation.** Ask whether the next source would still change the answer.
    When it would not, stop and answer.
