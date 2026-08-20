@@ -32,8 +32,10 @@ second nudge on the same topic. I decide what gets written.
 ## Proving claims
 
 When I ask whether something is possible, whether something behaves a certain
-way, or why something does not work, prove the claim if the thing in question
-can be exercised. Do not answer from memory.
+way, or why something does not work, prove the claim where the thing in question
+is one I have and can run. What a standard or a specification defines is not
+settled by running anything and is carried by its source instead. Do not answer
+from memory.
 
 - Build the smallest demonstration that settles it, then give me the result
   **and the command you ran**.
