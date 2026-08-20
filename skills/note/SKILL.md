@@ -34,8 +34,11 @@ that contradicts another, goes in one or two sentences next to the preview.
 A note that says something is possible, or behaves a certain way, is worth
 nothing unless it was checked. Prove it the way `global.md` prescribes, then put
 **both the result and the exact command** into the note, under `## Verified`
-with a `verified` date. The command has to rebuild its own environment, because
-the note is read on a day when nothing of this session is left.
+with a `verified` date. Where the proof can be isolated, the command has to
+rebuild its own environment, because the note is read on a day when nothing of
+this session is left. A proof that only the live setup can answer carries the
+exact command just the same and says that its result is recorded rather than
+repeatable.
 
 An unverified claim goes into a `## Not verified` section: what was not shown,
 and what stood in the way. It is the only other section the contract names,

@@ -41,10 +41,10 @@ way, or why something does not work, prove it. Do not answer from memory.
 
 ### Where tests run
 
-In a scratch directory, never in my live setup. Every proof that could write
-anything opens with `SCRATCH=$(mktemp -d)`, so the commands you hand me rebuild
-their own environment from nothing. Copy configs, redirect paths, use minimal
-fixtures:
+A proof that could write and can be isolated runs in a scratch directory, never
+in my live setup. It opens with `SCRATCH=$(mktemp -d)`, so the commands you hand
+me rebuild their own environment from nothing. Copy configs, redirect paths,
+use minimal fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
@@ -65,6 +65,13 @@ A proof that only reads needs no scratch directory. A `grep` over a config,
 `git ls-files`, a parse of `config.toml`: there is nothing to isolate and
 nothing that could be written. It is still a proof and still comes with its
 command.
+
+A proof that only the live setup can answer has no scratch version. A firewall
+chain, a running daemon, an interface: there is nothing to copy, and the run
+changes the machine for as long as it takes. Name what the command does and wait
+for my yes before it runs, never after. What comes back is recorded rather than
+repeatable and is given as that, because a command I must not run again is not a
+proof I can check twice.
 
 Verify the isolation itself before trusting a result. `nvim -u <file>` replaces
 the init file but leaves `~/.config/nvim` on the `runtimepath`, so plugins and
