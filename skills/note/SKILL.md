@@ -36,28 +36,34 @@ That branch also owns the answer where the command names a different hub or file
 name, and its answer is the same whether I commanded the change or you noticed
 it.
 
-## Proving a claim
+## Checking a claim
 
-A note that says something is possible, or behaves a certain way, is worth
-nothing unless it was checked. Prove it the way `global.md` prescribes, then put
-**both the result and the exact command** into the note, under `## Verified`
-with a `verified` date. Where the proof can be isolated, the command has to
-rebuild its own environment, because the note is read on a day when nothing of
-this session is left. A proof that only the live setup can answer carries the
-exact command just the same and says that its result is recorded rather than
-repeatable.
+A claim that `global.md` requires a Proof for is worth nothing unless it was
+checked. Put **both the result and the exact command** into the note, under
+`## Verified`. Where the Proof can be isolated, the command has to rebuild its
+own environment, because the note is read on a day when nothing of this session
+is left. A Proof that only the live setup can answer carries the exact command
+just the same and says that its result is recorded rather than repeatable.
 
 An unverified claim goes into a `## Not verified` section: what was not shown,
-and what stood in the way. It is the only other section the contract names,
-because an unverified claim that says nothing about its own gap reads like a
-checked one.
+and what stood in the way, because an unverified claim that says nothing about
+its own gap reads like a checked one. The contract names three sections, this
+one, `## Verified` and `## Related`, and nothing below the frontmatter besides
+them is more than body.
 
-Both sections are about claims and not about the note, so one that proved one
-thing and could not prove another carries both. `verified` is then the date of
-the proof it does hold: without it the note keeps no date for the claim that can
-go stale, which is the only thing the field is for. Several proofs make it the
-oldest of them: the index asks for proofs older than six months, and a fresh
-check on one claim must not hide a stale one beside it.
+A source-backed claim for which `global.md` does not require a Proof takes no
+section. A standard or a specification needs no `verified`; a claim about the
+state of the world takes the day its source was read as its check date. There is
+no command to put in a section, and repeating the citation below the text would
+be the collected list `global.md` rules out. A source attached to a claim that
+did require a Proof does not change its state: where that Proof did not run, the
+claim stays in `## Not verified`.
+
+The two check sections are about claims and not about the note, so one that
+proved one thing and could not prove another carries both. `verified` is the
+oldest date of every claim in the note that can go stale, whether that date is
+when a command ran or a source was read. The index asks for checks older than
+six months, and a fresh one must not hide a stale one beside it.
 
 ## Procedure
 
@@ -244,9 +250,11 @@ verified: 2026-08-13
   appears in the hub, in the index and in the fzf preview, and exists only here.
   Keep it under about 70 characters: `prettier` folds a longer value onto a
   second line, which is valid YAML but noise in the preview.
-- `verified` and the `## Verified` section appear only on notes that make a
-  checked claim. A feasibility claim goes stale when a tool updates, and
-  `updated` only says when the file was last touched.
+- `verified` appears only on notes with a claim that can go stale, and carries
+  the oldest check as defined above. A feasibility claim goes stale when a tool
+  updates, and `updated` only says when the file was last touched. `## Verified`
+  appears only where a Proof ran; the field stands without the section where a
+  source was read instead.
 - A web source belongs in the body with its URL, never in the frontmatter.
 
 Everything below the frontmatter is optional except the `# Title`. A three line
