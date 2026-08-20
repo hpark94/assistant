@@ -13,11 +13,11 @@ The Vault is the exception, because it is one and the same from everywhere.
   topic it judged noteworthy itself. That permission is this file's; each skill
   owns the preview, validation, write, format and reporting contract for its
   operation.
-- **Every other write to the Vault**, a correction to an existing Note outside a
-  capture, a deletion, the Index: only on my command, as its own change. Show
-  the proposed change and wait for my OK before writing it. Nothing is deleted
-  before I have seen its path and the whole of what it holds: the Vault has no
-  version control to undo it with.
+- **Every other write to the Vault**, that is a correction to an existing Note
+  outside a capture, a deletion, the Index: only on my command, as its own
+  change. Show the proposed change and wait for my OK before writing it. Nothing
+  is deleted before I have seen its path and the whole of what it holds: the
+  Vault has no version control to undo it with.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
