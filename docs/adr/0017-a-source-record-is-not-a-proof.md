@@ -1,4 +1,4 @@
-# A source on the sentence is shown
+# A source record is not a Proof
 
 The note contract knew two states. A claim was proved, and then the note carries
 `## Verified` with the result, the exact command and a `verified` date, or it
@@ -35,8 +35,8 @@ between a claim with a perfect source and one the best available source carries.
 **Treating the two notes as violations (rejected).** Give each a
 `## Not verified` section and the contract stays as it is. It was the review's
 own reading and it needs no change to the skill. It was rejected because it is
-false. The claims were shown, by documents that outlive any command run here and
-that a reader can check without this machine, and a gap section on top of
+false. The claims are recorded, by documents that outlive any command run here
+and that a reader can check without this machine, and a gap section on top of
 thirteen primary sources would say nothing true.
 
 **A `## Sources` section (rejected).** It makes the third state visible in the
@@ -71,9 +71,9 @@ stands two lines up, which is the collected list again under another heading.
   contract names" was wrong about `## Related` before this decision and would
   have been wrong twice after it. It now names the three sections it has.
 - The boundary between Proof and source is explicit. Where the thing in question
-  can be exercised, `global.md` puts the command first, and a citation is not a
-  way out of running it. `media-imv-keybindings.md` is the case that stays as it
-  is: documentation-sourced, locally checkable, and carrying the gap section
-  that says which part was not shown.
+  is one I have and can run, `global.md` puts the command first, and a citation
+  is not a way out of running it. `media-imv-keybindings.md` is the case that
+  stays as it is: documentation-sourced, locally checkable, and carrying the gap
+  section that says which part was not shown.
 - `global.md` prefers a primary source and permits a reliable secondary source
   only where no suitable primary one is available and the answer says why.
