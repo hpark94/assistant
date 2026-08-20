@@ -19,8 +19,9 @@ The Vault is the exception, because it is one and the same from everywhere.
   before I have seen its path and the whole of what it holds: the Vault has no
   version control to undo it with.
 
-A no is a full stop: nothing is written, and whether the preview is built again
-is mine to say.
+A no is a full stop for the unit it answers: nothing of that unit is written,
+and whether the preview is built again is mine to say. What one unit is, its
+skill says.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
