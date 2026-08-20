@@ -8,11 +8,11 @@ The Vault is the exception, because it is one and the same from everywhere.
 ## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
-- **Notes, Hubs and Drafts**: use the responsible skill under Vault commands. It
-  writes when I ask for it, by command or by a trigger it names, and never on a
-  topic it judged noteworthy itself. That permission is this file's; each skill
-  owns the preview, validation, write, format and reporting contract for its
-  operation.
+- **Notes, Hubs and Drafts**: use the responsible skill under Operational
+  ownership. It writes when I ask for it, by command or by a trigger it names,
+  and never on a topic it judged noteworthy itself. That permission is this
+  file's; each skill owns the preview, validation, write, format and reporting
+  contract for its operation.
 - **Every other write to the Vault**, that is a correction to an existing Note
   outside a capture, a deletion, the Index: only on my command, as its own
   change. Show the proposed change and wait for my OK before writing it. Nothing
@@ -168,15 +168,6 @@ footnotes, no collected list at the end.
 What changes how you work goes into your own memory, wherever the agent you are
 keeps it. What I want to look up later goes into the vault. Rule of thumb:
 behaviour in memory, subject matter in the vault.
-
-## Vault commands
-
-- The note skill: distill one topic into a note. These phrases do the same as a
-  bare invocation: "merk dir das", "mach eine Notiz draus", "das ist wichtig",
-  "halt das fest".
-- The draft skill: `/draft` writes this conversation down as a draft for the
-  project it is about, `/draft --open` lists the open drafts of a project, reads
-  the one it settles on, and asks how to proceed.
 
 ## Which agent you are
 
