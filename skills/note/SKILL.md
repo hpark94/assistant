@@ -15,10 +15,11 @@ loaded in every project, and nothing else.
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
 
-## Two modes
+## Three modes
 
 On a topic this conversation already settled, capture what it produced. On one
-it did not, find out first, then capture what you found.
+it did not, find out first, then capture what you found. On a correction I
+command to a note that already exists, correct it: there is nothing to capture.
 
 The second is the ordinary one for a second brain: "what are the Linux commands
 for the size of a directory, and make a note of it". Establish the answer to the
@@ -28,6 +29,12 @@ write a note from memory alone. In this mode the preview from step 5 **is** the
 answer: do not write the same thing twice, once as prose and once as a note.
 Anything that does not belong in the note, an intermediate result or a source
 that contradicts another, goes in one or two sentences next to the preview.
+
+The third has no scope to find, because the note I name is the scope. Skip step
+1, enter at step 2's hit branch, and the rest of the procedure stands as it is.
+That branch also owns the answer where the command names a different hub or file
+name, and its answer is the same whether I commanded the change or you noticed
+it.
 
 ## Proving a claim
 
@@ -64,16 +71,15 @@ check on one claim must not hide a stale one beside it.
    topic.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
-     Its hub is the one thing you never correct: if the content you are adding
-     would have gone under a different hub as a new note, say so in one line,
-     name that hub, and leave the move to me in Obsidian. It is one line and not
-     a question, and it may fall again in a later session, because nothing
-     records that it was already said. The title you do correct, in `title` and
-     in the `# H1` together, and the file name then no longer is its slug: say
-     in one line what the file should be called, and leave the rename to me.
-     Never offer and never run `mv` on a note: renaming in Obsidian carries the
-     incoming wiki links along, `mv` leaves them pointing nowhere on four
-     devices.
+     Its hub is the one thing you never correct: if the note belongs under a
+     different one, say so in one line, name that hub, and leave the move to me
+     in Obsidian. It is one line and not a question, and it may fall again in a
+     later session, because nothing records that it was already said. The title
+     you do correct, in `title` and in the `# H1` together. If the file name
+     then no longer is its slug, or my command named another file name, say in
+     one line what it should be called and leave the rename to me. Never offer
+     and never run `mv` on a note: renaming in Obsidian carries the incoming
+     wiki links along, `mv` leaves them pointing nowhere on four devices.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview
