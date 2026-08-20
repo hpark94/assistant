@@ -44,8 +44,8 @@ can be exercised. Do not answer from memory.
 
 A proof that could write and can be isolated runs in a scratch directory, never
 in my live setup. It opens with `SCRATCH=$(mktemp -d)`, so the commands you hand
-me rebuild their own environment from nothing. Copy configs, redirect paths,
-use minimal fixtures:
+me rebuild their own environment from nothing. Copy configs, redirect paths, use
+minimal fixtures:
 
 ```sh
 SCRATCH=$(mktemp -d)
@@ -152,11 +152,11 @@ anything after your cutoff. Where a fact can be checked locally, the proof rules
 above come first and the duty covers what no local proof reaches. Everywhere
 else, search freely.
 
-Find with the native search capability, then read the source itself in full
-rather than through a summarising model. A summary cannot be quoted and cannot
-be checked, which is what naming a source is for. A reader you delegated to is
-not a summarising model, as long as the full text was read there and what comes
-back carries the verbatim quote.
+Unless an active operation names its own search capability, find with the native
+one. Then read the source itself in full rather than through a summarising
+model. A summary cannot be quoted and cannot be checked, which is what naming a
+source is for. A reader you delegated to is not a summarising model, as long as
+the full text was read there and what comes back carries the verbatim quote.
 
 Prefer a primary source. Where no suitable one is available, a reliable
 secondary source may stand in, and the answer says briefly why it is the best
