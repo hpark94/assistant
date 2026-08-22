@@ -312,8 +312,8 @@ prescribes, and never adds the field.
 
 ## Archiving
 
-A note that no longer belongs in the knowledge is archived and never deleted.
-`global.md` settles that this happens only on my command; the whole of it is one
+Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
+`global.md` settles that it happens only on my command; the whole of it is one
 approval unit, one preview and one yes.
 
 1. **Read the note whole**, then put up the path it moves to and the frontmatter
