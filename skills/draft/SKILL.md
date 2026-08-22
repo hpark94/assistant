@@ -412,8 +412,7 @@ Run this in the project you are working in, or name the project as an argument:
    see. Where it has a `## Steps` section, add how many of its boxes are ticked,
    out of how many, and what the next open step is. Run none of its checks:
    `--open` is a read, and a check out of a draft would run against the live
-   environment, which is what the proof rule in `global.md` sends to a scratch
-   directory.
+   environment.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`. A draft that step 2 found blocked is not offered

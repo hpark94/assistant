@@ -44,10 +44,11 @@ this file and not the one below.
 
 A claim that `global.md` requires a Proof for is worth nothing unless it was
 checked. Put **both the result and the exact command** into the note, under
-`## Verified`. Where the Proof can be isolated, the command has to rebuild its
-own environment, because the note is read on a day when nothing of this session
-is left. A Proof that only the live setup can answer carries the exact command
-just the same and says that its result is recorded rather than repeatable.
+`## Verified`. Where the Proof could write and can be isolated, the command has
+to rebuild its own environment, because the note is read on a day when nothing
+of this session is left. A Proof that only the live setup can answer carries the
+exact command just the same and says that its result is recorded rather than
+repeatable.
 
 An unverified claim goes into a `## Not verified` section: what was not shown,
 and what stood in the way, because an unverified claim that says nothing about
