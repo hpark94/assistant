@@ -23,8 +23,9 @@ another project lands in the repo with none of its rules loaded.
   outside a capture, an archiving, a deletion, the Index: only on my command, as
   its own change. Show the proposed change and wait for my OK before writing it.
 
-Nothing leaves the knowledge by being deleted. What no longer belongs there is
-archived, and the note skill owns how.
+What no longer belongs in the knowledge is archived and not deleted, and the
+note skill owns how. Deleting is the rare act on my explicit command and reaches
+any file I name, a Note included.
 
 A deletion moves the file to `~/projects/vault/.trash/` under a name carrying
 the timestamp and never runs `rm`.
