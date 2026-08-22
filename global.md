@@ -20,22 +20,28 @@ another project lands in the repo with none of its rules loaded.
   file's; each skill owns the preview, validation, write, format and reporting
   contract for its operation.
 - **Every other write to the Vault**, that is a correction I command to an
-  existing Note, an archiving, a deletion, `index.md`: only on my command, as
-  its own change. Show the proposed change and wait for my OK before writing it.
+  existing Note or Hub, an archiving, a deletion, emptying the bin, `index.md`:
+  only on my command, as its own change. Show the proposed change and wait for
+  my OK before writing it.
 
 What no longer belongs in the knowledge is archived rather than deleted, and the
 note skill owns how. Deleting is the rare act on my explicit command and reaches
 any file I name, a Note included.
 
-A deletion moves the file to `~/projects/vault/.trash/` under a name carrying
-the timestamp and never runs `rm`.
+A file in `archive/` takes no correction: it records what it was on the day it
+left.
+
+A deletion moves the file to `~/projects/vault/.trash/` under its own name with
+the timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never runs
+`rm`.
 
 Emptying that bin is the one act that really removes a file. Nothing is removed
 before I have seen its path and the whole of what it holds.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
-skill says; for a deletion, which has no skill, the unit is the single file.
+skill says; for a deletion, for emptying the bin and for `index.md`, which have
+no skill, the unit is the single file.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
@@ -91,7 +97,8 @@ gone.
 
 `notes/`, `drafts/` and `archive/` are siblings. The knowledge is `notes/`,
 thinking that is not carried out yet is `drafts/`, and what left the knowledge
-is `archive/`.
+is `archive/`. `.trash/` is their sibling and holds what a deletion moved out,
+under the rules above.
 
 What sits in the directory besides them, `.obsidian/`, `.obsidian.vimrc`,
 `.prettierrc`, `.marksman.toml`, is Machinery. Changing one is ordinary work: no
@@ -121,9 +128,9 @@ a note nor a draft left nothing in it.
 The note skill owns every Note and Hub operation and the archiving, the draft
 skill every Draft operation and its lifecycle. A trigger decides only whether a
 skill fires on its own; it never narrows what an explicit command means. A
-deletion and `index.md` fall to Writing to the Vault above; a commanded
-correction and an archiving take their command from there and their preview and
-mechanics from the skill.
+deletion, emptying the bin and `index.md` fall to Writing to the Vault above; a
+commanded correction and an archiving take their command from there and their
+preview and mechanics from the skill.
 
 Where this file and a skill disagree: on a permission, a prohibition or a
 boundary this file wins and the skill is wrong. On procedure, mechanics or a

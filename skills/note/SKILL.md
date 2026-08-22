@@ -19,8 +19,8 @@ topic to capture.
 
 On a topic this conversation already settled, capture what it produced. On one
 it did not, find out first, then capture what you found. On a correction I
-command to a note that already exists, correct it: there is nothing to capture.
-On my command to archive a note, take it out of the knowledge.
+command to a note or a hub that already exists, correct it: there is nothing to
+capture. On my command to archive a note, take it out of the knowledge.
 
 The second is the ordinary one for a second brain: "what are the Linux commands
 for the size of a directory, and make a note of it". Establish the answer to the
@@ -35,7 +35,7 @@ The third has no scope to find, because the note I name is the scope. Skip step
 1, enter at step 2's hit branch, and the rest of the procedure stands as it is.
 That branch also owns the answer where the command names a different hub or file
 name, and its answer is the same whether I commanded the change or you noticed
-it.
+it. A hub takes the Hub contract below instead of that branch.
 
 The fourth writes no knowledge at all. Its procedure is Archiving at the end of
 this file and not the one below.
@@ -77,9 +77,11 @@ six months, and a fresh one must not hide a stale one beside it.
    things are worth keeping, write two notes, each with its own preview and yes.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
-   before deciding. More than one that fits: put them up with their `summary`
-   and wait, because picking one silently is how a vault grows two notes on one
-   topic.
+   before deciding. Grep `~/projects/vault/archive/` for the same terms: a hit
+   there is not a hit, so say in one line that the topic was archived and leave
+   to me whether it comes back or a new note is written. More than one that
+   fits: put them up with their `summary` and wait, because picking one silently
+   is how a vault grows two notes on one topic.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
      Its hub is the one thing you never correct: if the note belongs under a
@@ -91,8 +93,8 @@ six months, and a fresh one must not hide a stale one beside it.
      one line what it should be called and leave the rename to me. Never offer
      and never run `mv` to rename a note: renaming in Obsidian carries the
      incoming wiki links along, `mv` leaves them pointing nowhere on four
-     devices. Archiving moves a note with `mv` and keeps its name, which is the
-     other act and stands under Archiving below.
+     devices. Archiving moves a note with `mv` and keeps its name, which is
+     another act and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview
@@ -309,7 +311,9 @@ for months at a time. A date that cannot move is worse than no date: it looks
 like an answer to "when did this subject last change", which the children's
 `updated` in the hub's own list already gives. Such a correction runs the hub
 check above like any other write, shows the changed passages the way step 5
-prescribes, and never adds the field.
+prescribes, and never adds the field. A corrected hub title breaks the agreement
+above: say in one line what the hub and every child should be called, and leave
+the renames to me.
 
 ## Archiving
 

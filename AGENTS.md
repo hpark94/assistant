@@ -33,8 +33,8 @@ both are a patch.
 
 A rule, and at most one clause naming the failure it prevents. That clause may
 not restate the rule. A fact about the world is not a rule and goes to the vault
-as a Note. Never point a `[[link]]` at a note that exists: a rename in Obsidian
-breaks one silently.
+as a Note. Never point a `[[link]]` in these files at a note that exists: a
+rename in Obsidian breaks one silently.
 
 ## ADRs
 
@@ -49,9 +49,10 @@ that were rejected, which is the half `git log` does not.
 
 ## Review
 
-Before the round, grep every term you defined and every prohibition you
-tightened across all five files, and read each hit against the new wording. The
-questions below compare files and never two sentences of one file.
+Before the round, and on a patch that owes none, grep every term you defined and
+every prohibition you tightened across all five files, and read each hit against
+the new wording. The questions below compare files and never two sentences of
+one file.
 
 One instruction file touched means no review round. Two or more means one review
 round, with these five questions and no others:
