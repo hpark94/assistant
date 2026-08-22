@@ -99,8 +99,8 @@ What sits in the directory besides them, `.obsidian/`, `.obsidian.vimrc`,
 `.prettierrc`, `.marksman.toml`, is Machinery. Changing one is ordinary work: no
 command of its own and no preview. Deleting one goes under Writing to the Vault
 above, because the four are named here and a missing one is a hole nothing
-reports. `.prettierrc` is the exception and goes there as well, because the
-format step of every capture runs through it.
+reports. Changing `.prettierrc` is the exception and goes there as well, because
+the format step of every capture runs through it.
 
 Anything else that turns up in the directory is neither Vault nor Machinery, and
 it falls under Writing to the Vault above until I have said what it is.
