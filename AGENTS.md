@@ -33,7 +33,8 @@ both are a patch.
 
 A rule, and at most one clause naming the failure it prevents. That clause may
 not restate the rule. A fact about the world is not a rule and goes to the vault
-as a Note.
+as a Note. Never a `[[link]]` into the vault: a rename in Obsidian breaks one
+silently.
 
 ## ADRs
 

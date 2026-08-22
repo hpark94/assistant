@@ -118,9 +118,6 @@ misses the note that holds the answer.
 The vault holds only what I captured on command: a session that produced neither
 a note nor a draft left nothing in it.
 
-A `[[link]]` in this file or in a skill never names a note that exists: a rename
-in Obsidian breaks it silently.
-
 ## Operational ownership
 
 The note skill owns every Note and Hub operation and the archiving, the draft
