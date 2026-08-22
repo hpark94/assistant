@@ -94,12 +94,11 @@ only confirms what two sources already said is the signal to stop.
 budget to spend: reaching it means something went wrong with the question, and
 you say so in the answer rather than reporting a thin result as a complete one.
 
-Per page, `maxCharacters` defaults to 3000, which is an excerpt. Raise it to
-what the page actually needs, because reading the source in full is the point of
-delegating the reading at all.
+Per page, `maxCharacters` defaults to an excerpt. Raise it to what the page
+actually needs, because reading the source in full is the point of delegating
+the reading at all.
 
-Authenticated, the limits are 10 QPS for search and 100 QPS for contents, so
-readers need no internal pacing. A 429 is retried once, and twice is a fact
+Readers need no internal pacing. A 429 is retried once, and twice is a fact
 about the account, not a slower loop.
 
 ## Currency
