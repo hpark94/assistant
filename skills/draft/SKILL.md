@@ -343,17 +343,19 @@ supersede.
    never covered by the no-preview exception above.
 
    **A supersede repoints what depended on the predecessor.** Find the
-   candidates with `rg -l '\[\[<predecessor>\]\]' ~/projects/vault/drafts/`,
-   over the whole folder because a dependency crosses projects, and keep the
-   `todo` and `wip` ones whose `depends_on` carries the link: the same grep
-   finds a body mention and a `superseded_by` pointing the other way just as
-   well. A closed dependent is left alone, because nothing waits on it any more.
-   Read each of the others against the successor and repoint the link where the
-   successor still carries what the dependent waits for. Where it does not,
-   report the dependency and wait for my word: a link bent to look satisfiable
-   when it is not is worse than a stale one. Each such draft is its own approval
-   unit and takes its own pass through steps 3 to 6, and the supersede's covers
-   the successor and the predecessor's changed lines and nothing beyond them.
+   candidates with
+   `rg -l '\[\[<predecessor>(\]\]|\|)' ~/projects/vault/drafts/`, over the whole
+   folder because a dependency crosses projects, and keep the `todo` and `wip`
+   ones whose `depends_on` carries the link: the same grep finds a body mention
+   and a `superseded_by` pointing the other way just as well. A closed dependent
+   is left alone, because it is not waiting on anything any more. Read each of
+   the others against the successor and repoint the link where the successor
+   still carries what the dependent waits for. Where it does not, report the
+   dependency and wait for my word: a link bent to look satisfiable when it is
+   not is worse than a stale one. Each such draft is its own approval unit and
+   takes its own pass through steps 3 to 6, after the supersede's write: the
+   check reads the successor off the disk. The supersede's own unit covers the
+   successor and the predecessor's changed lines and nothing beyond them.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
