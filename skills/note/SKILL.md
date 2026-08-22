@@ -317,8 +317,9 @@ Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
 `global.md` settles that it happens only on my command; the whole of it is one
 approval unit, one preview and one yes.
 
-1. **Read the note whole**, then put up the path it moves to and the frontmatter
-   lines that change. The body is not touched.
+1. **Read the note whole** and run `prettier --check` on it, then put up the
+   path it moves to and the frontmatter lines that change. The body is not
+   touched.
 2. **Change the frontmatter.** `hub` loses its brackets and becomes the hub's
    slug as a plain string, and `archived` is added with today's date. `type`
    stays `note` and `tags` stay as they are, because the file records what it
@@ -357,7 +358,10 @@ approval unit, one preview and one yes.
    `mv ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`, then write
    the changed frontmatter at the new path. The file name never changes, so no
    incoming link has to be rewritten.
-5. **Format.** `prettier -w` on the file at its new path.
+5. **Format.** `prettier -w` on the file at its new path, unless the
+   `prettier --check` of step 1 failed: then the file keeps its bytes and the
+   report says it is still unformatted, because a reformat here would rewrite a
+   body this operation never touched.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
    `rg -l '\[\[<name>\]\]' ~/projects/vault/notes/`, because a reader following
