@@ -38,10 +38,10 @@ worth reading is an answer in itself, reported instead of delegated. Codex
 carries `<multi_agent_mode>`, which suppresses spawning unless a skill
 instruction demands it, so this paragraph is that instruction.
 
-| Agent  | How a reader is spawned                                                                                                              |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Claude | the `Agent` tool with `subagent_type: general-purpose`, both calls in one message so the readers actually run at the same time       |
-| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back for more. Four slots including you, so two fit |
+| Agent  | How a reader is spawned                                                                                                        |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Claude | the `Agent` tool with `subagent_type: general-purpose`, both calls in one message so the readers actually run at the same time |
+| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back for more                                 |
 
 You and every reader work with `web_search_exa`, `web_fetch_exa` and
 `web_search_advanced_exa`. The searching in this skill runs on them and not on
@@ -94,9 +94,8 @@ only confirms what two sources already said is the signal to stop.
 budget to spend: reaching it means something went wrong with the question, and
 you say so in the answer rather than reporting a thin result as a complete one.
 
-Per page, `maxCharacters` defaults to an excerpt. Raise it to what the page
-actually needs, because reading the source in full is the point of delegating
-the reading at all.
+Raise `maxCharacters` per page to what the page actually needs, because reading
+the source in full is the point of delegating the reading at all.
 
 Readers need no internal pacing. A 429 is retried once, and twice is a fact
 about the account, not a slower loop.
