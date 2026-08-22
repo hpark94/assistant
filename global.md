@@ -27,12 +27,10 @@ Nothing leaves the knowledge by being deleted. What no longer belongs there is
 archived, and the note skill owns how.
 
 A deletion moves the file to `~/projects/vault/.trash/` under a name carrying
-the timestamp and never runs `rm`, so what was taken out on one device is still
-there on all four.
+the timestamp and never runs `rm`.
 
 Emptying that bin is the one act that really removes a file. Nothing is removed
-before I have seen its path and the whole of what it holds: the Vault has no
-version control to undo it with.
+before I have seen its path and the whole of what it holds.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
@@ -98,8 +96,8 @@ What sits in the directory besides them, `.obsidian/`, `.obsidian.vimrc`,
 `.prettierrc`, `.marksman.toml`, is Machinery. Changing one is ordinary work: no
 command of its own and no preview. Deleting one goes under Writing to the Vault
 above, because the four are named here and a missing one is a hole nothing
-reports. `.prettierrc` is the exception and takes my command and a preview like
-the write itself, because the format step of every capture runs through it.
+reports. `.prettierrc` is the exception and goes there as well, because the
+format step of every capture runs through it.
 
 Anything else that turns up in the directory is neither Vault nor Machinery, and
 it falls under Writing to the Vault above until I have said what it is.
@@ -117,8 +115,8 @@ misses the note that holds the answer.
 The vault holds only what I captured on command: a session that produced neither
 a note nor a draft left nothing in it.
 
-No `[[note]]` pointer stands in this file or in a skill: a rename in Obsidian
-breaks it silently.
+A `[[link]]` in this file or in a skill never names a note that exists: a rename
+in Obsidian breaks it silently.
 
 ## Operational ownership
 
