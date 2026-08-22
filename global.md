@@ -18,10 +18,12 @@ another project lands in the repo with none of its rules loaded.
   ownership. It writes when I ask for it, by command or by a trigger it names,
   and never on a topic it judged noteworthy itself. That permission is this
   file's; each skill owns the preview, validation, write, format and reporting
-  contract for its operation.
+  contract for its operation. A run of one that writes a Note, a Hub or a Draft
+  is a capture.
 - **Every other write to the Vault**, that is a correction to an existing Note
-  outside a capture, an archiving, a deletion, the Index: only on my command, as
-  its own change. Show the proposed change and wait for my OK before writing it.
+  outside a capture, an archiving, a deletion, `index.md`: only on my command,
+  as its own change. Show the proposed change and wait for my OK before writing
+  it.
 
 What no longer belongs in the knowledge is archived and not deleted, and the
 note skill owns how. Deleting is the rare act on my explicit command and reaches
@@ -124,7 +126,7 @@ in Obsidian breaks it silently.
 The note skill owns every Note and Hub operation and the archiving, the draft
 skill every Draft operation and its lifecycle. A trigger decides only whether a
 skill fires on its own; it never narrows what an explicit command means. A
-deletion and the Index fall to Writing to the Vault above; a correction outside
+deletion and `index.md` fall to Writing to the Vault above; a correction outside
 a capture and an archiving take their command from there and their preview and
 mechanics from the skill.
 
