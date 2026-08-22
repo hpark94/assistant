@@ -9,17 +9,18 @@ description:
 # note
 
 Turn one self contained topic into a note in `~/projects/vault/notes/`. This
-file owns the whole Note and Hub operation and assumes `global.md`, which is
-loaded in every project, and nothing else.
+file owns the whole Note and Hub operation, the archiving included, and assumes
+`global.md`, which is loaded in every project, and nothing else.
 
 Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
 topic to capture.
 
-## Three modes
+## Four modes
 
 On a topic this conversation already settled, capture what it produced. On one
 it did not, find out first, then capture what you found. On a correction I
 command to a note that already exists, correct it: there is nothing to capture.
+On my command to archive a note, take it out of the knowledge.
 
 The second is the ordinary one for a second brain: "what are the Linux commands
 for the size of a directory, and make a note of it". Establish the answer to the
@@ -35,6 +36,9 @@ The third has no scope to find, because the note I name is the scope. Skip step
 That branch also owns the answer where the command names a different hub or file
 name, and its answer is the same whether I commanded the change or you noticed
 it.
+
+The fourth writes no knowledge at all. Its procedure is Archiving at the end of
+this file and not the one below.
 
 ## Checking a claim
 
@@ -84,8 +88,10 @@ six months, and a fresh one must not hide a stale one beside it.
      you do correct, in `title` and in the `# H1` together. If the file name
      then no longer is its slug, or my command named another file name, say in
      one line what it should be called and leave the rename to me. Never offer
-     and never run `mv` on a note: renaming in Obsidian carries the incoming
-     wiki links along, `mv` leaves them pointing nowhere on four devices.
+     and never run `mv` to rename a note: renaming in Obsidian carries the
+     incoming wiki links along, `mv` leaves them pointing nowhere on four
+     devices. Archiving moves a note with `mv` and keeps its name, which is the
+     other act and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it. If none fits, pick a name and let the preview
@@ -93,7 +99,10 @@ six months, and a fresh one must not hide a stale one beside it.
    which is more than a question would. A hub name is expensive, it is a prefix
    of every child's file name, so renaming it later renames files. Say in one
    line that the hub is new, so it is not mistaken for an existing one.
-4. **Name the file.** `<hub-slug>-<short-name>.md`, the title as an ASCII slug:
+4. **Name the file.** An ASCII slug is the text lowercased, every run of
+   characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
+   trailing hyphens dropped; an umlaut keeps its vowel, `ae oe ue ss`. The file
+   is `<hub-slug>-<short-name>.md`, the title as such a slug:
    `disk-management-memory-usage.md` with the title
    `Disk Management: Memory Usage`. The hub carries the context, so keep the
    title itself short and the file name follows:
@@ -233,7 +242,7 @@ verified: 2026-08-13
 
 ## Related
 
-- [[neovim-config-isolation]]
+- [[disk-management-inode-usage]]
 ```
 
 - `title` needs quotes because of the colon. This holds for **every** value: an
@@ -300,3 +309,60 @@ like an answer to "when did this subject last change", which the children's
 `updated` in the hub's own list already gives. Such a correction runs the hub
 check above like any other write, shows the changed passages the way step 5
 prescribes, and never adds the field.
+
+## Archiving
+
+A note that no longer belongs in the knowledge is archived and never deleted.
+`global.md` settles that this happens only on my command; the whole of it is one
+approval unit, one preview and one yes.
+
+1. **Read the note whole**, then put up the path it moves to and the frontmatter
+   lines that change. The body is not touched.
+2. **Change the frontmatter.** `hub` loses its brackets and becomes the hub's
+   slug as a plain string, and `archived` is added with today's date. `type`
+   stays `note` and `tags` stay as they are, because the file records what it
+   was and how it was filed. `updated` does not move: the content did not
+   change, and `archived` carries the day it left.
+3. **Check it** before showing it, on the whole file as it will land:
+
+   ```sh
+   prettier --stdin-filepath ~/projects/vault/archive/<name>.md <<'EOF' \
+     | python3 -c '
+   import sys, yaml, re, datetime
+   t = sys.stdin.read(); sys.stdout.write(t)
+   m = re.match(r"---\n(.*?)\n---\n", t, re.S) or sys.exit("no frontmatter")
+   try: f = yaml.safe_load(m.group(1))
+   except (yaml.YAMLError, ValueError) as e: sys.exit(f"frontmatter: {e}")
+   isinstance(f, dict) or sys.exit("frontmatter: not a mapping")
+   d = lambda k: type(f.get(k)) is datetime.date
+   bad  = [f"missing {k}" for k in ("title","type","hub","summary","created","updated","archived") if k not in f]
+   bad += ["type must be note"] * (f.get("type") != "note")
+   bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
+   bad += ["hub must be the hub slug unlinked, [a-z0-9-]+ and no brackets"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"[a-z0-9-]+", str(f.get("hub"))))
+   bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
+   bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated","archived") if not d(k)]
+   bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
+   sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
+   '
+   <the whole note, frontmatter and body>
+   EOF
+   ```
+
+   A bracketed `hub` would keep raising its hub's inlink count in the index and
+   keep the note in Obsidian's own backlinks panel, which no query scoping
+   reaches.
+
+4. **Move it, then write.** After the OK,
+   `mv ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`, then write
+   the changed frontmatter at the new path. The file name never changes, so no
+   incoming link has to be rewritten.
+5. **Format.** `prettier -w` on the file at its new path.
+6. **Report.** One or two sentences: which note, out of which hub, on which
+   date. Name every note that still links to it,
+   `rg -l '\[\[<name>\]\]' ~/projects/vault/notes/`, because a reader following
+   one lands in the archive without being told the note left the knowledge.
+   Where it was its hub's last child, say so in one line and leave the hub to
+   me.
+
+**Archiving never edits `index.md` and never edits the hub's list.** The move
+alone takes the note out of both, which are queries scoped `FROM "notes"`.
