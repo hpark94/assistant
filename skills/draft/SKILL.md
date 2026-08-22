@@ -122,13 +122,21 @@ Whatever the brainstorm produced.
   knowledge, and a draft was never knowledge.
 - No `tags` and no `hub`.
 
-Below the frontmatter the `# Title` is required, and `## Steps` wherever the
-body takes the checklist form below. Everything else is the sections the
-conversation actually produced, no fixed skeleton, no empty headings. The draft
-is read in a session that was not part of this conversation: what is only in the
-context now is gone with it. If the conversation says what should happen next,
-write it down; a `todo` whose next step is nowhere in the file is an empty
-claim.
+Below the frontmatter the `# Title` is required, `## Steps` wherever the body
+takes the checklist form below, and `## Outcome` on a close. Everything else is
+the sections the conversation actually produced, no fixed skeleton, no empty
+headings. The draft is read in a session that was not part of this conversation:
+what is only in the context now is gone with it. If the conversation says what
+should happen next, write it down; a `todo` whose next step is nowhere in the
+file is an empty claim.
+
+`## Outcome` is written when a draft goes to `done` or to `dropped`, and says
+what carried it out or what overtook it. It is appended and never woven in:
+nothing above it is rewritten, so a closed draft still records its own time. A
+`superseded` draft takes none, because `superseded_by` already names what
+replaced it as a checked link. The closing session writes what it did itself and
+asks one line where it did not do the work, rather than reading it out of a
+`git log`; "nothing points at it" is an Outcome and not an empty section.
 
 ## The checklist body
 
@@ -138,12 +146,14 @@ is still being weighed stays in the prose above them. The skill picks the form
 and there is no flag for it: the preview catches a wrong guess and correcting it
 costs one word, the same way `project` and `status` are already handled.
 
-`## Steps` is the last section of the body and the only place a task line may
-stand, and it holds nothing but task lines and their bullets. Above it the prose
-that carries the why, in whatever shape the conversation produced, the closing
-remark that something needs no change at all included. A task line stranded in a
-weighing looks like a step and is not, and no query counts the boxes, so its
-place in the file is the only thing that tells a step from an option.
+`## Steps` is the last section of the open body and the only place a task line
+may stand, and it holds nothing but task lines and their bullets. Only a close
+may follow it, with the `## Outcome` of the contract above, which holds no task
+lines and does not threaten that. Above it the prose that carries the why, in
+whatever shape the conversation produced, the closing remark that something
+needs no change at all included. A task line stranded in a weighing looks like a
+step and is not, and no query counts the boxes, so its place in the file is the
+only thing that tells a step from an option.
 
 A step is a checkpoint: after it something is demonstrably different, a command
 runs through, a file exists, a check goes green. Steps with nothing to observe
@@ -162,9 +172,12 @@ two labels.
 ```
 
 An extension never takes the form away. New prose goes above `## Steps`, which
-stays the last section, and new steps go at the end of the list, below the
-ticked ones. A draft that was prose gains a `## Steps` where the new session
-decided something, never for its own sake.
+stays the last section of the open body, and new steps go at the end of the
+list, below the ticked ones. A draft that was prose gains a `## Steps` where the
+new session decided something, never for its own sake. A `todo` or a `wip` draft
+may be extended this way, a `done`, `superseded` or `dropped` one takes nothing
+but its `## Outcome`: new thinking filed under a closed status is where `--open`
+never surfaces it again.
 
 ## Writing a draft
 
@@ -185,7 +198,13 @@ decided something, never for its own sake.
    replaces the closed draft or only follows it: the subject is the same,
    otherwise it would be a new draft, so only the counter moves. That is the one
    exception to the duplicate rule, and it keeps the chain together under `ffd`
-   and `rg`. Replacing adds `superseded_by` on top, nothing about the name.
+   and `rg`. Replacing adds `superseded_by` on top, nothing about the name. Then
+   run the `--open` lookup below for the project and read what came back: step 2
+   searches for the subject, so without it a blocker written in an earlier
+   session is never seen. Set `depends_on` where the order is real, under the
+   strictness of the contract and nowhere else, and name in the preview the open
+   drafts you checked even where none of them blocks, because "no dependency"
+   and "never looked" are otherwise the same file.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -258,6 +277,16 @@ decided something, never for its own sake.
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
+   **A file with a `## Steps` section is read cold before the preview.** Hand
+   the whole file as it will land, on a new draft and on a modification alike,
+   to a fresh agent without this session's context, whatever your agent calls
+   that, and ask it one question: which open steps it cannot carry out from this
+   file alone, and what is missing. It answers with a list and never a rewrite.
+   What it found goes up beside the preview and is never folded into the file
+   silently, so that I see the gap and not only your repair. A modification
+   shows me its changed passages and hands the reader the whole file, the same
+   way the frontmatter check already runs on the whole file as it will land.
+
    Nothing is on disk until I say yes; on an extension show only the changed
    passages, while the check above still runs on the whole file as it will land.
    Run `prettier --check` on the target file before you build the extension. If
@@ -291,6 +320,12 @@ decided something, never for its own sake.
    it, another line of body text or the `superseded_by` that a `superseded`
    requires, is a normal change and gets its preview.
 
+   **A close is one approval unit.** `done` and `dropped` carry an `## Outcome`,
+   so a close is never a status change alone and the exception above does not
+   reach it. Its status and its section go up together and take one yes, and
+   nothing lands before that yes, the status included: a `done` written ahead of
+   a refused Outcome is the state this rule exists to prevent.
+
    **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
    tick claims something happened in the world, and the vault has no version
    control that would expose the lie. Something the work overtook becomes a new
@@ -308,6 +343,14 @@ decided something, never for its own sake.
    preview and one yes: the whole successor first, then the predecessor's
    changed lines. Its `status` moves together with `superseded_by`, so it is
    never covered by the no-preview exception above.
+
+   **A supersede repoints what depended on the predecessor.** Read every draft
+   whose `depends_on` names it against the successor, and repoint the link where
+   the successor still carries what the dependent waits for. Where it does not,
+   report the dependency and wait for my word: a link bent to look satisfiable
+   when it is not is worse than a stale one. Each such draft is its own approval
+   unit, and the supersede's covers the successor and the predecessor's two
+   lines and nothing beyond them.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
