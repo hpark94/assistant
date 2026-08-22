@@ -5,6 +5,12 @@ Your role there, and how work gets done there, are the project's to define and
 never this file's: where the two seem to disagree about that, the project wins.
 The Vault is the exception, because it is one and the same from everywhere.
 
+A project's own file is added to this one and never replaces it.
+
+Changes to this file and to the note, draft and deep-search skills happen only
+in `~/repos/assistant`. They are symlinked into place, so an edit made from
+another project lands in the repo with none of its rules loaded.
+
 ## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
@@ -14,10 +20,19 @@ The Vault is the exception, because it is one and the same from everywhere.
   file's; each skill owns the preview, validation, write, format and reporting
   contract for its operation.
 - **Every other write to the Vault**, that is a correction to an existing Note
-  outside a capture, a deletion, the Index: only on my command, as its own
-  change. Show the proposed change and wait for my OK before writing it. Nothing
-  is deleted before I have seen its path and the whole of what it holds: the
-  Vault has no version control to undo it with.
+  outside a capture, an archiving, a deletion, the Index: only on my command, as
+  its own change. Show the proposed change and wait for my OK before writing it.
+
+Nothing leaves the knowledge by being deleted. What no longer belongs there is
+archived, and the note skill owns how.
+
+A deletion moves the file to `~/projects/vault/.trash/` under a name carrying
+the timestamp and never runs `rm`, so what was taken out on one device is still
+there on all four.
+
+Emptying that bin is the one act that really removes a file. Nothing is removed
+before I have seen its path and the whole of what it holds: the Vault has no
+version control to undo it with.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
@@ -25,17 +40,18 @@ skill says.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
-is not carried out yet, the line is `entwurfswuerdig: <topic>` instead, which is
-how a grilling ordinarily ends. Either one is one line, once. No follow-up, no
-second nudge on the same topic. I decide what gets written.
+is not carried out yet, the line is `entwurfswuerdig: <topic>` instead. Either
+one is one line, once. No follow-up, no second nudge on the same topic. I decide
+what gets written.
 
 ## Proving claims
 
 When I ask whether something is possible, whether something behaves a certain
 way, or why something does not work, prove the claim where the thing in question
-is one I have and can run. What a standard or a specification defines is not
-settled by running anything and is carried by its source instead. Do not answer
-from memory.
+is one I have and can run. Do not answer from memory.
+
+What a standard or a specification defines is settled by its source and not by a
+run.
 
 - Build the smallest demonstration that settles it, then give me the result
   **and the command you ran**.
@@ -46,100 +62,76 @@ from memory.
 
 A proof that could write and can be isolated runs in a scratch directory, never
 in my live setup. It opens with `SCRATCH=$(mktemp -d)`, so the commands you hand
-me rebuild their own environment from nothing. Copy configs, redirect paths, use
-minimal fixtures:
+me rebuild their own environment from nothing.
 
-```sh
-SCRATCH=$(mktemp -d)
-printf 'vim.cmd.colorscheme("habamax")\n' > "${SCRATCH}/init.lua"
-nvim --headless --clean -u "${SCRATCH}/init.lua" +'lua print(vim.g.colors_name)' +qa
-XDG_CONFIG_HOME="${SCRATCH}/config" XDG_DATA_HOME="${SCRATCH}/data" some-tool
-```
+A fixture the proof needs is part of the proof: a command that reads a file
+without a line that writes it does not run when you hand it to me.
 
-A fixture the proof needs is part of the proof: a command that reads
-`${SCRATCH}/init.lua` without a line that writes it does not run when you hand
-it to me.
+`~/dots` and `~/.config` are read, never written.
 
-`~/dots` and `~/.config` are read, never written. The proof is still real
-because the tool actually runs, and it stays repeatable because I have the
-command.
+A proof that only reads needs no scratch directory and is a proof all the same.
 
-A proof that only reads needs no scratch directory. A `grep` over a config,
-`git ls-files`, a parse of `config.toml`: there is nothing to isolate and
-nothing that could be written. It is still a proof and still comes with its
-command.
+A proof that only the live setup can answer has no scratch version. Name what
+the command does and wait for my yes before it runs, never after. What comes
+back is recorded rather than repeatable and is given as that.
 
-A proof that only the live setup can answer has no scratch version. A firewall
-chain, a running daemon, an interface: there is nothing to copy, and the run
-changes the machine for as long as it takes. Name what the command does and wait
-for my yes before it runs, never after. What comes back is recorded rather than
-repeatable and is given as that, because a command I must not run again is not a
-proof I can check twice.
-
-Verify the isolation itself before trusting a result. `nvim -u <file>` replaces
-the init file but leaves `~/.config/nvim` on the `runtimepath`, so plugins and
-`after/` from the live setup still load. Only `--clean -u <file>` or a
-redirected `XDG_CONFIG_HOME` actually isolates:
-
-```sh
-nvim --headless --clean -u "${SCRATCH}/init.lua" \
-  +'lua print(vim.o.runtimepath:find(vim.fn.expand("~/.config/nvim"), 1, true))' +qa
-```
+Verify the isolation itself before trusting a result: a redirected config
+directory that leaves the live one on the search path isolates nothing.
 
 ### Who runs it
 
 One or two commands: inline, so I read along. If the proof needs a built
 environment, plugin installs, or several variants, hand it to a fresh subagent
-without this session's context, whatever your agent calls that. It reports back
-the result and the commands instead of fifty tool outputs.
+without this session's context, whatever your agent calls that.
 
 ## The vault
 
 `~/projects/vault`, an Obsidian vault replicated by Syncthing to four devices.
-No version control: what is deleted there is gone on every device.
+No version control: nothing but the bin above stands between a removed file and
+gone.
 
-What sits in the directory besides the Vault, `.obsidian/`, `.obsidian.vimrc`,
-`.prettierrc`, `.marksman.toml`, is Machinery. It configures the tools that read
-and write the knowledge, and changing it is not a write to the Vault: it needs
-no command of its own and no preview, it is ordinary work like any other change
-to a config. Deleting one is not: the four are named here, so a missing one is a
-hole nothing reports, and it goes under Writing to the Vault above.
-`.prettierrc` is the exception: the format step of every capture runs through
-it, so a change there rewrites Notes the next time a skill writes, and it takes
-my command and a preview like the write itself. Anything else that turns up in
-the directory is neither Vault nor Machinery, and it falls under Writing to the
-Vault above until I have said what it is.
+`notes/`, `drafts/` and `archive/` are siblings. The knowledge is `notes/`,
+thinking that is not carried out yet is `drafts/`, and what left the knowledge
+is `archive/`.
+
+What sits in the directory besides them, `.obsidian/`, `.obsidian.vimrc`,
+`.prettierrc`, `.marksman.toml`, is Machinery. Changing one is ordinary work: no
+command of its own and no preview. Deleting one goes under Writing to the Vault
+above, because the four are named here and a missing one is a hole nothing
+reports. `.prettierrc` is the exception and takes my command and a preview like
+the write itself, because the format step of every capture runs through it.
+
+Anything else that turns up in the directory is neither Vault nor Machinery, and
+it falls under Writing to the Vault above until I have said what it is.
 
 **Read, search and write on disk** with the agent's own file tools or plain
-shell commands. The Vault is plain Markdown at a known path and needs no API.
-That is a tool choice and not a permission: what may be written is settled under
-Writing to the Vault above.
-
-**An ASCII slug**, which is what both writing skills build a file name from, is
-the text lowercased, every run of characters outside `[a-z0-9]` collapsed into
-one hyphen, and leading and trailing hyphens dropped. An umlaut keeps its vowel
-rather than losing it, `ae oe ue ss`, which is why the marker above is
-`notizwuerdig` and not `notizwurdig`. Titles are English, so that case is the
-rare one.
+shell commands. That is a tool choice and not a permission: what may be written
+is settled under Writing to the Vault above.
 
 ## Answering from the vault
 
-For any question about my projects or my tools, search `notes/` first and tell
-me what you are relying on. The vault holds only what I captured on command:
-nothing records a session by itself, so a session that produced neither a note
-nor a draft left nothing in the vault.
+For any question and any proof about my projects or my tools, list `notes/`,
+read what fits, and tell me what you are relying on. A guessed search term
+misses the note that holds the answer.
+
+The vault holds only what I captured on command: a session that produced neither
+a note nor a draft left nothing in it.
+
+No `[[note]]` pointer stands in this file or in a skill: a rename in Obsidian
+breaks it silently.
 
 ## Operational ownership
 
-The note skill owns every Note and Hub operation, the draft skill every Draft
-operation and its lifecycle. A trigger decides only whether a skill fires on its
-own; it never narrows what an explicit command means. A Note, a Hub or a Draft
-written on a plain instruction is therefore still written under its skill's
-contract, with the frontmatter check, the format step and the preview rules
-including their exceptions. A deletion and the Index fall to Writing to the
-Vault above; a correction outside a capture takes its command from there and its
-preview and mechanics from the skill. This section routes to them and does not
-repeat their procedures.
+The note skill owns every Note and Hub operation and the archiving, the draft
+skill every Draft operation and its lifecycle. A trigger decides only whether a
+skill fires on its own; it never narrows what an explicit command means. A
+deletion and the Index fall to Writing to the Vault above; a correction outside
+a capture and an archiving take their command from there and their preview and
+mechanics from the skill.
+
+Where this file and a skill disagree: on a permission, a prohibition or a
+boundary this file wins and the skill is wrong. On procedure, mechanics or a
+contract the skill wins and this file is corrected.
 
 ## Images
 
@@ -156,9 +148,9 @@ else, search freely.
 
 Unless an active operation names its own search capability, find with the native
 one. Then read the source itself in full rather than through a summarising
-model. A summary cannot be quoted and cannot be checked, which is what naming a
-source is for. A reader you delegated to is not a summarising model, as long as
-the full text was read there and what comes back carries the verbatim quote.
+model: a summary cannot be quoted and cannot be checked. A reader you delegated
+to is not a summarising model, as long as the full text was read there and what
+comes back carries the verbatim quote.
 
 Prefer a primary source. Where no suitable one is available, a reliable
 secondary source may stand in, and the answer says briefly why it is the best
@@ -179,28 +171,10 @@ behaviour in memory, subject matter in the vault.
 ## Which agent you are
 
 Both Claude and Codex read this file, Claude as `~/.claude/CLAUDE.md`, Codex as
-`~/.codex/AGENTS.md`, both symlinks to `~/repos/assistant/global.md`. A
-project's own file is added to this one and never replaces it, but the two
-agents pick different files, so a repo meant for both carries both. The contract
-is the same for both agents; only these facts differ.
-
-| What              | Claude                                            | Codex                                                        |
-| ----------------- | ------------------------------------------------- | ------------------------------------------------------------ |
-| Project file      | `CLAUDE.md`; an `AGENTS.md` only via `@AGENTS.md` | `AGENTS.md`; a `CLAUDE.md` is ignored                        |
-| Skill directory   | `~/.claude/skills/`                               | `~/.agents/skills/`, plus `.agents/skills` in a repo         |
-| Invoking a skill  | `/note`, `/draft`, `/deep-search`                 | `$note`, `$draft`, `$deep-search`, or pick it from `/skills` |
-| MCP configuration | `~/.claude.json`                                  | `~/.codex/config.toml`                                       |
-| Memory            | `~/.claude/projects/<slug>/memory/`               | Codex's own memories                                         |
-
-Facts about the setup, not commands to run:
-
-- `~/repos/assistant` holds this file and the note, draft and deep-search
-  skills. Its `install.sh` symlinks all of them into place. Nothing else about
-  the setup is versioned: neither `~/.claude` nor `~/.agents/skills`, where the
-  other skills live. The skill directories in the table are mine; each agent's
-  own built-ins sit apart again, Codex's in `~/.codex/skills/.system/`.
-- Neither Agent configures the Vault as an MCP server. Both work with its
-  Markdown files directly.
+`~/.codex/AGENTS.md`, both symlinks to `~/repos/assistant/global.md`. Claude
+reads a project's `CLAUDE.md` and an `AGENTS.md` only via `@AGENTS.md`, Codex
+reads `AGENTS.md` and ignores a `CLAUDE.md`, so a repo meant for both carries
+both. The contract is the same for both.
 
 ## Writing style
 
