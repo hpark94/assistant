@@ -53,8 +53,8 @@ Before the round, grep every term you defined and every prohibition you
 tightened across all five files, and read each hit against the new wording. The
 questions below compare files and never two sentences of one file.
 
-One instruction file touched means no review round. Two or more means one
-review, with these five questions and no others:
+One instruction file touched means no review round. Two or more means one review
+round, with these five questions and no others:
 
 1. Does every added normative sentence pass the load time test?
 2. Does a justification restate a rule that stands elsewhere?

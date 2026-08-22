@@ -84,10 +84,10 @@ Whatever the brainstorm produced.
 - `type` is `draft`. It stays even though the folder already says so: if the
   file ever moves to `notes/`, this is where you see what it was.
 - `project` is the directory name. It comes from the argument where my
-  invocation named one, otherwise from the working directory, which is the rule
-  `--open` uses too. Where the working directory is not a project of mine, it
-  comes from the conversation and the preview says so. It is never asked for: it
-  stands in the preview and in the file name, so correcting it costs one word.
+  invocation named one, otherwise from the working directory. Where the working
+  directory is not a project of mine, it comes from the conversation and the
+  preview says so. It is never asked for: it stands in the preview and in the
+  file name, so correcting it costs one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.

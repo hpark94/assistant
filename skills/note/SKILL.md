@@ -262,7 +262,7 @@ verified: 2026-08-13
   second line, which is valid YAML but noise in the preview.
 - `verified` appears only on notes with a claim that can go stale, and carries
   the oldest check as defined above. A feasibility claim goes stale when a tool
-  updates, and `updated` only says when the file was last touched. `## Verified`
+  updates, and `updated` only says when the note last changed. `## Verified`
   appears only where a Proof ran; the field stands without the section where a
   source was read instead.
 - A web source belongs in the body with its URL, never in the frontmatter.
@@ -317,15 +317,15 @@ Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
 `global.md` settles that it happens only on my command; the whole of it is one
 approval unit, one preview and one yes.
 
-1. **Read the note whole** and run `prettier --check` on it, then put up the
-   path it moves to and the frontmatter lines that change. The body is not
+1. **Read the note whole** and run `prettier --check` on it. The body is not
    touched.
 2. **Change the frontmatter.** `hub` loses its brackets and becomes the hub's
    slug as a plain string, and `archived` is added with today's date. `type`
    stays `note` and `tags` stay as they are, because the file records what it
    was and how it was filed. `updated` does not move: the content did not
    change, and `archived` carries the day it left.
-3. **Check it** before showing it, on the whole file as it will land:
+3. **Check it** on the whole file as it will land, then put up the path it moves
+   to and the frontmatter lines that change:
 
    ```sh
    prettier --stdin-filepath ~/projects/vault/archive/<name>.md <<'EOF' \
@@ -364,10 +364,10 @@ approval unit, one preview and one yes.
    body this operation never touched.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
-   `rg -l '\[\[<name>\]\]' ~/projects/vault/notes/`, because a reader following
-   one lands in the archive without being told the note left the knowledge.
-   Where it was its hub's last child, say so in one line and leave the hub to
-   me.
+   `rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault/notes/`, because a reader
+   following one lands in the archive without being told the note left the
+   knowledge. Where it was its hub's last child, say so in one line and leave
+   the hub to me.
 
 **Archiving never edits `index.md` and never edits the hub's list.** The move
 alone takes the note out of both, which are queries scoped `FROM "notes"`.
