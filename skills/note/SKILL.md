@@ -359,7 +359,7 @@ approval unit, one preview and one yes.
    the changed frontmatter at the new path. The file name never changes, so no
    incoming link has to be rewritten.
 5. **Format.** `prettier -w` on the file at its new path, unless the
-   `prettier --check` of step 1 failed: then the file keeps its bytes and the
+   `prettier --check` of step 1 failed: then the file is not reformatted and the
    report says it is still unformatted, because a reformat here would rewrite a
    body this operation never touched.
 6. **Report.** One or two sentences: which note, out of which hub, on which
