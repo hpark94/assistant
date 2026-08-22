@@ -284,10 +284,9 @@ supersede.
    never touched, so put that formatting change up as a second passage of its
    own and let me approve it separately. A reformat never rides along unseen on
    a content change. Refused, the file keeps its old bytes and takes the
-   approved passage as shown. That is the one place where what lands is not byte
-   for byte what the check ran on; its verdict still holds, because prettier
-   folds lines and never changes a value, so the frontmatter it reads is the
-   same either way.
+   approved passage as shown. There what lands is not byte for byte what the
+   check ran on; its verdict still holds, because prettier folds lines and never
+   changes a value, so the frontmatter it reads is the same either way.
 
    **A new draft and a modification are read cold before their preview**,
    wherever the change has a preview and the file as it will land carries a
