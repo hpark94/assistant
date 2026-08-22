@@ -51,10 +51,13 @@ nothing else, which is what keeps the lookup below correct: it anchors the name
 in a regular expression and passes the paths through `xargs`, so a dot in the
 name would match a second project and a space would split one path into two.
 
-`<topic>` is a short ASCII slug of the subject and, unlike a note's file name,
-not the slug of the title: a `-v2` successor keeps the title of the draft it
-replaces, so the two cannot be tied together. Keep it short enough to type in
-`ffd` and close enough to the title to be recognised there.
+`<topic>` is a short ASCII slug of the subject: the text lowercased, every run
+of characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
+trailing hyphens dropped, with an umlaut keeping its vowel, `ae oe ue ss`.
+Unlike a note's file name it is not the slug of the title: a `-v2` successor
+keeps the title of the draft it replaces, so the two cannot be tied together.
+Keep it short enough to type in `ffd` and close enough to the title to be
+recognised there.
 
 ## Draft contract
 
@@ -112,10 +115,11 @@ Whatever the brainstorm produced.
   would ever notice. It exists only where the order is real: the later draft's
   decision cannot be made until the earlier one is. A session that produces
   several drafts records the order here.
-- A `dropped` draft is **not** deleted on its own, and deleting one is a command
-  under Writing to the Vault. The vault has no version control, so a deleted
-  file is gone on every device, and "we considered this and rejected it" is
-  exactly what cannot be reconstructed later.
+- A `dropped` draft is **not** deleted on its own, because "we considered this
+  and rejected it" is exactly what cannot be reconstructed later. Deleting one
+  is a command under Writing to the Vault, which sends it to the vault's bin and
+  never to `rm`. It is not archived either: `archive/` holds what left the
+  knowledge, and a draft was never knowledge.
 - No `tags` and no `hub`.
 
 Below the frontmatter the `# Title` is required, and `## Steps` wherever the
