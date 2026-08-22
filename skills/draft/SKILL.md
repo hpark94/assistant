@@ -131,12 +131,12 @@ should happen next, write it down; a `todo` whose next step is nowhere in the
 file is an empty claim.
 
 `## Outcome` is written when a draft goes to `done` or to `dropped`, and says
-what carried it out or what overtook it. It is appended and never woven in:
-nothing above it is rewritten, so a closed draft still records its own time. A
-`superseded` draft takes none, because `superseded_by` already names what
-replaced it as a checked link. The closing session writes what it did itself and
-asks one line where it did not do the work, rather than reading it out of a
-`git log`; "nothing points at it" is an Outcome and not an empty section.
+what carried it out or what overtook it. It is appended and never woven in, so a
+closed draft still records its own time. A `superseded` draft takes none,
+because `superseded_by` already names what replaced it as a checked link. The
+closing session writes what it did itself and asks one line where it did not do
+the work, rather than reading it out of a `git log`. "Nothing points at it" is
+an Outcome and not an empty section.
 
 ## The checklist body
 
@@ -147,13 +147,13 @@ and there is no flag for it: the preview catches a wrong guess and correcting it
 costs one word, the same way `project` and `status` are already handled.
 
 `## Steps` is the last section of the open body and the only place a task line
-may stand, and it holds nothing but task lines and their bullets. Only a close
-may follow it, with the `## Outcome` of the contract above, which holds no task
-lines and does not threaten that. Above it the prose that carries the why, in
-whatever shape the conversation produced, the closing remark that something
-needs no change at all included. A task line stranded in a weighing looks like a
-step and is not, and no query counts the boxes, so its place in the file is the
-only thing that tells a step from an option.
+may stand, and it holds nothing but task lines and their bullets. Only the
+`## Outcome` of a close may follow it, and it holds no task lines. Above it the
+prose that carries the why, in whatever shape the conversation produced, the
+closing remark that something needs no change at all included. A task line
+stranded in a weighing looks like a step and is not, and no query counts the
+boxes, so its place in the file is the only thing that tells a step from an
+option.
 
 A step is a checkpoint: after it something is demonstrably different, a command
 runs through, a file exists, a check goes green. Steps with nothing to observe
@@ -175,9 +175,9 @@ An extension never takes the form away. New prose goes above `## Steps`, which
 stays the last section of the open body, and new steps go at the end of the
 list, below the ticked ones. A draft that was prose gains a `## Steps` where the
 new session decided something, never for its own sake. A `todo` or a `wip` draft
-may be extended this way, a `done`, `superseded` or `dropped` one takes nothing
-but its `## Outcome`: new thinking filed under a closed status is where `--open`
-never surfaces it again.
+may be modified this way. A `done` or a `dropped` one takes nothing but its
+`## Outcome`, and a `superseded` one nothing beyond the frontmatter of its
+supersede.
 
 ## Writing a draft
 
@@ -199,12 +199,12 @@ never surfaces it again.
    otherwise it would be a new draft, so only the counter moves. That is the one
    exception to the duplicate rule, and it keeps the chain together under `ffd`
    and `rg`. Replacing adds `superseded_by` on top, nothing about the name. Then
-   run the `--open` lookup below for the project and read what came back: step 2
-   searches for the subject, so without it a blocker written in an earlier
-   session is never seen. Set `depends_on` where the order is real, under the
-   strictness of the contract and nowhere else, and name in the preview the open
-   drafts you checked even where none of them blocks, because "no dependency"
-   and "never looked" are otherwise the same file.
+   run the `--open` lookup below for the project and read what came back: the
+   search above is for the subject, so without this one a blocker written in an
+   earlier session is never seen. Set `depends_on` where the order is real,
+   under the strictness of the contract and nowhere else, and name in the
+   preview the open drafts you checked even where none of them blocks, because
+   "no dependency" and "never looked" are otherwise the same file.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -277,16 +277,6 @@ never surfaces it again.
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
-   **A file with a `## Steps` section is read cold before the preview.** Hand
-   the whole file as it will land, on a new draft and on a modification alike,
-   to a fresh agent without this session's context, whatever your agent calls
-   that, and ask it one question: which open steps it cannot carry out from this
-   file alone, and what is missing. It answers with a list and never a rewrite.
-   What it found goes up beside the preview and is never folded into the file
-   silently, so that I see the gap and not only your repair. A modification
-   shows me its changed passages and hands the reader the whole file, the same
-   way the frontmatter check already runs on the whole file as it will land.
-
    Nothing is on disk until I say yes; on an extension show only the changed
    passages, while the check above still runs on the whole file as it will land.
    Run `prettier --check` on the target file before you build the extension. If
@@ -299,6 +289,14 @@ never surfaces it again.
    folds lines and never changes a value, so the frontmatter it reads is the
    same either way.
 
+   **A new draft and a modification are read cold before their preview**,
+   wherever the file as it will land carries a `## Steps` section. Hand that
+   whole file to a fresh agent without this session's context, whatever your
+   agent calls that, and ask it one question: which open steps it cannot carry
+   out from this file alone, and what is missing. It answers with a list and
+   never a rewrite. What it found goes up beside the preview and is never folded
+   into the file silently, so that I see the gap and not only your repair.
+
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
    offer the change once, in a single line, and never bring it up a second time.
@@ -307,7 +305,7 @@ never surfaces it again.
    second hand, not the first.
 
    **A change to `status` or a tick alone needs no preview.** My command already
-   names the whole change, "set the draft to done", "tick step three", so there
+   names the whole change, "set the draft to wip", "tick step three", so there
    is nothing left for me to see and asking again only costs me a second yes.
    Run the frontmatter check, write, and report the new status or the step you
    ticked. `prettier --check` on the file still comes first, because the
@@ -423,5 +421,5 @@ Run this in the project you are working in, or name the project as an argument:
    `dropped` or missing one is a decision of mine before anything else.
 6. **Never set `done` on your own.** Whether something is finished is my call,
    and a status change is a vault write like any other: only on command. On my
-   command it is written straight away, under the no-preview exception in step
-   3, with the frontmatter check but without a preview.
+   command it goes up as the close it is, its `## Outcome` beside the status in
+   one preview and one yes.
