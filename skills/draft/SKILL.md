@@ -290,12 +290,13 @@ supersede.
    same either way.
 
    **A new draft and a modification are read cold before their preview**,
-   wherever the file as it will land carries a `## Steps` section. Hand that
-   whole file to a fresh agent without this session's context, whatever your
-   agent calls that, and ask it one question: which open steps it cannot carry
-   out from this file alone, and what is missing. It answers with a list and
-   never a rewrite. What it found goes up beside the preview and is never folded
-   into the file silently, so that I see the gap and not only your repair.
+   wherever the change has a preview and the file as it will land carries a
+   `## Steps` section under a `todo` or `wip` status. Hand that whole file to a
+   fresh agent without this session's context, whatever your agent calls that,
+   and ask it one question: which open steps it cannot carry out from this file
+   alone, and what is missing. It answers with a list and never a rewrite. What
+   it found goes up beside the preview and is never folded into the file
+   silently, so that I see the gap and not only your repair.
 
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
