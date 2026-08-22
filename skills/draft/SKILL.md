@@ -318,9 +318,9 @@ supersede.
    it, another line of body text or the `superseded_by` that a `superseded`
    requires, is a normal change and gets its preview.
 
-   **A close is one approval unit.** `done` and `dropped` carry an `## Outcome`,
-   so a close is never a status change alone and the exception above does not
-   reach it. Its status and its section go up together and take one yes, and
+   **A close is one approval unit.** A close carries the `## Outcome` of the
+   contract, so it is never a status change alone and the exception above does
+   not reach it. Its status and its section go up together and take one yes, and
    nothing lands before that yes, the status included: a `done` written ahead of
    a refused Outcome is the state this rule exists to prevent.
 
