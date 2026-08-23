@@ -19,29 +19,27 @@ another project lands in the repo with none of its rules loaded.
   and never on a topic it judged noteworthy itself. That permission is this
   file's; each skill owns the preview, validation, write, format and reporting
   contract for its operation.
-- **Every other write to the Vault**, that is a correction I command to an
-  existing Note or Hub, an archiving, a deletion, emptying the bin, `index.md`:
-  only on my command, as its own change. Show the proposed change and wait for
-  my OK before writing it.
+- **Every other write to the Vault**, among them a correction I command to an
+  existing Note or Hub, an archiving, a deletion, `index.md`: only on my
+  command, as its own change. Show the proposed change and wait for my OK before
+  writing it.
 
 What no longer belongs in the knowledge is archived rather than deleted, and the
 note skill owns how. Deleting is the rare act on my explicit command and reaches
 any file I name, a Note included.
 
-A file in `archive/` takes no correction: it records what it was on the day it
-left.
+A file in `archive/` or in `.trash/` is read and never changed, moved or
+removed, and no command lifts this. Bringing one back or emptying the bin is
+mine to do by hand.
 
 A deletion moves the file to `~/projects/vault/.trash/` under its own name with
 the timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never runs
 `rm`.
 
-Emptying that bin is the one act that really removes a file. Nothing is removed
-before I have seen its path and the whole of what it holds.
-
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
-skill says; for a deletion, for emptying the bin and for `index.md`, which have
-no skill, the unit is the single file.
+skill says; for a deletion and for `index.md`, which have no skill, the unit is
+the single file.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
@@ -100,12 +98,12 @@ thinking that is not carried out yet is `drafts/`, and what left the knowledge
 is `archive/`. `.trash/` is their sibling and holds what a deletion moved out,
 under the rules above.
 
-What sits in the directory besides them, `.obsidian/`, `.obsidian.vimrc`,
-`.prettierrc`, `.marksman.toml`, is Machinery. Changing one is ordinary work: no
-command of its own and no preview. Deleting one goes under Writing to the Vault
-above, because the four are named here and a missing one is a hole nothing
-reports. Changing `.prettierrc` is the exception and goes there as well, because
-the format step of every capture runs through it.
+Besides them and `index.md`, what sits in the directory, `.obsidian/`,
+`.obsidian.vimrc`, `.prettierrc`, `.marksman.toml`, is Machinery. Changing one
+is ordinary work: no command of its own and no preview. Deleting one goes under
+Writing to the Vault above, because the four are named here and a missing one is
+a hole nothing reports. Changing `.prettierrc` is the exception and goes there
+as well, because the format step of every capture runs through it.
 
 Anything else that turns up in the directory is neither Vault nor Machinery, and
 it falls under Writing to the Vault above until I have said what it is.
@@ -128,9 +126,9 @@ a note nor a draft left nothing in it.
 The note skill owns every Note and Hub operation and the archiving, the draft
 skill every Draft operation and its lifecycle. A trigger decides only whether a
 skill fires on its own; it never narrows what an explicit command means. A
-deletion, emptying the bin and `index.md` fall to Writing to the Vault above; a
-commanded correction and an archiving take their command from there and their
-preview and mechanics from the skill.
+deletion and `index.md` fall to Writing to the Vault above; a commanded
+correction and an archiving take their command from there and their preview and
+mechanics from the skill.
 
 Where this file and a skill disagree: on a permission, a prohibition or a
 boundary this file wins and the skill is wrong. On procedure, mechanics or a

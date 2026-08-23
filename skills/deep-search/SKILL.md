@@ -109,11 +109,9 @@ than of the page.
 
 ## Contradiction
 
-Sources that disagree are not averaged and not silently decided. First try to
-settle the disagreement with the smallest executable proof, and hand me the
-result with the command, which is what `global.md` demands of a claim anyway.
-Only where no proof is possible, lay out both positions with their source and
-their date, and say which one you would act on and why.
+Sources that disagree are not averaged and not silently decided. Lay out both
+positions with their source and their date, and say which one you would act on
+and why.
 
 ## The answer
 

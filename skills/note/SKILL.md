@@ -35,7 +35,8 @@ The third has no scope to find, because the note I name is the scope. Skip step
 1, enter at step 2's hit branch, and the rest of the procedure stands as it is.
 That branch also owns the answer where the command names a different hub or file
 name, and its answer is the same whether I commanded the change or you noticed
-it. A hub takes the Hub contract below instead of that branch.
+it. A hub takes the Hub contract below and enters at step 5, with nothing before
+it.
 
 The fourth writes no knowledge at all. Its procedure is Archiving at the end of
 this file and not the one below.
@@ -78,10 +79,10 @@ six months, and a fresh one must not hide a stale one beside it.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
    before deciding. Grep `~/projects/vault/archive/` for the same terms: a hit
-   there is not a hit, so say in one line that the topic was archived and leave
-   to me whether it comes back or a new note is written. More than one that
-   fits: put them up with their `summary` and wait, because picking one silently
-   is how a vault grows two notes on one topic.
+   there is not a hit, so say in one line that the topic was archived and go on
+   with the new note. More than one that fits: put them up with their `summary`
+   and wait, because picking one silently is how a vault grows two notes on one
+   topic.
    - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
      Never delete existing content silently, and say afterwards what changed.
      Its hub is the one thing you never correct: if the note belongs under a
@@ -264,7 +265,7 @@ verified: 2026-08-13
   second line, which is valid YAML but noise in the preview.
 - `verified` appears only on notes with a claim that can go stale, and carries
   the oldest check as defined above. A feasibility claim goes stale when a tool
-  updates, and `updated` only says when the note last changed. `## Verified`
+  updates, and `updated` only says when its content last changed. `## Verified`
   appears only where a Proof ran; the field stands without the section where a
   source was read instead.
 - A web source belongs in the body with its URL, never in the frontmatter.
@@ -358,14 +359,14 @@ approval unit, one preview and one yes.
    keep the note in Obsidian's own backlinks panel, which no query scoping
    reaches.
 
-4. **Move it, then write.** After the OK,
-   `mv ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`, then write
-   the changed frontmatter at the new path. The file name never changes, so no
-   incoming link has to be rewritten.
-5. **Format.** `prettier -w` on the file at its new path, unless the
+4. **Write.** After the OK, write the changed frontmatter at the note's own path
+   in `notes/`.
+5. **Format, then move.** `prettier -w` at that path, unless the
    `prettier --check` of step 1 failed: then the file is not reformatted and the
    report says it is still unformatted, because a reformat here would rewrite a
-   body this operation never touched.
+   body this operation never touched. Then
+   `mv ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`. The file
+   name never changes, so no incoming link has to be rewritten.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
    `rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault/notes/`, because a reader

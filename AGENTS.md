@@ -49,12 +49,11 @@ that were rejected, which is the half `git log` does not.
 
 ## Review
 
-Before the round, and on a patch that owes none, grep every term you defined and
-every prohibition you tightened across all five files, and read each hit against
-the new wording. The questions below compare files and never two sentences of
-one file.
+Before the round, grep every term you defined and every prohibition you
+tightened across all five files, and read each hit against the new wording. The
+questions below compare files and never two sentences of one file.
 
-One instruction file touched means no review round. Two or more means one review
+One instruction file touched means no review round. Two or more means a review
 round, with these five questions and no others:
 
 1. Does every added normative sentence pass the load time test?
