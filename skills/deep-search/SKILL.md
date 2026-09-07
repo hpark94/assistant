@@ -38,10 +38,10 @@ worth reading is an answer in itself, reported instead of delegated. Codex
 carries `<multi_agent_mode>`, which suppresses spawning unless a skill
 instruction demands it, so this paragraph is that instruction.
 
-| Agent  | How a reader is spawned                                                                                                        |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Claude | the `Agent` tool with `subagent_type: general-purpose`, both calls in one message so the readers actually run at the same time |
-| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back for more                                 |
+| Agent  | How a reader is spawned                                                                                                                                                 |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude | the `Agent` tool with `subagent_type: general-purpose`, both calls in one message so the readers actually run at the same time, and `SendMessage` to send a reader back |
+| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back for more                                                                          |
 
 You and every reader work with `web_search_exa`, `web_fetch_exa` and
 `web_search_advanced_exa`. The searching in this skill runs on them and not on
@@ -120,5 +120,5 @@ for and did not find; an absent source is a result and reads nothing like an
 unasked question.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
-`global.md` allows. Whether it becomes a note is mine to decide and `/note` is
-mine to invoke: this skill writes nothing to the vault.
+`global.md` allows. Whether it becomes a note is mine to decide and `/note` or
+`$note` is mine to invoke: this skill writes nothing to the vault.

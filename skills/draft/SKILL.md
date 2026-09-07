@@ -15,6 +15,9 @@ unfinished. It lives in `~/projects/vault/drafts/`, it is not knowledge, and it
 is not a note. This file owns the whole Draft operation and its lifecycle, and
 assumes `global.md`, which is loaded in every project, and nothing else.
 
+Claude invokes this as `/draft`, Codex as `$draft`. The mode table below writes
+the Claude form; both take the same arguments.
+
 **This skill never grills.** Sharpening the thinking is a separate interview on
 its own trigger, and it ends by offering the `entwurfswuerdig` line that brings
 me here. By the time `/draft` runs, the thinking is as sharp as it is going to
@@ -411,8 +414,8 @@ Run this in the project you are working in, or name the project as an argument:
    `status` and wait, saying of a blocked one that it is blocked instead of
    offering it as an equal choice. Exactly one: name it, say the same about it
    where it applies, and go on.
-3. **Read it whole**, on disk with Read. It is a draft, not an order: it may
-   contain options that were never decided and thinking that the code has since
+3. **Read it whole**, from disk. It is a draft, not an order: it may contain
+   options that were never decided and thinking that the code has since
    overtaken.
 4. **Say what you understood.** Three sentences on the draft itself: what it
    wants, what of it is already in the code, and where it contradicts what you
