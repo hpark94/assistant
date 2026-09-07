@@ -15,6 +15,12 @@ else.
 Claude invokes this as `/pdf-read`, Codex as `$pdf-read`. The argument names the
 file, and optionally a page range. Nothing here ever writes to the vault.
 
+The file may arrive as a `file://` URI instead of a path, which is what a
+clipboard copy hands over. Strip the scheme and percent-decode it before
+anything touches the path: poppler drops the scheme by itself but never decodes,
+so a plain name works and the first one with a space or an umlaut fails as
+`No such file`.
+
 ## What it does and what it does not
 
 It opens a document up. It does not answer questions about it. The map is what
