@@ -31,9 +31,20 @@ then the summary.
 Where it exists and is newer than the PDF, read it and leave the PDF alone. That
 reuse is the reason it is a file at all.
 
-One line per page. Consecutive pages with the same content collapse into one
-line with a range, `12-16`, which is what a deck built out of click steps needs.
-Every line carries the figure mark from below.
+One line per page, `<pages> | <what is on them>`, with ` | fig` appended where
+the mark from below applies and nothing in its place where it does not. Pages
+come first because a later question greps the map and takes the number straight
+out of the hit. The content is a few words, the page's own heading where it has
+one, and never a sentence.
+
+Consecutive pages with the same content collapse into one line with a range,
+which is what a deck built out of click steps needs:
+
+```text
+205 | Exercise 5.23b, cheese cube | fig
+206-208 | Hamiltonian paths, proofs only
+209 | Bipartite graphs, definition and example | fig
+```
 
 ## Route
 
