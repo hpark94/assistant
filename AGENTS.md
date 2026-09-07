@@ -1,9 +1,9 @@
 # assistant
 
 This repo holds `global.md`, the instruction file both agents load in every
-project, the note, draft and deep-search skills under `skills/`, and the
-decisions in `docs/adr/`. How to work with the Vault is in `global.md` and in
-the skills; this file is only about changing them.
+project, the note, draft, deep-search and pdf-read skills under `skills/`, and
+the decisions in `docs/adr/`. How to work with the Vault is in `global.md` and
+in the skills; this file is only about changing them.
 
 ## Where a rule lives
 

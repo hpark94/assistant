@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Symlink global.md and the note, draft and deep-search skills into place, for
-# Claude and Codex. Idempotent. Links are relative to what the home and this
-# repo have in common, so a renamed user survives, and a moved home survives
-# while the repo moves with it. A link that points somewhere else is replaced and
-# said so, because a silent one would take a deliberate override with it.
+# Symlink global.md and the note, draft, deep-search and pdf-read skills into
+# place, for Claude and Codex. Idempotent. Links are relative to what the home
+# and this repo have in common, so a renamed user survives, and a moved home
+# survives while the repo moves with it. A link that points somewhere else is
+# replaced and said so, because a silent one would take a deliberate override
+# with it.
 # Missing tools are reported, never installed.
 set -euo pipefail
 
@@ -48,12 +49,13 @@ link() {
 printf 'Links:\n'
 link "${repo}/global.md" "${HOME}/.claude/CLAUDE.md"
 link "${repo}/global.md" "${HOME}/.codex/AGENTS.md"
-for skill in note draft deep-search; do
+for skill in note draft deep-search pdf-read; do
   link "${repo}/skills/${skill}" "${HOME}/.claude/skills/${skill}"
   link "${repo}/skills/${skill}" "${HOME}/.agents/skills/${skill}"
 done
 
-# The skills call prettier, python3 and rg in their preview and lookup steps. A
+# The skills call prettier, python3, rg, pdfinfo, pdftotext and mutool in their
+# preview, lookup and reading steps. A
 # missing one fails in the middle of a capture with an error that does not say
 # why, so name it here instead. No skill calls ffd; the naming rules exist for
 # it, so a missing one only makes the notes harder to find. Installing them is
@@ -64,7 +66,7 @@ done
 # network, but the check would have to name the server, and ADR 0009 keeps the
 # vendor out of everything but the skill that calls it.
 printf '\nTools:\n'
-for tool in prettier python3 rg ffd; do
+for tool in prettier python3 rg ffd pdfinfo pdftotext mutool; do
   if command -v "${tool}" >/dev/null 2>&1; then
     printf '  %-6s %s\n' ok "${tool}"
   else

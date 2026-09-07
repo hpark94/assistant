@@ -7,9 +7,9 @@ The Vault is the exception, because it is one and the same from everywhere.
 
 A project's own file is added to this one and never replaces it.
 
-Changes to this file and to the note, draft and deep-search skills happen only
-in `~/repos/assistant`. They are symlinked into place, so an edit made from
-another project lands in the repo with none of its rules loaded.
+Changes to this file and to the note, draft, deep-search and pdf-read skills
+happen only in `~/repos/assistant`. They are symlinked into place, so an edit
+made from another project lands in the repo with none of its rules loaded.
 
 ## Writing to the Vault
 
