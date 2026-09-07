@@ -15,22 +15,30 @@ made from another project lands in the repo with none of its rules loaded.
 
 - **Answering and looking things up**: just do it.
 - **Notes, Hubs and Drafts**: use the responsible skill under Operational
-  ownership. It writes when I ask for it, by command or by a trigger it names,
-  and never on a topic it judged noteworthy itself. That permission is this
-  file's; each skill owns the preview, validation, write, format and reporting
-  contract for its operation.
+  ownership. It writes when I ask for it and never on a topic it judged
+  noteworthy itself. That permission is this file's; each skill owns the
+  preview, validation, write, format and reporting contract for its operation.
 - **Every other write to the Vault**, among them a correction I command to an
   existing Note or Hub, an archiving, a deletion, `index.md`: only on my
   command, as its own change. Show the proposed change and wait for my OK before
   writing it.
 
-What no longer belongs in the knowledge is archived rather than deleted, and the
-note skill owns how. Deleting is the rare act on my explicit command and reaches
-any file I name, a Note included.
+A note that no longer belongs in the knowledge is archived rather than deleted,
+and the note skill owns how. Deleting is the rare act on my explicit command and
+reaches any file I name, a Note included.
 
 A file in `archive/` or in `.trash/` is read and never changed, moved or
 removed, and no command lifts this. Bringing one back or emptying the bin is
 mine to do by hand.
+
+Renaming a file in the vault is mine to do in Obsidian, and no command makes the
+agent run `mv` for one: Obsidian carries the incoming wiki links along, `mv`
+leaves them pointing nowhere on four devices. What a file should be called
+instead is said in one line.
+
+A ticked `- [x]` step is never rewritten or deleted, and no command lifts this:
+a tick claims something happened in the world. Setting one straight is mine to
+do in Obsidian.
 
 A deletion moves the file to `~/projects/vault/.trash/` under its own name with
 the timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never runs
@@ -70,7 +78,7 @@ me rebuild their own environment from nothing.
 A fixture the proof needs is part of the proof: a command that reads a file
 without a line that writes it does not run when you hand it to me.
 
-`~/dots` and `~/.config` are read, never written.
+A proof reads `~/dots` and `~/.config` and never writes them.
 
 A proof that only reads needs no scratch directory and is a proof all the same.
 
@@ -169,8 +177,8 @@ footnotes, no collected list at the end.
 ## Memory vs. vault
 
 What changes how you work goes into your own memory, wherever the agent you are
-keeps it. What I want to look up later goes into the vault. Rule of thumb:
-behaviour in memory, subject matter in the vault.
+keeps it and whichever trigger fired. What I want to look up later goes into the
+vault. Rule of thumb: behaviour in memory, subject matter in the vault.
 
 ## Which agent you are
 

@@ -3,9 +3,9 @@ name: draft
 description:
   "Write down a brainstorm about a project as a draft in the Obsidian vault at
   ~/projects/vault/drafts/, and pick up the open drafts of the project you are
-  working in with --open. Triggers, and nothing else: the command /draft or
-  $draft. Never invoke this because the conversation mentions a draft, an
-  outline, a sketch or a brainstorm."
+  working in with --open. Triggers: the command /draft or $draft. Never invoke
+  this because the conversation mentions a draft, an outline, a sketch or a
+  brainstorm."
 ---
 
 # draft
@@ -88,9 +88,10 @@ Whatever the brainstorm produced.
   file ever moves to `notes/`, this is where you see what it was.
 - `project` is the directory name. It comes from the argument where my
   invocation named one, otherwise from the working directory. Where the working
-  directory is not a project of mine, it comes from the conversation and the
-  preview says so. It is never asked for: it stands in the preview and in the
-  file name, so correcting it costs one word.
+  directory is not a project of mine, it comes from the conversation, from the
+  project the subject belongs to where several stand in it, and the preview says
+  so. It is never asked for: it stands in the preview and in the file name, so
+  correcting it costs one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -190,7 +191,8 @@ supersede.
    must be carried out before another.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
-   second one. A `done`, `superseded` or `dropped` draft is not a hit: extending
+   second one; more than one that fits goes up with its `summary` and `status`
+   and waits. A `done`, `superseded` or `dropped` draft is not a hit: extending
    it files new thinking under a closed status where `--open` never surfaces it
    again, so write a new draft and name the closed one in the preview. If the
    new thinking contradicts what that draft decided, say so and offer to replace
@@ -327,17 +329,15 @@ supersede.
    nothing lands before that yes, the status included: a `done` written ahead of
    a refused Outcome is the state this rule exists to prevent.
 
-   **A `- [x]` line is untouchable.** Never rewrite or delete a ticked step: a
-   tick claims something happened in the world, and the vault has no version
-   control that would expose the lie. Something the work overtook becomes a new
-   step that takes it back, a real contradiction goes through the supersede
-   rule. No command lifts this: an `x` set in error comes out in Obsidian, where
-   it costs a click, and the `prettier -w` of step 5 is no exception to it
-   because rewrapping a line is not rewriting a step. An open box carries no
-   such protection: it is body text like any other and changes under the rules
-   above. It also survives a `done`, because a finished draft with empty boxes
-   records what was deliberately not done, which is why `dropped` exists instead
-   of deletion. Do not ask about them on the status change.
+   **A `- [x]` line is untouchable**, under the rule `global.md` carries.
+   Something the work overtook becomes a new step that takes it back, a real
+   contradiction goes through the supersede rule. The `prettier -w` of step 5 is
+   no exception to it, because rewrapping a line is not rewriting a step. An
+   open box carries no such protection: it is body text like any other and
+   changes under the rules above. It also survives a `done`, because a finished
+   draft with empty boxes records what was deliberately not done, which is why
+   `dropped` exists instead of deletion. Do not ask about them on the status
+   change.
 
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one

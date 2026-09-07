@@ -2,9 +2,9 @@
 name: deep-search
 description:
   "Answer one question from the live web in depth, with the sources read in full
-  and named on the claim. Triggers, and nothing else: the command /deep-search
-  or $deep-search. Never invoke this because the conversation mentions research,
-  a deep dive, sources or the web."
+  and named on the claim. Triggers: the command /deep-search or $deep-search.
+  Never invoke this because the conversation mentions research, a deep dive,
+  sources or the web."
 ---
 
 # deep-search

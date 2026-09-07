@@ -1,9 +1,9 @@
 ---
 name: pdf-read
 description:
-  "Open up one PDF into a page map and a summary written beside it. Triggers,
-  and nothing else: the command /pdf-read or $pdf-read. Never invoke this
-  because a PDF is mentioned, handed over or read."
+  "Open up one PDF into a page map and a summary written beside it. Triggers:
+  the command /pdf-read or $pdf-read. Never invoke this because a PDF is
+  mentioned, handed over or read."
 ---
 
 # pdf-read
@@ -26,15 +26,16 @@ makes a later question cheap: you name a page, and that page is read then. A
 question answered from a summary inherits every omission the summary made, and
 nobody sees which.
 
-## The map file, and the gate in front of the run
+## The map file
 
 `<name>-map.md` beside the PDF, where `<name>` is its file name without `.pdf`.
 A run over a page range writes `<name>-map-<first>-<last>.md` instead, so a
-partial map never overwrites a whole one.
+partial map never overwrites a whole one; `pages` stays the document's count
+either way.
 
 **Where that path falls inside `~/projects/vault`, write nothing and say so.**
-`global.md` settles that a write there needs a command of its own, and this
-skill has none.
+`global.md` settles that a write there needs a command of its own, and invoking
+this skill is not one.
 
 Where the file already exists and is newer than the PDF, read it and leave the
 PDF alone. That reuse is the reason it is a file at all, and it is the first

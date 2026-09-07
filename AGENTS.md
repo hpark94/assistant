@@ -72,9 +72,8 @@ is to reopen where the rule belongs.
 
 ## Commands
 
-- `./install.sh`: symlink `global.md` and the three skills into place.
-  Idempotent, and it reports the missing command line tools instead of
-  installing them. The MCP tools `deep-search` needs are not among them, and the
-  script says why.
+- `./install.sh`: symlink `global.md` and the skills into place. Idempotent, and
+  it reports the missing command line tools instead of installing them. The MCP
+  tools `deep-search` needs are not among them, and the script says why.
 - `git -C ~/repos/assistant commit`: after every change in this repo, subject
   `docs(agents): what changed`. No trailing `Co-Authored-By` lines.

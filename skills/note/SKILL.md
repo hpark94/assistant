@@ -2,8 +2,9 @@
 name: note
 description:
   "Distill one topic into a note in the Obsidian vault at ~/projects/vault.
-  Triggers, and nothing else: the command /note or $note, or the German phrases
-  'merk dir das', 'mach eine Notiz draus', 'das ist wichtig', 'halt das fest'."
+  Triggers: the command /note or $note, or the German phrases 'merk dir das',
+  'mach eine Notiz draus', 'das ist wichtig', 'halt das fest'. Never invoke this
+  because the conversation produced something worth keeping."
 ---
 
 # note
@@ -44,12 +45,12 @@ this file and not the one below.
 ## Checking a claim
 
 A claim that `global.md` requires a Proof for is worth nothing unless it was
-checked. Put **both the result and the exact command** into the note, under
-`## Verified`. Where the Proof could write and can be isolated, the command has
-to rebuild its own environment, because the note is read on a day when nothing
-of this session is left. A Proof that only the live setup can answer carries the
-exact command just the same and says that its result is recorded rather than
-repeatable.
+checked. Put **both the result and the exact command** of every check that ran
+into the note, under `## Verified`, whether the Proof was required or not. Where
+the Proof could write and can be isolated, the command has to rebuild its own
+environment, because the note is read on a day when nothing of this session is
+left. A Proof that only the live setup can answer carries the exact command just
+the same and says that its result is recorded rather than repeatable.
 
 An unverified claim goes into a `## Not verified` section: what was not shown,
 and what stood in the way, because an unverified claim that says nothing about
@@ -57,13 +58,13 @@ its own gap reads like a checked one. The contract names three sections, this
 one, `## Verified` and `## Related`, and nothing below the frontmatter besides
 them is more than body.
 
-A source-backed claim for which `global.md` does not require a Proof takes no
-section. A standard or a specification needs no `verified`; a claim about the
-state of the world takes the day its source was read as its check date. There is
-no command to put in a section, and repeating the citation below the text would
-be the collected list `global.md` rules out. A source attached to a claim that
-did require a Proof does not change its state: where that Proof did not run, the
-claim stays in `## Not verified`.
+A claim carried by its source alone, for which `global.md` does not require a
+Proof, takes no section. A standard or a specification needs no `verified`; a
+claim about the state of the world takes the day its source was read as its
+check date. There is no command to put in a section, and repeating the citation
+below the text would be the collected list `global.md` rules out. A source
+attached to a claim that did require a Proof does not change its state: where
+that Proof did not run, the claim stays in `## Not verified`.
 
 The two check sections are about claims and not about the note, so one that
 proved one thing and could not prove another carries both. `verified` is the
@@ -91,18 +92,17 @@ six months, and a fresh one must not hide a stale one beside it.
      later session, because nothing records that it was already said. The title
      you do correct, in `title` and in the `# H1` together. If the file name
      then no longer is its slug, or my command named another file name, say in
-     one line what it should be called and leave the rename to me. Never offer
-     and never run `mv` to rename a note: renaming in Obsidian carries the
-     incoming wiki links along, `mv` leaves them pointing nowhere on four
-     devices. Archiving moves a note with `mv` and keeps its name, which is
-     another act and stands under Archiving below.
+     one line what it should be called and leave the rename to me. Archiving
+     moves a note with `mv` and keeps its name, which is another act and stands
+     under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
-   an existing hub fits, use it. If none fits, pick a name and let the preview
-   carry it: it shows the same name in the file name, in the title and in `hub`,
-   which is more than a question would. A hub name is expensive, it is a prefix
-   of every child's file name, so renaming it later renames files. Say in one
-   line that the hub is new, so it is not mistaken for an existing one.
+   an existing hub fits, use it; where more than one does, put them up and wait.
+   If none fits, pick a name and let the preview carry it: it shows the same
+   name in the file name, in the title and in `hub`, which is more than a
+   question would. A hub name is expensive, it is a prefix of every child's file
+   name, so renaming it later renames files. Say in one line that the hub is
+   new, so it is not mistaken for an existing one.
 4. **Name the file.** An ASCII slug is the text lowercased, every run of
    characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
    trailing hyphens dropped; an umlaut keeps its vowel, `ae oe ue ss`. The file
@@ -113,9 +113,8 @@ six months, and a fresh one must not hide a stale one beside it.
    `Virtualization: Docker libvirt NAT`, not
    `Virtualization: Docker Breaks libvirt VM NAT`. `ffd` matches paths and file
    names, never frontmatter, which is why the two agree. A title corrected on an
-   existing note suspends that agreement until I do the rename from step 2: `mv`
-   is what would break the incoming links, so the mismatch is the cheaper of the
-   two and it is stated rather than repaired.
+   existing note suspends that agreement until I do the rename from step 2, so
+   the mismatch is the cheaper of the two and it is stated rather than repaired.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
    check, then put every result up with the path it would get. The command
@@ -255,7 +254,8 @@ verified: 2026-08-13
   the value or write the line without a colon.
 - `type` is `note`, nothing else. A Hub is a distinct file type with its own
   contract below. What a Note is about is carried by its Hub and its tags, not
-  by a category.
+  by a category. A tag is a handle the hub and the title do not already give,
+  and a note that has none carries no `tags`.
 - `hub` names the one hub, written as a quoted link. Obsidian indexes links in
   properties as real links, which is what makes the hub's list and its backlinks
   work. Exactly one, never a list.
@@ -266,7 +266,7 @@ verified: 2026-08-13
 - `verified` appears only on notes with a claim that can go stale, and carries
   the oldest check as defined above. A feasibility claim goes stale when a tool
   updates, and `updated` only says when its content last changed. `## Verified`
-  appears only where a Proof ran; the field stands without the section where a
+  appears only where a command ran; the field stands without the section where a
   source was read instead.
 - A web source belongs in the body with its URL, never in the frontmatter.
 
@@ -365,8 +365,10 @@ approval unit, one preview and one yes.
    `prettier --check` of step 1 failed: then the file is not reformatted and the
    report says it is still unformatted, because a reformat here would rewrite a
    body this operation never touched. Then
-   `mv ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`. The file
-   name never changes, so no incoming link has to be rewritten.
+   `mv -n ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`. The file
+   name never changes, so no incoming link has to be rewritten. `-n` because
+   `archive/` may already hold a file of that name. Where it stopped the move,
+   say so and leave the note where it is.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
    `rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault/notes/`, because a reader
