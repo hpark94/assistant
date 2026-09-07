@@ -83,17 +83,17 @@ required rather than optional.** Codex carries `<multi_agent_mode>`, which
 suppresses spawning unless a skill instruction demands it, so this paragraph is
 that instruction.
 
-| Agent  | How a reader is spawned                                                                                       |
-| ------ | ------------------------------------------------------------------------------------------------------------- |
-| Claude | the `Agent` tool with `subagent_type: general-purpose`, all calls in one message so they run at the same time |
-| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back                         |
+| Agent  | How a reader is spawned                                                                                                                                |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Claude | the `Agent` tool with `subagent_type: general-purpose`, all calls in one message so they run at the same time, and `SendMessage` to send a reader back |
+| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back                                                                  |
 
 On the image route a Claude reader passes the file path to `Read` with `pages`,
-never extracted text, which would drop the drawings. A Codex reader renders
-first, `pdftoppm -jpeg -r 150 -f <first> -l <last> in.pdf <prefix>`, and hands
-each JPEG to `view_image`. Both also get the text layer of their pages, which
-anchors page numbers and headings in the document's own wording instead of a
-reader's reading of the image.
+never extracted text, which would drop the drawings. A Codex reader renders the
+block itself, `pdftoppm -jpeg -r 150 -f <first> -l <last> in.pdf <prefix>`, and
+hands each JPEG to `view_image`. Both also get the text layer of their pages,
+which anchors page numbers and headings in the document's own wording instead of
+a reader's reading of the image.
 
 ## What a reader is told, and what it reports back
 
@@ -113,5 +113,5 @@ the route, the page count and the reader count. Say what was marked and not
 read, so the figures are known to be retrievable rather than missing.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
-`global.md` allows. Whether it becomes a note is mine to decide and `/note` is
-mine to invoke: this skill writes nothing to the vault.
+`global.md` allows. Whether it becomes a note is mine to decide and `/note` or
+`$note` is mine to invoke: this skill writes nothing to the vault.
