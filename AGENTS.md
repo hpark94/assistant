@@ -50,8 +50,8 @@ that were rejected, which is the half `git log` does not.
 ## Review
 
 Before the round, grep every term you defined and every prohibition you
-tightened across all five files, and read each hit against the new wording. The
-questions below compare files and never two sentences of one file.
+tightened across every instruction file, and read each hit against the new
+wording. The questions below compare files and never two sentences of one file.
 
 One instruction file touched means no review round. Two or more means a review
 round, with these five questions and no others:
@@ -62,9 +62,9 @@ round, with these five questions and no others:
 4. Does a skill disagree with `global.md`? Resolve it under Who wins.
 5. Would a rejected alternative be reopened later without an ADR?
 
-An instruction file is `global.md`, one of the three `SKILL.md`, or this file.
-An ADR is not one: a record is never reviewed against current policy, so it does
-not raise the count.
+An instruction file is `global.md`, any `SKILL.md` under `skills/`, or this
+file. An ADR is not one: a record is never reviewed against current policy, so
+it does not raise the count.
 
 After the patch, exactly one second round. A third is forbidden: what round two
 still finds is a construction fault rather than a wording fault, and the answer
