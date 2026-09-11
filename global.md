@@ -116,6 +116,10 @@ Writing to the Vault above, because the four are named here and a missing one is
 a hole nothing reports. Changing `.prettierrc` is the exception and goes there
 as well, because the format step of every capture runs through it.
 
+`index.md` is Dataview queries and holds nothing written by hand: a line added
+there is a second truth that drifts from what the notes declare about
+themselves.
+
 Anything else that turns up in the directory is neither Vault nor Machinery, and
 it falls under Writing to the Vault above until I have said what it is.
 
@@ -127,7 +131,9 @@ is settled under Writing to the Vault above.
 
 For any question and any proof about my projects or my tools, list `notes/`,
 read what fits, and tell me what you are relying on. A guessed search term
-misses the note that holds the answer.
+misses the note that holds the answer. `drafts/` is not read with it, only where
+I point at a file or `--open` runs: unfinished thinking answers a question as
+though it were settled.
 
 The vault holds only what I captured on command: a session that produced neither
 a note nor a draft left nothing in it.
@@ -190,6 +196,11 @@ Both Claude and Codex read this file, Claude as `~/.claude/CLAUDE.md`, Codex as
 reads a project's `CLAUDE.md` and an `AGENTS.md` only via `@AGENTS.md`, Codex
 reads `AGENTS.md` and ignores a `CLAUDE.md`, so a repo meant for both carries
 both. The contract is the same for both.
+
+Where this file or a skill says to hand work to a fresh agent, that sentence is
+the ask for a sub-agent and for delegation, and nothing further has to permit
+the spawn. An agent that waits for a separate ask reads in one context what was
+meant to be read by two.
 
 ## Writing style
 

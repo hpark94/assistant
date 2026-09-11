@@ -24,10 +24,8 @@ operation needs it.
 
 ## Who wins
 
-The same test settles precedence. On a permission, a prohibition or a boundary
-`global.md` wins and the skill is wrong. On procedure, mechanics or a contract
-the skill wins and `global.md` is corrected. Neither is a decision to escalate,
-both are a patch.
+The same test settles precedence, and `global.md` carries the rule itself.
+Neither outcome is a decision to escalate, both are a patch.
 
 ## What a sentence may carry
 

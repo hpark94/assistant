@@ -373,8 +373,7 @@ supersede.
    created or extended, for which project, at which status.
 
 **Writing a draft never edits `index.md`.** Its list of open drafts is a
-Dataview query over `status`, and a line added by hand there is a second truth
-that drifts.
+Dataview query over `status`.
 
 ## Picking one up: `--open`
 

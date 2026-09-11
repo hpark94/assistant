@@ -34,9 +34,7 @@ cites none of them well.
 optional.** Reading the sources is parallel agent work: two readers at a time,
 each on its own sources, both reporting back before the next round. Two is the
 width and not a floor: one source worth a full read goes to one reader, and none
-worth reading is an answer in itself, reported instead of delegated. Codex
-carries `<multi_agent_mode>`, which suppresses spawning unless a skill
-instruction demands it, so this paragraph is that instruction.
+worth reading is an answer in itself, reported instead of delegated.
 
 | Agent  | How a reader is spawned                                                                                                                                                 |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

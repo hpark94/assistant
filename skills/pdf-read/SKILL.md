@@ -134,9 +134,7 @@ map coming back would be the next thing to fill a context.
 ## Delegation
 
 **This skill works with sub-agents, and above one block the delegation is
-required rather than optional.** Codex carries `<multi_agent_mode>`, which
-suppresses spawning unless a skill instruction demands it, so this paragraph is
-that instruction.
+required rather than optional.**
 
 | Agent  | How a reader is spawned                                                                                                                                |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
