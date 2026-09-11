@@ -25,7 +25,7 @@ made from another project lands in the repo with none of its rules loaded.
 
 A note that no longer belongs in the knowledge is archived rather than deleted,
 and the note skill owns how. Deleting is the rare act on my explicit command and
-reaches any file I name, a Note included.
+reaches any file I name outside `archive/` and `.trash/`, a Note included.
 
 A file in `archive/` or in `.trash/` is read and never changed, moved or
 removed, and no command lifts this. Bringing one back or emptying the bin is
@@ -37,12 +37,15 @@ leaves them pointing nowhere on four devices. What a file should be called
 instead is said in one line.
 
 A ticked `- [x]` step is never rewritten or deleted, and no command lifts this:
-a tick claims something happened in the world. Setting one straight is mine to
-do in Obsidian.
+a tick claims something happened in the world. Reflowing its line is not
+rewriting it, so a formatter never has to be kept off a file that carries one.
+Setting one straight is mine to do in Obsidian.
 
 A deletion moves the file to `~/projects/vault/.trash/` under its own name with
 the timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never runs
-`rm`.
+`rm`. Its preview names every file that links to the one going, found with
+`rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault`, because nothing else reports a
+link that is about to point nowhere.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its

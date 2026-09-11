@@ -141,6 +141,7 @@ six months, and a fresh one must not hide a stale one beside it.
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
    bad += ["hub must be a quoted \"[[hub]]\", the hub's slug and nothing else"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"\[\[[a-z0-9-]+\]\]", str(f.get("hub"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
+   bad += [f"{k} is not allowed on a note" for k in ("status","project","superseded_by","depends_on","archived","session","agent") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
@@ -323,7 +324,9 @@ Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
 approval unit, one preview and one yes.
 
 1. **Read the note whole** and run `prettier --check` on it. The body is not
-   touched.
+   touched. Where `~/projects/vault/archive/<name>.md` already exists, stop here
+   and say so, because the `mv -n` of step 5 would otherwise block on a note
+   whose `hub` step 4 has already unbracketed.
 2. **Change the frontmatter.** `hub` loses its brackets and becomes the hub's
    slug as a plain string, and `archived` is added with today's date. `type`
    stays `note` and `tags` stay as they are, because the file records what it
@@ -347,6 +350,7 @@ approval unit, one preview and one yes.
    bad += [f"{k} must be a string" for k in ("title","summary") if not isinstance(f.get(k), str)]
    bad += ["hub must be the hub slug unlinked, [a-z0-9-]+ and no brackets"] * (not isinstance(f.get("hub"), str) or not re.fullmatch(r"[a-z0-9-]+", str(f.get("hub"))))
    bad += ["tags must be a list"] * (not isinstance(f.get("tags", []), list))
+   bad += [f"{k} is not allowed on a note" for k in ("status","project","superseded_by","depends_on","session","agent") if k in f]
    bad += [f"{k} must be YYYY-MM-DD" for k in ("created","updated","archived") if not d(k)]
    bad += ["verified must be YYYY-MM-DD"] * ("verified" in f and not d("verified"))
    sys.exit("frontmatter: " + "; ".join(bad) if bad else 0)
@@ -366,9 +370,11 @@ approval unit, one preview and one yes.
    report says it is still unformatted, because a reformat here would rewrite a
    body this operation never touched. Then
    `mv -n ~/projects/vault/notes/<name>.md ~/projects/vault/archive/`. The file
-   name never changes, so no incoming link has to be rewritten. `-n` because
-   `archive/` may already hold a file of that name. Where it stopped the move,
-   say so and leave the note where it is.
+   name never changes, so no incoming link has to be rewritten. `-n` because a
+   sync from another device can still put that name in `archive/` after step 1
+   looked. `mv -n` refuses silently and exits 0, so the stop is seen by the
+   source still being there: where it is, say that the note is half archived
+   with its `hub` already unbracketed, and leave it where it is.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
    `rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault/notes/`, because a reader
