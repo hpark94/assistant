@@ -112,6 +112,10 @@ nested in a clip group, and an anchored pattern counts only what sits at the top
 level, which is short by an order of magnitude on exactly the pages that carry a
 figure.
 
+The 12 does not move with the document. A doubt about the threshold is settled
+with labelled pages and never with the share of pages a document gets marked,
+because that share is no evidence about whether the marking is right.
+
 The mark says a figure sits there. It is not read here: reading it would be
 answering. The image route needs no mark, every page is seen there anyway.
 

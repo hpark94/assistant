@@ -84,8 +84,8 @@ Whatever the brainstorm produced.
   containing `: `. An unquoted scalar with a colon in it is read as a mapping
   and breaks the whole frontmatter, which Obsidian reports as invalid
   properties.
-- `type` is `draft`. It stays even though the folder already says so: if the
-  file ever moves to `notes/`, this is where you see what it was.
+- `type` is `draft`. It stays even though the folder already says so, because
+  the check and every query read the field and never the path.
 - `project` is the directory name. It comes from the argument where my
   invocation named one, otherwise from the working directory. Where the working
   directory is not a project of mine, it comes from the conversation, from the
@@ -107,6 +107,9 @@ Whatever the brainstorm produced.
   | `done`       | carried out, or what mattered became a note |
   | `superseded` | replaced, `superseded_by` says by what      |
   | `dropped`    | considered and rejected                     |
+
+  A draft whose content became a note is two commands and not one: `/note`
+  writes the note, and the close is its own preview and its own yes.
 
 - `superseded_by: "[[routing-lab-ospf-metrics-v2]]"` exists only on a
   `superseded` draft. A link in a property is a real link, so the newer draft
@@ -287,11 +290,13 @@ supersede.
    Run `prettier --check` on the target file before you build the extension. If
    it fails, the `prettier -w` in step 5 will reformat passages your subject
    never touched, so put that formatting change up as a second passage of its
-   own and let me approve it separately. A reformat never rides along unseen on
-   a content change. Refused, the file keeps its old bytes and takes the
-   approved passage as shown. There what lands is not byte for byte what the
-   check ran on; its verdict still holds, because prettier folds lines and never
-   changes a value, so the frontmatter it reads is the same either way.
+   own and let me approve it separately. That passage is its own approval unit,
+   so a no to it stops the reformat and nothing else. A reformat never rides
+   along unseen on a content change. Refused, the file keeps its old bytes and
+   takes the approved passage as shown. There what lands is not byte for byte
+   what the check ran on; its verdict still holds, because prettier folds lines
+   and never changes a value, so the frontmatter it reads is the same either
+   way.
 
    **A new draft and a modification are read cold before their preview**,
    wherever the change has a preview and the file as it will land carries a
@@ -331,13 +336,11 @@ supersede.
 
    **A `- [x]` line is untouchable**, under the rule `global.md` carries.
    Something the work overtook becomes a new step that takes it back, a real
-   contradiction goes through the supersede rule. The `prettier -w` of step 5 is
-   no exception to it, because rewrapping a line is not rewriting a step. An
-   open box carries no such protection: it is body text like any other and
-   changes under the rules above. It also survives a `done`, because a finished
-   draft with empty boxes records what was deliberately not done, which is why
-   `dropped` exists instead of deletion. Do not ask about them on the status
-   change.
+   contradiction goes through the supersede rule. An open box carries no such
+   protection: it is body text like any other and changes under the rules above.
+   It also survives a `done`, because a finished draft with empty boxes records
+   what was deliberately not done, which is why `dropped` exists instead of
+   deletion. Do not ask about them on the status change.
 
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one

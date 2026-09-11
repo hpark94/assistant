@@ -105,12 +105,11 @@ six months, and a fresh one must not hide a stale one beside it.
    new, so it is not mistaken for an existing one.
 4. **Name the file.** An ASCII slug is the text lowercased, every run of
    characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
-   trailing hyphens dropped; an umlaut keeps its vowel, `ae oe ue ss`. The file
-   is `<hub-slug>-<short-name>.md`, the title as such a slug:
-   `disk-management-memory-usage.md` with the title
-   `Disk Management: Memory Usage`. The hub carries the context, so keep the
-   title itself short and the file name follows:
-   `Virtualization: Docker libvirt NAT`, not
+   trailing hyphens dropped; an umlaut keeps its vowel, `ae oe ue ss`. A title
+   begins with its hub's title and a colon, `Disk Management: Memory Usage`
+   under the hub `Disk Management`, and the file is that title as such a slug,
+   `disk-management-memory-usage.md`. The hub carries the context, so keep the
+   rest of the title short: `Virtualization: Docker libvirt NAT`, not
    `Virtualization: Docker Breaks libvirt VM NAT`. `ffd` matches paths and file
    names, never frontmatter, which is why the two agree. A title corrected on an
    existing note suspends that agreement until I do the rename from step 2, so
@@ -197,12 +196,13 @@ six months, and a fresh one must not hide a stale one beside it.
    checking. Run `prettier --check` on the target file before you build the
    extension. If it fails, the `prettier -w` in step 7 will reformat passages
    your topic never touched, so put that formatting change up as a second
-   passage of its own and let me approve it separately. A reformat never rides
-   along unseen on a content change. Refused, the file keeps its old bytes and
-   takes the approved passage as shown. There what lands is not byte for byte
-   what the check ran on; its verdict still holds, because prettier folds lines
-   and never changes a value, so the frontmatter it reads is the same either
-   way.
+   passage of its own and let me approve it separately. That passage is its own
+   approval unit, so a no to it stops the reformat and nothing else. A reformat
+   never rides along unseen on a content change. Refused, the file keeps its old
+   bytes and takes the approved passage as shown. There what lands is not byte
+   for byte what the check ran on; its verdict still holds, because prettier
+   folds lines and never changes a value, so the frontmatter it reads is the
+   same either way.
 
 6. **Write.** A Note and the new Hub it needs are one approval unit: two files,
    one preview and one yes. After the OK write the approved content directly to
@@ -218,8 +218,7 @@ six months, and a fresh one must not hide a stale one beside it.
    the name the file should get here, as the one line from step 2.
 
 **A capture never edits `index.md` and never edits a hub's list.** Both are
-Dataview queries over what the notes declare about themselves. Adding a line by
-hand there creates a second truth that immediately drifts.
+Dataview queries over what the notes declare about themselves.
 
 ## Note contract
 
@@ -313,9 +312,10 @@ for months at a time. A date that cannot move is worse than no date: it looks
 like an answer to "when did this subject last change", which the children's
 `updated` in the hub's own list already gives. Such a correction runs the hub
 check above like any other write, shows the changed passages the way step 5
-prescribes, and never adds the field. A corrected hub title breaks the agreement
-above: say in one line what the hub and every child should be called, and leave
-the renames to me.
+prescribes, and never adds the field. Its report names the hub and what changed,
+because step 8 is written for a note and a corrected hub is neither created nor
+extended under one. A corrected hub title breaks the agreement above: say in one
+line what the hub and every child should be called, and leave the renames to me.
 
 ## Archiving
 
