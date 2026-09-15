@@ -205,15 +205,21 @@ six months, and a fresh one must not hide a stale one beside it.
    folds lines and never changes a value, so the frontmatter it reads is the
    same either way.
 
-6. **Write.** A Note and the new Hub it needs are one approval unit: two files,
-   one preview and one yes. After the OK write the approved content directly to
-   its absolute path under `~/projects/vault/notes/`, both files in the same
-   step. Never write anywhere else.
-7. **Format.** `prettier -w` on every file you touched, no flags, once the file
-   sits in the vault. Prettier reads the `.prettierrc` next to the file, so
-   formatting a copy elsewhere silently loses `proseWrap: always`. A formatting
-   passage I refused in step 5 is the one exception: that file is written and
-   not reformatted, so what I kept stays as it was.
+6. **Write.** A Note, the new Hub it needs and the images it embeds are one
+   approval unit: one preview and one yes. After the OK write the approved
+   content directly to its absolute path under `~/projects/vault/notes/`, all in
+   the same step. An image I passed by path is copied under its own file name
+   with
+   `mkdir -p ~/projects/vault/notes/assets && cp --update=none <path> ~/projects/vault/notes/assets/`
+   and embedded as `![[<file name>]]`, and the preview names the path the copy
+   gets. Where a file with other content already has that name there, stop at
+   step 5 and say so: the copy would keep the other one silently. Never write
+   anywhere else.
+7. **Format.** `prettier -w` on every Markdown file you touched, no flags, once
+   the file sits in the vault. Prettier reads the `.prettierrc` next to the
+   file, so formatting a copy elsewhere silently loses `proseWrap: always`. A
+   formatting passage I refused in step 5 is the one exception: that file is
+   written and not reformatted, so what I kept stays as it was.
 8. **Report.** One or two sentences: which file, created or extended, under
    which hub, and what changed if it was an extension. A corrected title puts
    the name the file should get here, as the one line from step 2.
