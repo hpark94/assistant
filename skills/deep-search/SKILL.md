@@ -9,9 +9,9 @@ description:
 
 # deep-search
 
-One question, answered from the live web, with the sources read in full. This
-file owns the whole Deep Search operation and assumes `global.md`, which is
-loaded in every project, and nothing else.
+One question, with its web half read in depth. This file owns the whole Deep
+Search operation and assumes `global.md`, which is loaded in every project, and
+nothing else.
 
 `global.md` owns what holds for every search and every answer. This file owns
 the engine and the depth of Deep Search: where it searches, how far the reading

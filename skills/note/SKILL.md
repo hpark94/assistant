@@ -45,13 +45,16 @@ this file and not the one below.
 
 ## Checking a claim
 
-A claim that `global.md` requires a Proof for is worth nothing unless it was
-checked. Put **both the result and the exact command** of every check that ran
-into the note, under `## Verified`, whether the Proof was required or not. Where
-the Proof could write and can be isolated, the command has to rebuild its own
-environment, because the note is read on a day when nothing of this session is
-left. A Proof that only the live setup can answer carries the exact command just
-the same and says that its result is recorded rather than repeatable.
+Every claim a note makes is checked before its preview, under the Proof rules of
+`global.md` whether or not I asked. What I have and can run is run, and a
+command that already ran in this session counts where it is the command the note
+records. Put **both the result and the exact command** into the note, under
+`## Verified`. Where the Proof could write and can be isolated, the command has
+to rebuild its own environment, because the note is read on a day when nothing
+of this session is left. A Proof that only the live setup can answer carries the
+exact command just the same and says that its result is recorded rather than
+repeatable. A change to an existing note checks the claims it adds or rewords,
+and names in one line the claims already there that carry no check.
 
 An unverified claim goes into a `## Not verified` section: what was not shown,
 and what stood in the way, because an unverified claim that says nothing about
@@ -59,13 +62,14 @@ its own gap reads like a checked one. The contract names three sections, this
 one, `## Verified` and `## Related`, and nothing below the frontmatter besides
 them is more than body.
 
-A claim carried by its source alone, for which `global.md` does not require a
-Proof, takes no section. A standard or a specification needs no `verified`; a
-claim about the state of the world takes the day its source was read as its
-check date. There is no command to put in a section, and repeating the citation
-below the text would be the collected list `global.md` rules out. A source
-attached to a claim that did require a Proof does not change its state: where
-that Proof did not run, the claim stays in `## Not verified`.
+A claim nothing I have can run, or what a standard or a specification defines,
+is checked by a source read in full and cited on its sentence, and takes no
+section. A standard or a specification needs no `verified`; a claim about the
+state of the world takes the day its source was read as its check date. There is
+no command to put in a section, and repeating the citation below the text would
+be the collected list `global.md` rules out. A source attached to a claim that
+can be run does not check it: where the command did not run, the claim stays in
+`## Not verified`.
 
 The two check sections are about claims and not about the note, so one that
 proved one thing and could not prove another carries both. `verified` is the
@@ -75,9 +79,10 @@ six months, and a fresh one must not hide a stale one beside it.
 
 ## Procedure
 
-1. **Scope.** Identify the last self contained topic, not the whole session. If
-   arguments name a topic, they win. One note is one topic; if two unrelated
-   things are worth keeping, write two notes, each with its own preview and yes.
+1. **Scope.** The topic the arguments name, otherwise the last self contained
+   topic, not the whole session. One note is one topic: arguments naming several
+   get the split named and the one I confirm captured, and another topic this
+   session produced and not yet named is named in one line.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
    before deciding. Grep `~/projects/vault/archive/` for the same terms: a hit
@@ -85,17 +90,18 @@ six months, and a fresh one must not hide a stale one beside it.
    with the new note. More than one that fits: put them up with their `summary`
    and wait, because picking one silently is how a vault grows two notes on one
    topic.
-   - **On a hit**: extend that note, correct what is now wrong, bump `updated`.
-     Never delete existing content silently, and say afterwards what changed.
-     Its hub is the one thing you never correct: if the note belongs under a
-     different one, say so in one line, name that hub, and leave the move to me
-     in Obsidian. It is one line and not a question, and it may fall again in a
-     later session, because nothing records that it was already said. The title
-     you do correct, in `title` and in the `# H1` together. If the file name
-     then no longer is its slug, or my command named another file name, say in
-     one line what it should be called and leave the rename to me. Archiving
-     moves a note with `mv` and keeps its name, which is another act and stands
-     under Archiving below.
+   - **On a hit**: extend that note and bump `updated`. A correction of what
+     already stands, noticed or commanded beside a capture, goes up as its own
+     approval unit. Never delete existing content silently, and say afterwards
+     what changed. Its hub is the one thing you never correct: if the note
+     belongs under a different one, say so in one line, name that hub, and leave
+     the move to me in Obsidian. It is one line and not a question, and it may
+     fall again in a later session, because nothing records that it was already
+     said. The title you do correct, in `title` and in the `# H1` together. If
+     the file name then no longer is its slug, or my command named another file
+     name, say in one line what it should be called and leave the rename to me.
+     Archiving moves a note with `mv` and keeps its name, which is another act
+     and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it; where more than one does, put them up and wait.
@@ -115,6 +121,12 @@ six months, and a fresh one must not hide a stale one beside it.
    names, never frontmatter, which is why the two agree. A title corrected on an
    existing note suspends that agreement until I do the rename from step 2, so
    the mismatch is the cheaper of the two and it is stated rather than repaired.
+   A new file, a note, a hub or an image copy, never takes a name that already
+   stands in the vault,
+   `find ~/projects/vault -path ~/projects/vault/.trash -prune -o -name '<file name>' -print`:
+   say so and stop before the preview, for a note or a hub with another title in
+   one line. A file with the same bytes already in `notes/assets/`, `cmp -s`, is
+   embedded as it is.
 5. **Show it, then wait.** Build the whole Note and, if its Hub is new, the
    whole Hub. Run every file through prettier and its matching frontmatter
    check, then put every result up with the path it would get. The command
@@ -190,20 +202,20 @@ six months, and a fresh one must not hide a stale one beside it.
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
-   **On an extension show only the changed passages**, never the whole file: the
-   point of a minimal diff is that the change is visible. The check above still
-   runs on the whole file as it will land, only the display is narrowed;
-   `updated` moves on every extension, so the frontmatter changes and wants
-   checking. Run `prettier --check` on the target file before you build the
-   extension. If it fails, the `prettier -w` in step 7 will reformat passages
-   your topic never touched, so put that formatting change up as a second
-   passage of its own and let me approve it separately. That passage is its own
-   approval unit, so a no to it stops the reformat and nothing else. A reformat
-   never rides along unseen on a content change. Refused, the file keeps its old
-   bytes and takes the approved passage as shown. There what lands is not byte
-   for byte what the check ran on; its verdict still holds, because prettier
-   folds lines and never changes a value, so the frontmatter it reads is the
-   same either way.
+   **On a change to an existing file show only the changed passages**, never the
+   whole file: the point of a minimal diff is that the change is visible. The
+   check above still runs on the whole file as it will land, only the display is
+   narrowed; `updated` moves on every such change to a note, so the frontmatter
+   changes and wants checking. Run `prettier --check` on the target file before
+   you build the change. If it fails, the `prettier -w` in step 7 will reformat
+   passages your topic never touched, so put that formatting change up as a
+   second passage of its own and let me approve it separately. That passage is
+   its own approval unit, so a no to it stops the reformat and nothing else. A
+   reformat never rides along unseen on a content change. Refused, the file
+   keeps its old bytes and takes the approved passage as shown. There what lands
+   is not byte for byte what the check ran on; its verdict still holds, because
+   prettier folds lines and never changes a value, so the frontmatter it reads
+   is the same either way.
 
 6. **Write.** A Note, the new Hub it needs and the images it embeds are one
    approval unit: one preview and one yes. After the OK write the approved
@@ -212,9 +224,7 @@ six months, and a fresh one must not hide a stale one beside it.
    with
    `mkdir -p ~/projects/vault/notes/assets && cp --update=none <path> ~/projects/vault/notes/assets/`
    and embedded as `![[<file name>]]`, and the preview names the path the copy
-   gets. Where a file with other content already has that name there, stop at
-   step 5 and say so: the copy would keep the other one silently. Never write
-   anywhere else.
+   gets. Never write anywhere else.
 7. **Format.** `prettier -w` on every Markdown file you touched, no flags, once
    the file sits in the vault. Prettier reads the `.prettierrc` next to the
    file, so formatting a copy elsewhere silently loses `proseWrap: always`. A
@@ -234,7 +244,7 @@ Dataview queries over what the notes declare about themselves.
 title: "Disk Management: Memory Usage"
 type: note
 hub: "[[disk-management]]"
-summary: du, ncdu and df, and why the three disagree.
+summary: du and df, and why the two disagree.
 tags: [linux, disk, cli]
 created: 2026-08-13
 updated: 2026-08-13
@@ -243,12 +253,13 @@ verified: 2026-08-13
 
 # Disk Management: Memory Usage
 
-`du -sh ~/repos/*` sizes each subdirectory, `ncdu` does the same interactively.
-`df -h` measures the file system rather than the tree and therefore disagrees.
+`du -sh ~/repos` sizes the tree. `df -h ~/repos` measures the file system the
+tree sits on and therefore disagrees.
 
 ## Verified
 
-`du -sh /tmp` next to `df -h /tmp`, the difference is real.
+`du -sh ~/repos` gave `2.9G /home/hpark/repos`, `df -h ~/repos` gave
+`/dev/nvme0n1p8 664G 156G 475G 25% /`.
 
 ## Related
 
@@ -321,8 +332,10 @@ like an answer to "when did this subject last change", which the children's
 check above like any other write, shows the changed passages the way step 5
 prescribes, and never adds the field. Its report names the hub and what changed,
 because step 8 is written for a note and a corrected hub is neither created nor
-extended under one. A corrected hub title breaks the agreement above: say in one
-line what the hub and every child should be called, and leave the renames to me.
+extended under one. A corrected hub title changes the hub alone and breaks the
+agreement above: say in one line what the hub file and every child's title and
+file should be called. Each child is its own correction, and the renames are
+mine.
 
 ## Archiving
 

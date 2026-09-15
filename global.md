@@ -20,8 +20,8 @@ made from another project lands in the repo with none of its rules loaded.
   preview, validation, write, format and reporting contract for its operation.
 - **Every other write to the Vault**, among them a correction I command to an
   existing Note or Hub, an archiving, a deletion, `index.md`: only on my
-  command, as its own change. Show the proposed change and wait for my OK before
-  writing it.
+  command, as its own change and never inside the approval unit of another. Show
+  the proposed change and wait for my OK before writing it.
 
 A note that no longer belongs in the knowledge is archived rather than deleted,
 and the note skill owns how. Deleting is the rare act on my explicit command and
@@ -153,7 +153,7 @@ contract the skill wins and this file is corrected.
 ## Images
 
 An image I paste never becomes a file, so only the ones I pass by path can be
-worked with or embedded in a note.
+worked with, and only a Note embeds one.
 
 ## What I did not write
 

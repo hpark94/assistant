@@ -64,9 +64,9 @@ An instruction file is `global.md`, any `SKILL.md` under `skills/`, or this
 file. An ADR is not one: a record is never reviewed against current policy, so
 it does not raise the count.
 
-After the patch, exactly one second round. A third is forbidden: what round two
-still finds is a construction fault rather than a wording fault, and the answer
-is to reopen where the rule belongs.
+After the patch, exactly one second round, and what it finds is reported and not
+patched. A third is forbidden: what round two still finds is a construction
+fault rather than a wording fault.
 
 ## Commands
 

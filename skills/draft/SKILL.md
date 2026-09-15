@@ -26,10 +26,10 @@ draft, not a reason to start an interview.
 
 ## Two modes
 
-| Invocation      | What it does                                                    |
-| --------------- | --------------------------------------------------------------- |
-| bare, `/draft`  | Turn this conversation into a draft for the project it is about |
-| `/draft --open` | List the open drafts of the current project and pick one up     |
+| Invocation      | What it does                                                |
+| --------------- | ----------------------------------------------------------- |
+| bare, `/draft`  | Turn this conversation into a draft                         |
+| `/draft --open` | List the open drafts of the current project and pick one up |
 
 Either form takes the project as an argument, `/draft --open dots` and
 `/draft dots: <subject>`, and the two read it differently. In `--open` the
@@ -46,12 +46,13 @@ invisible to them. Only the index's dedicated open-drafts block queries
 knowledge. Its sync-conflict block is scoped to nothing at all and does see
 them, which is what a hunt for conflicted copies is for.
 
-`<project>` is the directory name of the project, `routing-lab` for
-`~/repos/routing-lab`, so that the same string names it on disk and finds its
-drafts with `rg 'project: routing-lab'` in the vault. It is `[a-z0-9-]+` and
-nothing else, which is what keeps the lookup below correct: it anchors the name
-in a regular expression and passes the paths through `xargs`, so a dot in the
-name would match a second project and a space would split one path into two.
+`<project>` is the directory name of the project as a slug like `<topic>`'s
+below, `routing-lab` for `~/repos/routing-lab`, so that the same string names it
+on disk and finds its drafts with `rg 'project: routing-lab'` in the vault. It
+is `[a-z0-9-]+` and nothing else, which is what keeps the lookup below correct:
+it anchors the name in a regular expression and passes the paths through
+`xargs`, so a dot in the name would match a second project and a space would
+split one path into two.
 
 `<topic>` is a short ASCII slug of the subject: the text lowercased, every run
 of characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
@@ -85,10 +86,12 @@ Whatever the brainstorm produced.
   properties.
 - `type` is `draft`. It stays even though the folder already says so, because
   the check and every query read the field and never the path.
-- `project` is the directory name. It comes from the argument where my
-  invocation named one, otherwise the name of `git rev-parse --show-toplevel`,
-  and outside a repository of the working directory. It is never asked for: it
-  stands in the preview and in the file name, so correcting it costs one word.
+- `project` is the slug of the argument where my invocation named one, otherwise
+  of the name of `git rev-parse --show-toplevel`, and outside a repository of
+  the working directory's name. It is never asked for: it stands in the preview
+  and in the file name, so correcting it costs one word. A slug YAML reads as
+  something else stops the write, and the answer says to name another project as
+  an argument.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -124,7 +127,12 @@ Whatever the brainstorm produced.
   is a command under Writing to the Vault, which sends it to the vault's bin and
   never to `rm`. It is not archived either: `archive/` holds what left the
   knowledge, and a draft was never knowledge.
-- No `tags` and no `hub`.
+- No `tags` and no `hub`. An image I passed by path goes in as text on what it
+  shows, and the preview says so.
+
+A new draft never takes a file name that already stands in the vault,
+`find ~/projects/vault -path ~/projects/vault/.trash -prune -o -name '<name>.md' -print`:
+say so and stop before the preview.
 
 Below the frontmatter the `# Title` is required, `## Steps` wherever the body
 takes the checklist form below, and `## Outcome` on a close. Everything else is
@@ -188,7 +196,10 @@ takes nothing beyond the `## Outcome` its close adds.
    subject, they win. A session that produces several drafts writes each one on
    its own and shows them in dependency order, with `depends_on` set where one
    must be carried out before another. A no to one stops every draft that
-   depends on it, directly or through another.
+   depends on it, directly or through another. A correction I command names its
+   draft, which is the scope: it skips step 2 and enters at step 3, and on a
+   `done`, `superseded` or `dropped` draft it reaches the frontmatter and the
+   `# Title` and nothing of the body.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
    second one; more than one that fits goes up with its `summary` and `status`
@@ -282,27 +293,28 @@ takes nothing beyond the `## Outcome` its close adds.
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
    `date` and would pass an `isinstance` check despite not being `YYYY-MM-DD`.
 
-   Nothing is on disk until I say yes; on an extension show only the changed
-   passages, while the check above still runs on the whole file as it will land.
-   Run `prettier --check` on the target file before you build the extension. If
-   it fails, the `prettier -w` in step 5 will reformat passages your subject
-   never touched, so put that formatting change up as a second passage of its
-   own and let me approve it separately. That passage is its own approval unit,
-   so a no to it stops the reformat and nothing else. A reformat never rides
-   along unseen on a content change. Refused, the file keeps its old bytes and
-   takes the approved passage as shown. There what lands is not byte for byte
-   what the check ran on; its verdict still holds, because prettier folds lines
-   and never changes a value, so the frontmatter it reads is the same either
-   way.
+   Nothing is on disk until I say yes; on a change to an existing file show only
+   the changed passages, while the check above still runs on the whole file as
+   it will land. Run `prettier --check` on every existing file the change
+   touches before you build it. If it fails, the `prettier -w` in step 5 will
+   reformat passages your subject never touched, so put that formatting change
+   up as a second passage of its own and let me approve it separately. That
+   passage is its own approval unit, so a no to it stops the reformat and
+   nothing else. A reformat never rides along unseen on a content change.
+   Refused, the file keeps its old bytes and takes the approved passage as
+   shown. There what lands is not byte for byte what the check ran on; its
+   verdict still holds, because prettier folds lines and never changes a value,
+   so the frontmatter it reads is the same either way.
 
    **A new draft and a modification are read cold before their preview**,
-   wherever the change has a preview and the file as it will land carries a
-   `## Steps` section under a `todo` or `wip` status. Hand that whole file to a
-   fresh agent without this session's context, whatever your agent calls that,
-   and ask it one question: which open steps it cannot carry out from this file
-   alone, and what is missing. It answers with a list and never a rewrite. What
-   it found goes up beside the preview and is never folded into the file
-   silently, so that I see the gap and not only your repair.
+   wherever the change has a preview, reaches the body below the `# Title`, and
+   the file as it will land carries a `## Steps` section under a `todo` or `wip`
+   status. Hand that whole file to a fresh agent without this session's context,
+   whatever your agent calls that, and ask it one question: which open steps it
+   cannot carry out from this file alone, and what is missing. It answers with a
+   list and never a rewrite. What it found goes up beside the preview and is
+   never folded into the file silently, so that I see the gap and not only your
+   repair.
 
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
@@ -417,11 +429,12 @@ Run this in the project you are working in, or name the project as an argument:
    overtaken.
 4. **Say what you understood.** Three sentences on the draft itself: what it
    wants, what of it is already in the code, and where it contradicts what you
-   see. Where the working directory's project, found as the contract says, is
-   not the draft's, read no code and say so. Where it has a `## Steps` section,
-   add how many of its boxes are ticked, out of how many, and what the next open
-   step is. Run none of its checks: `--open` is a read, and a check out of a
-   draft would run against the live environment.
+   see. Where the slugged name of the working directory's git root, or of the
+   working directory outside a repository, is not the draft's project, read no
+   code and say so. Where it has a `## Steps` section, add how many of its boxes
+   are ticked, out of how many, and what the next open step is. Run none of its
+   checks: `--open` is a read, and a check out of a draft would run against the
+   live environment.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`. A draft that step 2 found blocked is not offered
