@@ -38,39 +38,62 @@ either way.
 before reading the PDF and say so.** `global.md` settles that a write there
 needs a command of its own, and invoking this skill is not one.
 
-Where the file already exists and is newer than the PDF, read it and leave the
-PDF alone. That reuse is the reason it is a file at all, and it is the first
-thing the run does.
+Where the file already exists and is newer than the PDF, validate it before
+reading the PDF. A reusable map has the fixed shape below, a non-empty summary
+and map lines that cover the requested range exactly once without gaps. Run
+`prettier --check <map>` as part of that validation, using Prettier's normal
+configuration search.
+
+Where only the Prettier check fails and the map sits outside the vault, pass its
+complete content through `prettier --stdin-filepath <map>`, validate the result
+and replace the map without reading the PDF. Any other Prettier failure stops
+and leaves the map untouched. Where structural validation fails outside the
+vault, proceed as though no map exists and replace it after reading the PDF. The
+vault rule above stops either repair there.
+
+A valid, formatted map is read and the PDF left alone. That reuse is the reason
+it is a file at all, and it is the first thing the run does. The map is a
+generated, readable artifact and is not maintained by hand.
 
 The file has a fixed shape, because a later run parses it rather than reading
 it:
 
-```text
-# <pdf file name>
-
-source: /absolute/path/to.pdf
+````text
+---
+source: "/absolute/path/to.pdf"
 pages: 372
-route: text
+route: "text"
 readers: 4
-date: 2026-09-07
+date: "2026-09-07"
+---
+
+# <pdf file name>
 
 ## Map
 
+```text
 205 | Exercise 5.23b, cheese cube | fig
 206-208 | Hamiltonian paths, proofs only
 209 | Bipartite graphs, definition and example | fig
+```
 
 ## Summary
 
 <prose>
-```
+````
+
+The frontmatter quotes `source`, `route` and `date`; `pages` and `readers` are
+numbers. This keeps their types stable when Prettier hands the block to a YAML
+parser.
 
 A map line is `<pages> | <what is on them>`, with ` | fig` appended where the
 figure mark applies and nothing in its place where it does not. Pages come first
 because a later question greps the map and takes the number straight out of the
-hit. The content is a few words, the page's own heading where it has one, and
-never a sentence. Consecutive pages with the same content collapse into one line
-with a range, which is what a deck built out of click steps needs.
+hit. The lines sit in exactly one fenced `text` block, which keeps Prettier from
+joining or wrapping them without moving the page number behind a list marker.
+The content is a few words, the page's own heading where it has one, and never a
+sentence. Consecutive pages with the same content collapse into one line with a
+range, which is what a deck built out of click steps needs.
 
 ## Route
 
@@ -180,9 +203,14 @@ reports.
 Sort the returned lines by first page and collapse a run that a block boundary
 cut in two, which no reader can see from inside its own block. The summary is
 written once from what the readers reported, not their paragraphs laid end to
-end: five blocks of a lecture are five parts of one argument.
+end: five blocks of a lecture are five parts of one argument. Put the map lines
+inside the fenced `text` block in the fixed shape above.
 
-Then write the file at the path above.
+Pass the complete prospective file through `prettier --stdin-filepath <map>`
+before writing, using Prettier's normal configuration search. Validate the
+formatted result against the fixed shape and the exact page coverage. A Prettier
+or validation failure writes nothing and leaves an existing map untouched. Then
+write only the formatted result at the path above.
 
 ## The answer
 
