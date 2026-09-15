@@ -14,14 +14,18 @@ made from another project lands in the repo with none of its rules loaded.
 ## Writing to the Vault
 
 - **Answering and looking things up**: just do it.
-- **Notes, Hubs and Drafts**: use the responsible skill under Operational
-  ownership. It writes when I ask for it and never on a topic it judged
-  noteworthy itself. That permission is this file's; each skill owns the
-  preview, validation, write, format and reporting contract for its operation.
+- **Notes with the images they embed, Hubs and Drafts**: use the responsible
+  skill under Operational ownership. It writes when I ask for it and never on a
+  topic it judged noteworthy itself. That permission is this file's; each skill
+  owns the preview, validation, write, format and reporting contract for its
+  operation.
 - **Every other write to the Vault**, among them a correction I command to an
   existing Note or Hub, an archiving, a deletion, `index.md`: only on my
   command, as its own change and never inside the approval unit of another. Show
-  the proposed change and wait for my OK before writing it.
+  the proposed change and wait for my OK before writing it. A correction you
+  noticed to a Note or Hub, never to a Draft and never to a child's title after
+  its hub's, may be put up as such a change, and my yes to its preview is the
+  command.
 
 A note that no longer belongs in the knowledge is archived rather than deleted,
 and the note skill owns how. Deleting is the rare act on my explicit command and

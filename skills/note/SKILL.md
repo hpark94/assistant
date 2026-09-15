@@ -81,8 +81,8 @@ six months, and a fresh one must not hide a stale one beside it.
 
 1. **Scope.** The topic the arguments name, otherwise the last self contained
    topic, not the whole session. One note is one topic: arguments naming several
-   get the split named and the one I confirm captured, and another topic this
-   session produced and not yet named is named in one line.
+   get the split named and the one I confirm captured, and every other topic
+   this session produced and not yet named is named, together, in one line.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
    before deciding. Grep `~/projects/vault/archive/` for the same terms: a hit
@@ -91,17 +91,17 @@ six months, and a fresh one must not hide a stale one beside it.
    and wait, because picking one silently is how a vault grows two notes on one
    topic.
    - **On a hit**: extend that note and bump `updated`. A correction of what
-     already stands, noticed or commanded beside a capture, goes up as its own
-     approval unit. Never delete existing content silently, and say afterwards
-     what changed. Its hub is the one thing you never correct: if the note
-     belongs under a different one, say so in one line, name that hub, and leave
-     the move to me in Obsidian. It is one line and not a question, and it may
-     fall again in a later session, because nothing records that it was already
-     said. The title you do correct, in `title` and in the `# H1` together. If
-     the file name then no longer is its slug, or my command named another file
-     name, say in one line what it should be called and leave the rename to me.
-     Archiving moves a note with `mv` and keeps its name, which is another act
-     and stands under Archiving below.
+     already stands goes up as its own approval unit, where I commanded it or
+     where you put up one you noticed. Never delete existing content silently,
+     and say afterwards what changed. Its hub is the one thing you never
+     correct: if the note belongs under a different one, say so in one line,
+     name that hub, and leave the move to me in Obsidian. It is one line and not
+     a question, and it may fall again in a later session, because nothing
+     records that it was already said. The title you do correct, in `title` and
+     in the `# H1` together. If the file name then no longer is its slug, or my
+     command named another file name, say in one line what it should be called
+     and leave the rename to me. Archiving moves a note with `mv` and keeps its
+     name, which is another act and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it; where more than one does, put them up and wait.
@@ -334,8 +334,8 @@ prescribes, and never adds the field. Its report names the hub and what changed,
 because step 8 is written for a note and a corrected hub is neither created nor
 extended under one. A corrected hub title changes the hub alone and breaks the
 agreement above: say in one line what the hub file and every child's title and
-file should be called. Each child is its own correction, and the renames are
-mine.
+file should be called. Each child is its own correction, named in that line, and
+the renames are mine.
 
 ## Archiving
 

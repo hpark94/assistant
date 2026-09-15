@@ -65,8 +65,8 @@ file. An ADR is not one: a record is never reviewed against current policy, so
 it does not raise the count.
 
 After the patch, exactly one second round, and what it finds is reported and not
-patched. A third is forbidden: what round two still finds is a construction
-fault rather than a wording fault.
+patched, and the change is committed as it stands. A third is forbidden: what
+round two still finds is a construction fault rather than a wording fault.
 
 ## Commands
 

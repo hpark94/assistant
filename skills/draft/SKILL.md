@@ -24,18 +24,20 @@ me here. By the time `/draft` runs, the thinking is as sharp as it is going to
 get: write it down, do not reopen it. What is still undecided is content for the
 draft, not a reason to start an interview.
 
-## Two modes
+## Three modes
 
-| Invocation      | What it does                                                |
-| --------------- | ----------------------------------------------------------- |
-| bare, `/draft`  | Turn this conversation into a draft                         |
-| `/draft --open` | List the open drafts of the current project and pick one up |
+| Invocation             | What it does                                                |
+| ---------------------- | ----------------------------------------------------------- |
+| bare, `/draft`         | Turn this conversation into a draft                         |
+| `/draft --open`        | List the open drafts of the current project and pick one up |
+| a correction I command | Correct the draft I name                                    |
 
-Either form takes the project as an argument, `/draft --open dots` and
-`/draft dots: <subject>`, and the two read it differently. In `--open` the
-argument is the project and nothing else. In the bare form a colon separates the
-project from the subject, and without a colon the whole argument is the subject.
-Where the argument names a project it beats the working directory.
+`/draft` and `/draft --open` take the project as an argument,
+`/draft --open dots` and `/draft dots: <subject>`, and the two read it
+differently. In `--open` the argument is the project and nothing else. In the
+bare form a colon separates the project from the subject, and without a colon
+the whole argument is the subject. Where the argument names a project it beats
+the working directory.
 
 ## Where drafts live
 
@@ -89,9 +91,9 @@ Whatever the brainstorm produced.
 - `project` is the slug of the argument where my invocation named one, otherwise
   of the name of `git rev-parse --show-toplevel`, and outside a repository of
   the working directory's name. It is never asked for: it stands in the preview
-  and in the file name, so correcting it costs one word. A slug YAML reads as
-  something else stops the write, and the answer says to name another project as
-  an argument.
+  and in the file name, so correcting it costs one word. A slug that is empty or
+  that YAML reads as something else stops the write, and the answer says to name
+  another project as an argument.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -197,30 +199,32 @@ takes nothing beyond the `## Outcome` its close adds.
    its own and shows them in dependency order, with `depends_on` set where one
    must be carried out before another. A no to one stops every draft that
    depends on it, directly or through another. A correction I command names its
-   draft, which is the scope: it skips step 2 and enters at step 3, and on a
-   `done`, `superseded` or `dropped` draft it reaches the frontmatter and the
-   `# Title` and nothing of the body.
+   draft, which is the scope: grep `drafts/` for it, say so and stop where
+   nothing fits, put several that fit up with `summary` and `status` and wait,
+   then skip step 2 and enter at step 3. On a `done`, `superseded` or `dropped`
+   draft it reaches the frontmatter and the `# Title` and nothing of the body.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
-   second one; more than one that fits goes up with its `summary` and `status`
-   and waits. A `done`, `superseded` or `dropped` draft is not a hit: extending
-   it files new thinking under a closed status where `--open` never surfaces it
-   again, so write a new draft and name the closed one in the preview. If the
-   new thinking contradicts what that draft decided, say so and offer to replace
-   it; never fold both decisions into one file silently. Replacing it is
-   `superseded` and happens only on my word, because a successor is a second
-   file and a status I did not ask for. A successor, and a new draft on the
-   subject of a closed one, takes the earlier name with the next free counter,
-   `-v2`, then `-v3`: the subject is the same, otherwise it would be a new
-   draft, so only the counter moves. That is the one exception to the duplicate
-   rule, and it keeps the chain together under `ffd` and `rg`. Replacing adds
-   `superseded_by` on top, nothing about the name. Then run the `--open` lookup
-   below for the project and read what came back: the search above is for the
-   subject, so without this one a blocker written in an earlier session is never
-   seen. Set `depends_on` where the order is real, under the strictness of the
-   contract and nowhere else, and name in the preview the open drafts you
-   checked even where none of them blocks, because "no dependency" and "never
-   looked" are otherwise the same file.
+   second one, and name in one line what else you notice is now wrong in it;
+   more than one that fits goes up with its `summary` and `status` and waits. A
+   `done`, `superseded` or `dropped` draft is not a hit: extending it files new
+   thinking under a closed status where `--open` never surfaces it again, so
+   write a new draft and name the closed one in the preview. If the new thinking
+   contradicts what that draft decided, say so and offer to replace it; never
+   fold both decisions into one file silently. Replacing it is `superseded` and
+   happens only on my word, because a successor is a second file and a status I
+   did not ask for. A successor, and a new draft on the subject of a closed one,
+   takes the earlier name with the next free counter, `-v2`, then `-v3`: the
+   subject is the same, otherwise it would be a new draft, so only the counter
+   moves. That is the one exception to the duplicate rule, and it keeps the
+   chain together under `ffd` and `rg`. Replacing adds `superseded_by` on top,
+   nothing about the name. Then run the `--open` lookup below for the project
+   and read what came back: the search above is for the subject, so without this
+   one a blocker written in an earlier session is never seen. Set `depends_on`
+   where the order is real, under the strictness of the contract and nowhere
+   else, and name in the preview the open drafts you checked even where none of
+   them blocks, because "no dependency" and "never looked" are otherwise the
+   same file.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
