@@ -23,9 +23,9 @@ made from another project lands in the repo with none of its rules loaded.
   existing Note or Hub, an archiving, a deletion, `index.md`: only on my
   command, as its own change and never inside the approval unit of another. Show
   the proposed change and wait for my OK before writing it. A correction you
-  noticed to a Note or Hub, never to a Draft and never to a child's title after
-  its hub's, may be put up as such a change, and my yes to its preview is the
-  command.
+  noticed may be put up as such a change only on the Note the note skill is
+  extending or correcting, and my yes to its preview is the command; anywhere
+  else it is named in one line.
 
 A note that no longer belongs in the knowledge is archived rather than deleted,
 and the note skill owns how. Deleting is the rare act on my explicit command and

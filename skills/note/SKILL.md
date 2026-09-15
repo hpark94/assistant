@@ -91,17 +91,17 @@ six months, and a fresh one must not hide a stale one beside it.
    and wait, because picking one silently is how a vault grows two notes on one
    topic.
    - **On a hit**: extend that note and bump `updated`. A correction of what
-     already stands goes up as its own approval unit, where I commanded it or
-     where you put up one you noticed. Never delete existing content silently,
-     and say afterwards what changed. Its hub is the one thing you never
-     correct: if the note belongs under a different one, say so in one line,
-     name that hub, and leave the move to me in Obsidian. It is one line and not
-     a question, and it may fall again in a later session, because nothing
-     records that it was already said. The title you do correct, in `title` and
-     in the `# H1` together. If the file name then no longer is its slug, or my
-     command named another file name, say in one line what it should be called
-     and leave the rename to me. Archiving moves a note with `mv` and keeps its
-     name, which is another act and stands under Archiving below.
+     already stands goes up as its own approval unit, whether I commanded it or
+     you noticed it in this note. Never delete existing content silently, and
+     say afterwards what changed. Its hub is the one thing you never correct: if
+     the note belongs under a different one, say so in one line, name that hub,
+     and leave the move to me in Obsidian. It is one line and not a question,
+     and it may fall again in a later session, because nothing records that it
+     was already said. The title you do correct, in `title` and in the `# H1`
+     together. If the file name then no longer is its slug, or my command named
+     another file name, say in one line what it should be called and leave the
+     rename to me. Archiving moves a note with `mv` and keeps its name, which is
+     another act and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it; where more than one does, put them up and wait.
