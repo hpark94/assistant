@@ -13,7 +13,8 @@ operation and assumes `global.md`, which is loaded in every project, and nothing
 else.
 
 Claude invokes this as `/pdf-read`, Codex as `$pdf-read`. The argument names the
-file, and optionally a page range. Nothing here ever writes to the vault.
+file, and optionally a page range `<first>-<last>`, a single page as `<n>-<n>`.
+Nothing here ever writes to the vault.
 
 Strip a `file://` scheme from the argument and percent-decode what is left
 before anything touches the path. Poppler drops the scheme by itself but never
@@ -33,9 +34,9 @@ A run over a page range writes `<name>-map-<first>-<last>.md` instead, so a
 partial map never overwrites a whole one; `pages` stays the document's count
 either way.
 
-**Where that path falls inside `~/projects/vault`, write nothing and say so.**
-`global.md` settles that a write there needs a command of its own, and invoking
-this skill is not one.
+**Where that path falls inside `~/projects/vault` and no map is reused, stop
+before reading the PDF and say so.** `global.md` settles that a write there
+needs a command of its own, and invoking this skill is not one.
 
 Where the file already exists and is newer than the PDF, read it and leave the
 PDF alone. That reuse is the reason it is a file at all, and it is the first
@@ -156,7 +157,7 @@ to `Read` with `pages`, never extracted text, which would drop the drawings. A
 Codex reader renders the block itself and views each JPEG in turn:
 
 ```sh
-pdftoppm -jpeg -r 150 -f <first> -l <last> in.pdf <prefix>   # then view_image
+d=$(mktemp -d); pdftoppm -jpeg -r 150 -f <first> -l <last> in.pdf "$d/p"   # then view_image each in $d
 ```
 
 The text layer beside the image anchors page numbers and headings in the

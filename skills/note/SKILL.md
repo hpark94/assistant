@@ -33,11 +33,12 @@ Anything that does not belong in the note, an intermediate result or a source
 that contradicts another, goes in one or two sentences next to the preview.
 
 The third has no scope to find, because the note I name is the scope. Skip step
-1, enter at step 2's hit branch, and the rest of the procedure stands as it is.
+1, find it with step 2's search and enter its hit branch; where it does not
+stand in `notes/`, say so and stop. The rest of the procedure stands as it is.
 That branch also owns the answer where the command names a different hub or file
 name, and its answer is the same whether I commanded the change or you noticed
-it. A hub takes the Hub contract below and enters at step 5, with nothing before
-it.
+it. A hub is found the same way, takes the Hub contract below and enters at
+step 5.
 
 The fourth writes no knowledge at all. Its procedure is Archiving at the end of
 this file and not the one below.
@@ -323,10 +324,11 @@ Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
 `global.md` settles that it happens only on my command; the whole of it is one
 approval unit, one preview and one yes.
 
-1. **Read the note whole** and run `prettier --check` on it. The body is not
-   touched. Where `~/projects/vault/archive/<name>.md` already exists, stop here
-   and say so, because the `mv -n` of step 5 would otherwise block on a note
-   whose `hub` step 4 has already unbracketed.
+1. **Find the note** with the Procedure's step 2 search, **read it whole** and
+   run `prettier --check` on it. The body is not touched. Where
+   `~/projects/vault/archive/<name>.md` already exists, stop here and say so,
+   because the `mv -n` of step 5 would otherwise block on a note whose `hub`
+   step 4 has already unbracketed.
 2. **Change the frontmatter.** `hub` loses its brackets and becomes the hub's
    slug as a plain string, and `archived` is added with today's date. `type`
    stays `note` and `tags` stay as they are, because the file records what it

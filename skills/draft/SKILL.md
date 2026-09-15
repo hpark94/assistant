@@ -35,8 +35,7 @@ Either form takes the project as an argument, `/draft --open dots` and
 `/draft dots: <subject>`, and the two read it differently. In `--open` the
 argument is the project and nothing else. In the bare form a colon separates the
 project from the subject, and without a colon the whole argument is the subject.
-Where the argument names a project it beats the working directory, and that is
-what makes both forms usable from a subdirectory of the project.
+Where the argument names a project it beats the working directory.
 
 ## Where drafts live
 
@@ -87,11 +86,9 @@ Whatever the brainstorm produced.
 - `type` is `draft`. It stays even though the folder already says so, because
   the check and every query read the field and never the path.
 - `project` is the directory name. It comes from the argument where my
-  invocation named one, otherwise from the working directory. Where the working
-  directory is not a project of mine, it comes from the conversation, from the
-  project the subject belongs to where several stand in it, and the preview says
-  so. It is never asked for: it stands in the preview and in the file name, so
-  correcting it costs one word.
+  invocation named one, otherwise the name of `git rev-parse --show-toplevel`,
+  and outside a repository of the working directory. It is never asked for: it
+  stands in the preview and in the file name, so correcting it costs one word.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -182,16 +179,16 @@ An extension never takes the form away. New prose goes above `## Steps`, which
 stays the last section of the open body, and new steps go at the end of the
 list, below the ticked ones. A draft that was prose gains a `## Steps` where the
 new session decided something, never for its own sake. A `todo` or a `wip` draft
-may be modified this way. A `done` or a `dropped` one takes nothing but its
-`## Outcome`, and a `superseded` one nothing beyond the frontmatter of its
-supersede.
+may be modified this way. The body of a `done`, `dropped` or `superseded` one
+takes nothing beyond the `## Outcome` its close adds.
 
 ## Writing a draft
 
 1. **Scope.** One draft is one subject in one project. If arguments name a
    subject, they win. A session that produces several drafts writes each one on
    its own and shows them in dependency order, with `depends_on` set where one
-   must be carried out before another.
+   must be carried out before another. A no to one stops every draft that
+   depends on it, directly or through another.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
    second one; more than one that fits goes up with its `summary` and `status`
@@ -201,18 +198,18 @@ supersede.
    new thinking contradicts what that draft decided, say so and offer to replace
    it; never fold both decisions into one file silently. Replacing it is
    `superseded` and happens only on my word, because a successor is a second
-   file and a status I did not ask for. A new draft on the subject of a closed
-   one takes that name with the next free counter, `-v2`, then `-v3`, whether it
-   replaces the closed draft or only follows it: the subject is the same,
-   otherwise it would be a new draft, so only the counter moves. That is the one
-   exception to the duplicate rule, and it keeps the chain together under `ffd`
-   and `rg`. Replacing adds `superseded_by` on top, nothing about the name. Then
-   run the `--open` lookup below for the project and read what came back: the
-   search above is for the subject, so without this one a blocker written in an
-   earlier session is never seen. Set `depends_on` where the order is real,
-   under the strictness of the contract and nowhere else, and name in the
-   preview the open drafts you checked even where none of them blocks, because
-   "no dependency" and "never looked" are otherwise the same file.
+   file and a status I did not ask for. A successor, and a new draft on the
+   subject of a closed one, takes the earlier name with the next free counter,
+   `-v2`, then `-v3`: the subject is the same, otherwise it would be a new
+   draft, so only the counter moves. That is the one exception to the duplicate
+   rule, and it keeps the chain together under `ffd` and `rg`. Replacing adds
+   `superseded_by` on top, nothing about the name. Then run the `--open` lookup
+   below for the project and read what came back: the search above is for the
+   subject, so without this one a blocker written in an earlier session is never
+   seen. Set `depends_on` where the order is real, under the strictness of the
+   contract and nowhere else, and name in the preview the open drafts you
+   checked even where none of them blocks, because "no dependency" and "never
+   looked" are otherwise the same file.
 3. **Show it, then wait.** Build the whole file and put it up with the path it
    would get, formatted exactly as it will land:
 
@@ -383,11 +380,10 @@ Dataview query over `status`.
 Run this in the project you are working in, or name the project as an argument:
 `/draft --open dots` works from any directory, this repo included.
 
-1. **Find.** The project is the argument where one was given, otherwise the
-   directory name of the working directory. Name the project you searched for in
-   your answer: from a subdirectory the directory name is not the project, and a
-   wrong one has to be visible rather than silent. List the drafts whose
-   `project` matches and whose `status` is `todo` or `wip`:
+1. **Find.** The project is found as the contract's `project` says. Name the
+   project you searched for in your answer, so a wrong one is visible rather
+   than silent. List the drafts whose `project` matches and whose `status` is
+   `todo` or `wip`:
 
    ```sh
    rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs -r rg -l '^status: (todo|wip)$'
@@ -397,8 +393,8 @@ Run this in the project you are working in, or name the project as an argument:
    `rg` with no path, it searches the working directory instead, and a project
    file carrying `status: todo` is reported as an open draft.
 
-   If nothing matches the directory name, say so and offer the open drafts of
-   all projects rather than guessing.
+   If nothing matches, say so and offer the open drafts of all projects rather
+   than guessing.
 
 2. **Choose.** Read every hit's `depends_on` first, whether one came back or
    several. A draft whose `depends_on` still points at a `todo` or `wip` draft
@@ -421,10 +417,11 @@ Run this in the project you are working in, or name the project as an argument:
    overtaken.
 4. **Say what you understood.** Three sentences on the draft itself: what it
    wants, what of it is already in the code, and where it contradicts what you
-   see. Where it has a `## Steps` section, add how many of its boxes are ticked,
-   out of how many, and what the next open step is. Run none of its checks:
-   `--open` is a read, and a check out of a draft would run against the live
-   environment.
+   see. Where the working directory's project, found as the contract says, is
+   not the draft's, read no code and say so. Where it has a `## Steps` section,
+   add how many of its boxes are ticked, out of how many, and what the next open
+   step is. Run none of its checks: `--open` is a read, and a check out of a
+   draft would run against the live environment.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`. A draft that step 2 found blocked is not offered

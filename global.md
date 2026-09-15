@@ -36,21 +36,20 @@ agent run `mv` for one: Obsidian carries the incoming wiki links along, `mv`
 leaves them pointing nowhere on four devices. What a file should be called
 instead is said in one line.
 
-A ticked `- [x]` step is never rewritten or deleted, and no command lifts this:
-a tick claims something happened in the world. Reflowing its line is not
-rewriting it, so a formatter never has to be kept off a file that carries one.
-Setting one straight is mine to do in Obsidian.
+A ticked `- [x]` step is never rewritten or removed from its file, and no
+command lifts this: a tick claims something happened in the world. Reflowing its
+line is not rewriting it, so a formatter never has to be kept off a file that
+carries one. Setting one straight is mine to do in Obsidian.
 
 A deletion moves the file to `~/projects/vault/.trash/` under its own name with
-the timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never runs
-`rm`. Its preview names every file that links to the one going, found with
-`rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault`, because nothing else reports a
-link that is about to point nowhere.
+the local timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never
+runs `rm`. Its preview names every file that links to the one going, found with
+`rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault`, `<name>` without `.md`, because
+nothing else reports a link that is about to point nowhere.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
-skill says; for a deletion and for `index.md`, which have no skill, the unit is
-the single file.
+skill says; for a write no skill owns, the unit is the single file.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
