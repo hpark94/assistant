@@ -115,9 +115,7 @@ Whatever the brainstorm produced.
   would ever notice. It exists only where the order is real: the later draft's
   decision cannot be made until the earlier one is. A session that produces
   several drafts records the order here.
-- A `dropped` draft is **not** deleted on its own, because "we considered this
-  and rejected it" is exactly what cannot be reconstructed later. Deleting one
-  is a command under Writing to the Vault.
+
 - No `tags` and no `hub`. An image I passed by path goes in as text on what it
   shows, and the preview says so.
 
@@ -299,7 +297,8 @@ back to `todo` or `wip`.
    **A new draft and a modification are read cold before their preview**,
    wherever the change has a preview, reaches the body below the `# Title`, and
    the file as it will land carries a `## Steps` section under a `todo` or `wip`
-   status. Hand that whole file to a fresh agent, in Codex `spawn_agent` with
+   status. Hand that whole file to a fresh agent, in Claude the `Agent` tool
+   with `subagent_type: general-purpose`, in Codex `spawn_agent` with
    `fork_turns: "none"`, and ask it one question: which open steps it cannot
    carry out from this file alone, and what is missing. It answers with a list
    and never a rewrite. What it found goes up beside the preview and is never

@@ -13,7 +13,7 @@ operation and assumes `global.md`, which is loaded in every project, and nothing
 else.
 
 The argument names the file, and optionally a page range `<first>-<last>`, a
-single page as `<n>-<n>`. Nothing here ever writes to the vault.
+single page as `<n>-<n>`.
 
 Strip a `file://` scheme from the argument and percent-decode what is left
 before anything touches the path. Poppler drops the scheme by itself but never
@@ -214,4 +214,4 @@ and not read, so the figures are known to be retrievable rather than missing.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
 `global.md` allows. Whether it becomes a note is mine to decide and `/note` or
-`$note` is mine to invoke: this skill writes nothing to the vault.
+`$note` is mine to invoke.
