@@ -12,9 +12,8 @@ One document, turned into a page map and a summary. This file owns the whole
 operation and assumes `global.md`, which is loaded in every project, and nothing
 else.
 
-Claude invokes this as `/pdf-read`, Codex as `$pdf-read`. The argument names the
-file, and optionally a page range `<first>-<last>`, a single page as `<n>-<n>`.
-Nothing here ever writes to the vault.
+The argument names the file, and optionally a page range `<first>-<last>`, a
+single page as `<n>-<n>`. Nothing here ever writes to the vault.
 
 Strip a `file://` scheme from the argument and percent-decode what is left
 before anything touches the path. Poppler drops the scheme by itself but never
@@ -35,8 +34,7 @@ partial map never overwrites a whole one; `pages` stays the document's count
 either way.
 
 **Where that path falls inside `~/projects/vault` and no map is reused, stop
-before reading the PDF and say so.** `global.md` settles that a write there
-needs a command of its own, and invoking this skill is not one.
+before reading the PDF and say so.**
 
 Where the file already exists and is newer than the PDF, validate it before
 reading the PDF. A reusable map has the fixed shape below, a non-empty summary
@@ -167,7 +165,7 @@ required rather than optional.**
 | Agent  | How a reader is spawned                                                                                                                                |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Claude | the `Agent` tool with `subagent_type: general-purpose`, all calls in one message so they run at the same time, and `SendMessage` to send a reader back |
-| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back                                                                  |
+| Codex  | `spawn_agent` with `fork_turns: "none"`, collected with `wait_agent`, and `followup_task` to send a reader back                                        |
 
 Every reader reads the text layer of its own pages, on either route:
 
@@ -214,9 +212,9 @@ write only the formatted result at the path above.
 
 ## The answer
 
-The summary is repeated in the conversation with the route and its measured
-value, the page count and the reader count. Say what was marked and not read, so
-the figures are known to be retrievable rather than missing.
+The summary is repeated in the conversation with the route, its measured value
+where the map is fresh, the page count and the reader count. Say what was marked
+and not read, so the figures are known to be retrievable rather than missing.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
 `global.md` allows. Whether it becomes a note is mine to decide and `/note` or

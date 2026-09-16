@@ -15,14 +15,10 @@ unfinished. It lives in `~/projects/vault/drafts/`, it is not knowledge, and it
 is not a note. This file owns the whole Draft operation and its lifecycle, and
 assumes `global.md`, which is loaded in every project, and nothing else.
 
-Claude invokes this as `/draft`, Codex as `$draft`. The mode table below writes
-the Claude form; both take the same arguments.
-
 **This skill never grills.** Sharpening the thinking is a separate interview on
-its own trigger, and it ends by offering the `entwurfswuerdig` line that brings
-me here. By the time `/draft` runs, the thinking is as sharp as it is going to
-get: write it down, do not reopen it. What is still undecided is content for the
-draft, not a reason to start an interview.
+its own trigger. By the time `/draft` runs, the thinking is as sharp as it is
+going to get: write it down, do not reopen it. What is still undecided is
+content for the draft, not a reason to start an interview.
 
 ## Three modes
 
@@ -32,12 +28,9 @@ draft, not a reason to start an interview.
 | `/draft --open`        | List the open drafts of the current project and pick one up |
 | a correction I command | Correct the draft I name                                    |
 
-`/draft` and `/draft --open` take the project as an argument,
-`/draft --open dots` and `/draft dots: <subject>`, and the two read it
-differently. In `--open` the argument is the project and nothing else. In the
-bare form a colon separates the project from the subject, and without a colon
-the whole argument is the subject. Where the argument names a project it beats
-the working directory.
+`/draft --open` takes the project as its argument, `/draft --open dots`, and
+there it beats the working directory. The argument of the bare form is the
+subject.
 
 ## Where drafts live
 
@@ -48,13 +41,12 @@ invisible to them. Only the index's dedicated open-drafts block queries
 knowledge. Its sync-conflict block is scoped to nothing at all and does see
 them, which is what a hunt for conflicted copies is for.
 
-`<project>` is the directory name of the project as a slug like `<topic>`'s
-below, `routing-lab` for `~/repos/routing-lab`, so that the same string names it
-on disk and finds its drafts with `rg 'project: routing-lab'` in the vault. It
-is `[a-z0-9-]+` and nothing else, which is what keeps the lookup below correct:
-it anchors the name in a regular expression and passes the paths through
-`xargs`, so a dot in the name would match a second project and a space would
-split one path into two.
+`<project>` is the contract's `project`, `routing-lab` for
+`~/repos/routing-lab`, so that the same string names it on disk and finds its
+drafts with `rg 'project: routing-lab'` in the vault. It is `[a-z0-9-]+` and
+nothing else, which is what keeps the lookup below correct: it anchors the name
+in a regular expression and passes the paths through `xargs`, so a dot in the
+name would match a second project and a space would split one path into two.
 
 `<topic>` is a short ASCII slug of the subject: the text lowercased, every run
 of characters outside `[a-z0-9]` collapsed into one hyphen, and leading and
@@ -88,12 +80,11 @@ Whatever the brainstorm produced.
   properties.
 - `type` is `draft`. It stays even though the folder already says so, because
   the check and every query read the field and never the path.
-- `project` is the slug of the argument where my invocation named one, otherwise
-  of the name of `git rev-parse --show-toplevel`, and outside a repository of
-  the working directory's name. It is never asked for: it stands in the preview
-  and in the file name, so correcting it costs one word. A slug that is empty or
-  that YAML reads as something else stops the write, and the answer says to name
-  another project as an argument.
+- `project` is the slug of the name of `git rev-parse --show-toplevel`, and
+  outside a repository of the working directory's name, a slug like `<topic>`'s.
+  It is never asked for: it stands in the preview and in the file name, so
+  correcting it costs one word. A slug that is empty or that YAML reads as
+  something else stops the write, and the answer says to name another project.
 - `summary` is one line under about 70 characters, read in a list next to the
   others. `prettier` folds a longer value onto a second line, which is valid
   YAML but noise in the fzf preview.
@@ -127,8 +118,7 @@ Whatever the brainstorm produced.
 - A `dropped` draft is **not** deleted on its own, because "we considered this
   and rejected it" is exactly what cannot be reconstructed later. Deleting one
   is a command under Writing to the Vault, which sends it to the vault's bin and
-  never to `rm`. It is not archived either: `archive/` holds what left the
-  knowledge, and a draft was never knowledge.
+  never to `rm`.
 - No `tags` and no `hub`. An image I passed by path goes in as text on what it
   shows, and the preview says so.
 
@@ -190,19 +180,20 @@ stays the last section of the open body, and new steps go at the end of the
 list, below the ticked ones. A draft that was prose gains a `## Steps` where the
 new session decided something, never for its own sake. A `todo` or a `wip` draft
 may be modified this way. The body of a `done`, `dropped` or `superseded` one
-takes nothing beyond the `## Outcome` its close adds.
+takes nothing beyond the `## Outcome` its close adds, and its status never goes
+back to `todo` or `wip`.
 
 ## Writing a draft
 
 1. **Scope.** One draft is one subject in one project. If arguments name a
-   subject, they win. A session that produces several drafts writes each one on
-   its own and shows them in dependency order, with `depends_on` set where one
-   must be carried out before another. A no to one stops every draft that
-   depends on it, directly or through another. A correction I command names its
-   draft, which is the scope: grep `drafts/` for it, say so and stop where
-   nothing fits, put several that fit up with `summary` and `status` and wait,
-   then skip step 2 and enter at step 3. On a `done`, `superseded` or `dropped`
-   draft it reaches the frontmatter and the `# Title` and nothing of the body.
+   subject, they win. A session that produces several drafts shows them in
+   dependency order, with `depends_on` set where one must be carried out before
+   another. A no to one stops every draft that depends on it, directly or
+   through another. A correction I command names its draft, which is the scope:
+   grep `drafts/` for it, say so and stop where nothing fits, put several that
+   fit up with `summary` and `status` and wait, then skip step 2 and enter at
+   step 3. On a `done`, `superseded` or `dropped` draft it reaches the
+   frontmatter and the `# Title` and nothing of the body.
 2. **Search first.** Grep `~/projects/vault/drafts/` for the project and the
    subject. On a hit, extend that draft and bump `updated` instead of writing a
    second one, and name in one line what else you notice is now wrong in it;
@@ -283,15 +274,11 @@ takes nothing beyond the `## Outcome` its close adds.
    because a link's target is not something the text can tell you. A target is a
    draft's file name and nothing else, `[a-z0-9-]+`, so no link walks out of the
    folder it is looked up in. They strip an alias after `|`, append `.md` and
-   look in `drafts/`; a session writing several drafts writes each on its own,
-   so the target is already there when the dependent one is checked. A supersede
-   is one approval unit, so there the successor is not on disk yet when the
-   predecessor is checked. That is what the names after the closing quote are
-   for: each of them counts as present. Pass what the successor's link is
-   written as, the file name without its `.md`, and nothing else: a link with a
-   typo in it still fails, and so does a supersede that left the name out. On a
-   failure repair the frontmatter and run it again; never show a preview that
-   did not pass.
+   look in `drafts/`, and every draft file name the same yes also writes, passed
+   after the closing quote, counts as present. Pass what the link is written as,
+   the file name without its `.md`, and nothing else: a link with a typo in it
+   still fails, and so does a name left out. On a failure repair the frontmatter
+   and run it again; never show a preview that did not pass.
 
    The date check is `type(...) is datetime.date` and not `isinstance`: PyYAML
    reads `2026-08-16 10:00:00` as a `datetime.datetime`, which is a subclass of
@@ -302,23 +289,22 @@ takes nothing beyond the `## Outcome` its close adds.
    it will land. Run `prettier --check` on every existing file the change
    touches before you build it. If it fails, the `prettier -w` in step 5 will
    reformat passages your subject never touched, so put that formatting change
-   up as a second passage of its own and let me approve it separately. That
-   passage is its own approval unit, so a no to it stops the reformat and
-   nothing else. A reformat never rides along unseen on a content change.
-   Refused, the file keeps its old bytes and takes the approved passage as
-   shown. There what lands is not byte for byte what the check ran on; its
-   verdict still holds, because prettier folds lines and never changes a value,
-   so the frontmatter it reads is the same either way.
+   up as a second passage of its own, marked as its own unit. That passage is
+   its own approval unit, so a no to it stops the reformat and nothing else. A
+   reformat never rides along unseen on a content change. Refused, the file
+   keeps its old bytes and takes the approved passage as shown. There what lands
+   is not byte for byte what the check ran on; its verdict still holds, because
+   prettier folds lines and never changes a value, so the frontmatter it reads
+   is the same either way.
 
    **A new draft and a modification are read cold before their preview**,
    wherever the change has a preview, reaches the body below the `# Title`, and
    the file as it will land carries a `## Steps` section under a `todo` or `wip`
-   status. Hand that whole file to a fresh agent without this session's context,
-   whatever your agent calls that, and ask it one question: which open steps it
-   cannot carry out from this file alone, and what is missing. It answers with a
-   list and never a rewrite. What it found goes up beside the preview and is
-   never folded into the file silently, so that I see the gap and not only your
-   repair.
+   status. Hand that whole file to a fresh agent and ask it one question: which
+   open steps it cannot carry out from this file alone, and what is missing. It
+   answers with a list and never a rewrite. What it found goes up beside the
+   preview and is never folded into the file silently, so that I see the gap and
+   not only your repair.
 
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
@@ -362,19 +348,19 @@ takes nothing beyond the `## Outcome` its close adds.
    never covered by the no-preview exception above.
 
    **A supersede repoints what depended on the predecessor.** Find the
-   candidates with
-   `rg -l '\[\[<predecessor>(\]\]|\|)' ~/projects/vault/drafts/`, over the whole
-   folder because a dependency crosses projects, and keep the `todo` and `wip`
-   ones whose `depends_on` carries the link: the same grep finds a body mention
-   and a `superseded_by` pointing the other way just as well. A closed dependent
-   is left alone, because it is not waiting on anything any more. Read each of
-   the others against the successor and repoint the link where the successor
-   still carries what the dependent waits for. Where it does not, report the
-   dependency and wait for my word: a link bent to look satisfiable when it is
-   not is worse than a stale one. Each such draft is its own approval unit and
-   takes its own pass through steps 3 to 6, after the supersede's write: the
-   check reads the successor off the disk. The supersede's own unit covers the
-   successor and the predecessor's changed lines and nothing beyond them.
+   candidates with `rg -l '\[\[<predecessor>[]|#^]' ~/projects/vault/drafts/`,
+   over the whole folder because a dependency crosses projects, and keep the
+   `todo` and `wip` ones whose `depends_on` carries the link: the same grep
+   finds a body mention and a `superseded_by` pointing the other way just as
+   well. A closed dependent is left alone, because it is not waiting on anything
+   any more. Read each of the others against the successor and repoint the link
+   where the successor still carries what the dependent waits for. Where it does
+   not, report the dependency and wait for my word: a link bent to look
+   satisfiable when it is not is worse than a stale one. Each such draft is its
+   own approval unit in the supersede's answer, the supersede command is its
+   command, and it takes its own pass through steps 3 to 6. The supersede's own
+   unit covers the successor and the predecessor's changed lines and nothing
+   beyond them.
 
 4. **Write.** Write the approved content directly to its absolute path under
    `~/projects/vault/drafts/`. Never write anywhere else. On a supersede write
@@ -396,10 +382,10 @@ Dataview query over `status`.
 Run this in the project you are working in, or name the project as an argument:
 `/draft --open dots` works from any directory, this repo included.
 
-1. **Find.** The project is found as the contract's `project` says. Name the
-   project you searched for in your answer, so a wrong one is visible rather
-   than silent. List the drafts whose `project` matches and whose `status` is
-   `todo` or `wip`:
+1. **Find.** The project is the argument, otherwise found as the contract's
+   `project` says. Name the project you searched for in your answer, so a wrong
+   one is visible rather than silent. List the drafts whose `project` matches
+   and whose `status` is `todo` or `wip`:
 
    ```sh
    rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs -r rg -l '^status: (todo|wip)$'

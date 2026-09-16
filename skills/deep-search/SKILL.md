@@ -17,8 +17,7 @@ nothing else.
 the engine and the depth of Deep Search: where it searches, how far the reading
 goes, who does it, and when it stops.
 
-Claude invokes this as `/deep-search`, Codex as `$deep-search`. Arguments, if
-any, name the question. Nothing here ever writes to the vault.
+Arguments, if any, name the question. Nothing here ever writes to the vault.
 
 ## Scope
 
@@ -37,7 +36,7 @@ worth reading is an answer in itself, reported instead of delegated.
 | Agent  | How a reader is spawned                                                                                                                                                 |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Claude | the `Agent` tool with `subagent_type: general-purpose`, both calls in one message so the readers actually run at the same time, and `SendMessage` to send a reader back |
-| Codex  | `spawn_agent`, collected with `wait_agent`, and `followup_task` to send a reader back for more                                                                          |
+| Codex  | `spawn_agent` with `fork_turns: "none"`, collected with `wait_agent`, and `followup_task` to send a reader back for more                                                |
 
 You and every reader work with `web_search_exa`, `web_fetch_exa` and
 `web_search_advanced_exa`. The searching in this skill runs on them and not on

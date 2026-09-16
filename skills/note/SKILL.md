@@ -3,8 +3,8 @@ name: note
 description:
   "Distill one topic into a note in the Obsidian vault at ~/projects/vault.
   Triggers: the command /note or $note, or the German phrases 'merk dir das',
-  'mach eine Notiz draus', 'das ist wichtig', 'halt das fest'. Never invoke this
-  because the conversation produced something worth keeping."
+  'mach eine Notiz draus', 'halt das fest'. Never invoke this because the
+  conversation produced something worth keeping."
 ---
 
 # note
@@ -13,8 +13,7 @@ Turn one self contained topic into a note in `~/projects/vault/notes/`. This
 file owns the whole Note and Hub operation, the archiving included, and assumes
 `global.md`, which is loaded in every project, and nothing else.
 
-Claude invokes this as `/note`, Codex as `$note`. Arguments, if any, name the
-topic to capture.
+Arguments, if any, name the topic to capture.
 
 ## Four modes
 
@@ -81,8 +80,7 @@ six months, and a fresh one must not hide a stale one beside it.
 
 1. **Scope.** The topic the arguments name, otherwise the last self contained
    topic, not the whole session. One note is one topic: arguments naming several
-   get the split named and the one I confirm captured, and every other topic
-   this session produced and not yet named is named, together, in one line.
+   get the split named and the one I confirm captured.
 2. **Search first, never write a duplicate.** Grep `~/projects/vault/notes/` for
    the topic, its tags, its likely hub and likely synonyms. Read any candidate
    before deciding. Grep `~/projects/vault/archive/` for the same terms: a hit
@@ -93,15 +91,13 @@ six months, and a fresh one must not hide a stale one beside it.
    - **On a hit**: extend that note and bump `updated`. A correction of what
      already stands goes up as its own approval unit, whether I commanded it or
      you noticed it in this note. Never delete existing content silently, and
-     say afterwards what changed. Its hub is the one thing you never correct: if
-     the note belongs under a different one, say so in one line, name that hub,
-     and leave the move to me in Obsidian. It is one line and not a question,
-     and it may fall again in a later session, because nothing records that it
-     was already said. The title you do correct, in `title` and in the `# H1`
-     together. If the file name then no longer is its slug, or my command named
-     another file name, say in one line what it should be called and leave the
-     rename to me. Archiving moves a note with `mv` and keeps its name, which is
-     another act and stands under Archiving below.
+     say afterwards what changed. Its hub is never corrected: a note that
+     belongs under another one gets that hub and the file name it would take
+     named in one line, and the move is mine. The title you do correct, in
+     `title` and in the `# H1` together. If the file name then no longer is its
+     slug, or my command named another file name, say in one line what it should
+     be called and leave the rename to me. Archiving moves a note with `mv` and
+     keeps its name, which is another act and stands under Archiving below.
    - **On no hit**: create a new note.
 3. **Pick the hub.** Every note belongs to exactly one hub, named in `hub`. If
    an existing hub fits, use it; where more than one does, put them up and wait.
@@ -209,13 +205,13 @@ six months, and a fresh one must not hide a stale one beside it.
    changes and wants checking. Run `prettier --check` on the target file before
    you build the change. If it fails, the `prettier -w` in step 7 will reformat
    passages your topic never touched, so put that formatting change up as a
-   second passage of its own and let me approve it separately. That passage is
-   its own approval unit, so a no to it stops the reformat and nothing else. A
-   reformat never rides along unseen on a content change. Refused, the file
-   keeps its old bytes and takes the approved passage as shown. There what lands
-   is not byte for byte what the check ran on; its verdict still holds, because
-   prettier folds lines and never changes a value, so the frontmatter it reads
-   is the same either way.
+   second passage of its own, marked as its own unit. That passage is its own
+   approval unit, so a no to it stops the reformat and nothing else. A reformat
+   never rides along unseen on a content change. Refused, the file keeps its old
+   bytes and takes the approved passage as shown. There what lands is not byte
+   for byte what the check ran on; its verdict still holds, because prettier
+   folds lines and never changes a value, so the frontmatter it reads is the
+   same either way.
 
 6. **Write.** A Note, the new Hub it needs and the images it embeds are one
    approval unit: one preview and one yes. After the OK write the approved
@@ -398,7 +394,7 @@ approval unit, one preview and one yes.
    with its `hub` already unbracketed, and leave it where it is.
 6. **Report.** One or two sentences: which note, out of which hub, on which
    date. Name every note that still links to it,
-   `rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault/notes/`, because a reader
+   `rg -l '\[\[<name>[]|#^]' ~/projects/vault/notes/`, because a reader
    following one lands in the archive without being told the note left the
    knowledge. Where it was its hub's last child, say so in one line and leave
    the hub to me.

@@ -8,8 +8,9 @@ The Vault is the exception, because it is one and the same from everywhere.
 A project's own file is added to this one and never replaces it.
 
 Changes to this file and to the note, draft, deep-search and pdf-read skills
-happen only in `~/repos/assistant`. They are symlinked into place, so an edit
-made from another project lands in the repo with none of its rules loaded.
+happen only from a session in `~/repos/assistant`. They are symlinked into
+place, so an edit made from another project lands in the repo with none of its
+rules loaded.
 
 ## Writing to the Vault
 
@@ -20,16 +21,17 @@ made from another project lands in the repo with none of its rules loaded.
   owns the preview, validation, write, format and reporting contract for its
   operation.
 - **Every other write to the Vault**, among them a correction I command to an
-  existing Note or Hub, an archiving, a deletion, `index.md`: only on my
-  command, as its own change and never inside the approval unit of another. Show
-  the proposed change and wait for my OK before writing it. A correction you
-  noticed may be put up as such a change only on the Note the note skill is
+  existing Note or Hub, an archiving of a Note, a deletion, `index.md`: only on
+  my command, as its own change and never inside the approval unit of another.
+  Show the proposed change and wait for my OK before writing it. A correction
+  you noticed is put up as such a change only on the Note the note skill is
   extending or correcting, and my yes to its preview is the command; anywhere
   else it is named in one line.
 
-A note that no longer belongs in the knowledge is archived rather than deleted,
-and the note skill owns how. Deleting is the rare act on my explicit command and
-reaches any file I name outside `archive/` and `.trash/`, a Note included.
+What I command deleted is deleted, whatever reason the command gives, and that
+reaches any file I name outside `archive/` and `.trash/`, a Note included. A
+note found no longer to belong in the knowledge is archived rather than deleted,
+and the note skill owns how. A Draft or a Hub is never archived.
 
 A file in `archive/` or in `.trash/` is read and never changed, moved or
 removed, and no command lifts this. Bringing one back or emptying the bin is
@@ -38,22 +40,26 @@ mine to do by hand.
 Renaming a file in the vault is mine to do in Obsidian, and no command makes the
 agent run `mv` for one: Obsidian carries the incoming wiki links along, `mv`
 leaves them pointing nowhere on four devices. What a file should be called
-instead is said in one line.
+instead is said in one line. Moving a Note to another hub is a rename.
 
 A ticked `- [x]` step is never rewritten or removed from its file, and no
 command lifts this: a tick claims something happened in the world. Reflowing its
 line is not rewriting it, so a formatter never has to be kept off a file that
 carries one. Setting one straight is mine to do in Obsidian.
 
-A deletion moves the file to `~/projects/vault/.trash/` under its own name with
-the local timestamp appended, `second-brain.md.2026-08-23T14-05-01`, and never
-runs `rm`. Its preview names every file that links to the one going, found with
-`rg -l '\[\[<name>(\]\]|\|)' ~/projects/vault`, `<name>` without `.md`, because
+A deletion moves the file with `mv -n` to `~/projects/vault/.trash/` under its
+own name with the local timestamp appended,
+`second-brain.md.2026-08-23T14-05-01`, a name already there stops it, seen by
+the file still standing at its old path, and it never runs `rm`. Its preview
+names every file that links to the one going, found with
+`rg -l '\[\[<name>[]|#^]' ~/projects/vault`, `<name>` without `.md`, because
 nothing else reports a link that is about to point nowhere.
 
 A no is a full stop for the unit it answers: nothing of that unit is written,
 and whether the preview is built again is mine to say. What one unit is, its
-skill says; for a write no skill owns, the unit is the single file.
+skill says; for a write no skill owns, the unit is the single file. Several
+units may go up in one answer, each marked: a yes takes all of them unless I
+name one, and each is checked as the ones before it will have landed.
 
 If an answer produced something durable, you may append at most one line:
 `notizwuerdig: <topic>`. If a conversation settled thinking about a project that
@@ -98,8 +104,7 @@ directory that leaves the live one on the search path isolates nothing.
 ### Who runs it
 
 One or two commands: inline, so I read along. If the proof needs a built
-environment, plugin installs, or several variants, hand it to a fresh subagent
-without this session's context, whatever your agent calls that.
+environment, plugin installs, or several variants, hand it to a fresh agent.
 
 ## The vault
 
@@ -117,7 +122,7 @@ Besides them and `index.md`, what sits in the directory, `.obsidian/`,
 is ordinary work: no command of its own and no preview. Deleting one goes under
 Writing to the Vault above, because the four are named here and a missing one is
 a hole nothing reports. Changing `.prettierrc` is the exception and goes there
-as well, because the format step of every capture runs through it.
+as well, because the format step of every skill's write runs through it.
 
 `index.md` is Dataview queries and holds nothing written by hand: a line added
 there is a second truth that drifts from what the notes declare about
@@ -135,8 +140,8 @@ is settled under Writing to the Vault above.
 For any question and any proof about my projects or my tools, list `notes/`,
 read what fits, and tell me what you are relying on. A guessed search term
 misses the note that holds the answer. `drafts/` is not read with it, only where
-I point at a file or `--open` runs: unfinished thinking answers a question as
-though it were settled.
+I point at a file, ask about my drafts, or `--open` runs: unfinished thinking
+answers a question as though it were settled.
 
 The vault holds only what I captured on command: a session that produced neither
 a note nor a draft left nothing in it.
@@ -147,12 +152,15 @@ The note skill owns every Note and Hub operation and the archiving, the draft
 skill every Draft operation and its lifecycle. A trigger decides only whether a
 skill fires on its own; it never narrows what an explicit command means. A
 deletion and `index.md` fall to Writing to the Vault above; a commanded
-correction and an archiving take their command from there and their preview and
-mechanics from the skill.
+correction to a Note or Hub and an archiving take their command from there and
+their preview and mechanics from the skill.
 
 Where this file and a skill disagree: on a permission, a prohibition or a
 boundary this file wins and the skill is wrong. On procedure, mechanics or a
 contract the skill wins and this file is corrected.
+
+A case these files leave open is asked about and never guessed where the answer
+decides a write; where it decides only a read, choose.
 
 ## Images
 
@@ -194,13 +202,12 @@ vault. Rule of thumb: behaviour in memory, subject matter in the vault.
 
 ## Which agent you are
 
-Both Claude and Codex read this file, Claude as `~/.claude/CLAUDE.md`, Codex as
-`~/.codex/AGENTS.md`, both symlinks to `~/repos/assistant/global.md`. Claude
-reads a project's `CLAUDE.md` and an `AGENTS.md` only via `@AGENTS.md`, Codex
-reads `AGENTS.md` and ignores a `CLAUDE.md`, so a repo meant for both carries
-both. The contract is the same for both.
+Claude and Codex both load this file, and the contract is the same for both. A
+repo meant for both carries an `AGENTS.md` and a `CLAUDE.md` holding
+`@AGENTS.md`.
 
-Where this file or a skill says to hand work to a fresh agent, that sentence is
+A fresh agent inherits no turn of this session. Where this file, a skill or a
+project's instruction file says to hand work to a fresh agent, that sentence is
 the ask for a sub-agent and for delegation, and nothing further has to permit
 the spawn. An agent that waits for a separate ask reads in one context what was
 meant to be read by two.
