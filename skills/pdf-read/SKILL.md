@@ -213,5 +213,4 @@ where the map is fresh, the page count and the reader count. Say what was marked
 and not read, so the figures are known to be retrievable rather than missing.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
-`global.md` allows. Whether it becomes a note is mine to decide and `/note` or
-`$note` is mine to invoke.
+`global.md` allows.

@@ -117,5 +117,4 @@ for and did not find; an absent source is a result and reads nothing like an
 unasked question.
 
 Where the yield is durable, the answer may end with the `notizwuerdig` line
-`global.md` allows. Whether it becomes a note is mine to decide and `/note` or
-`$note` is mine to invoke: this skill writes nothing to the vault.
+`global.md` allows.
