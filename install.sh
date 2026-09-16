@@ -46,27 +46,19 @@ link() {
   fi
 }
 
-printf 'Links:\n'
-link "${repo}/global.md" "${HOME}/.claude/CLAUDE.md"
-link "${repo}/global.md" "${HOME}/.codex/AGENTS.md"
-for skill in note draft deep-search pdf-read; do
-  link "${repo}/skills/${skill}" "${HOME}/.claude/skills/${skill}"
-  link "${repo}/skills/${skill}" "${HOME}/.agents/skills/${skill}"
-done
-
-# The skills call prettier, python3, rg, pdfinfo, pdftotext, mutool and, on
-# Codex, pdftoppm in their preview, lookup and reading steps. A missing one
-# fails in the middle of a run with an error that does not say why, so name it
-# here instead. No skill calls ffd; the naming rules exist for it, so a missing
-# one only makes the notes harder to find. Installing them is mise's and dots'
-# job, not this repo's.
+# The skills call prettier, python3, rg, git, pdfinfo, pdftotext, mutool and, on
+# Codex, pdftoppm in their preview, lookup and reading steps, and link() below
+# calls realpath, so this runs first. A missing one fails in the middle of a run
+# with an error that does not say why, so name it here instead. No skill calls
+# ffd; the naming rules exist for it, so a missing one only makes the notes
+# harder to find. Installing them is mise's and dots' job, not this repo's.
 #
 # The MCP tools deep-search needs are deliberately not checked. Both agents do
 # expose them, `codex mcp list` from config.toml and `claude mcp list` over the
 # network, but the check would have to name the server, and ADR 0009 keeps the
 # vendor out of everything but the skill that calls it.
-printf '\nTools:\n'
-for tool in prettier python3 rg ffd pdfinfo pdftotext mutool pdftoppm; do
+printf 'Tools:\n'
+for tool in prettier python3 rg git realpath ffd pdfinfo pdftotext mutool pdftoppm; do
   if command -v "${tool}" >/dev/null 2>&1; then
     printf '  %-6s %s\n' ok "${tool}"
   else
@@ -78,5 +70,13 @@ if python3 -c 'import yaml' >/dev/null 2>&1; then
 else
   printf '  %-6s python3 yaml\n' MISS
 fi
+
+printf '\nLinks:\n'
+link "${repo}/global.md" "${HOME}/.claude/CLAUDE.md"
+link "${repo}/global.md" "${HOME}/.codex/AGENTS.md"
+for skill in note draft deep-search pdf-read; do
+  link "${repo}/skills/${skill}" "${HOME}/.claude/skills/${skill}"
+  link "${repo}/skills/${skill}" "${HOME}/.agents/skills/${skill}"
+done
 
 exit "${refused}"

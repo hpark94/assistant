@@ -37,36 +37,39 @@ rename in Obsidian breaks one silently.
 ## ADRs
 
 An ADR is written where a rejected alternative would otherwise be reopened
-later, and nowhere else. It is written after the change and never before it. It
-is **never edited**: one that turns out wrong gets a successor, the way a
-superseded draft does, because a record that gets corrected is a fourth
-normative surface and no longer a record.
+later, and nowhere else. It is written after the change and never before it, and
+goes into the change's own commit. It is **never edited**: one that turns out
+wrong gets a successor, the way a superseded draft does, because a record that
+gets corrected is a fourth normative surface and no longer a record.
 
 Before you change a subject an ADR covers, read it. It carries the alternatives
 that were rejected, which is the half `git log` does not.
 
 ## Review
 
-Before the round, grep every term you defined and every prohibition you
+Before every commit, grep every term you defined and every prohibition you
 tightened across every instruction file, and read each hit against the new
 wording. The questions below compare files and never two sentences of one file.
 
-One instruction file touched means no review round. Two or more means a review
-round, with these five questions and no others:
+One instruction file touched in a commit means no review round. Two or more
+means a review round, answered by a fresh agent, with these five questions and
+no others:
 
 1. Does every added normative sentence pass the load time test?
 2. Does a justification restate a rule that stands elsewhere?
 3. Is a fact carried in an instruction file that belongs in the vault?
-4. Does a skill disagree with `global.md`? Resolve it under Who wins.
+4. Does a skill disagree with `global.md`, or with mechanics another skill
+   carries too? Resolve the first under Who wins.
 5. Would a rejected alternative be reopened later without an ADR?
 
 An instruction file is `global.md`, any `SKILL.md` under `skills/`, or this
-file. An ADR is not one: a record is never reviewed against current policy, so
-it does not raise the count.
+file. `CLAUDE.md` only points here and is not counted. An ADR is not one: a
+record is never reviewed against current policy, so it does not raise the count.
 
-After the patch, exactly one second round, and what it finds is reported and not
-patched, and the change is committed as it stands. A third is forbidden: what
-round two still finds is a construction fault rather than a wording fault.
+Where the round patched, exactly one second round, by a new fresh agent, and
+what it finds is reported and not patched, and the change is committed as it
+stands. A third is forbidden: what round two still finds is a construction fault
+rather than a wording fault.
 
 ## Commands
 
