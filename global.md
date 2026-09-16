@@ -47,8 +47,8 @@ instead is said in one line. Moving a Note to another hub is a rename.
 A ticked `- [x]` step, its line and the bullets beneath it, is never rewritten
 or removed from its file, and no command lifts this: a tick claims something
 happened in the world. Reflowing it is not rewriting it, so a formatter never
-has to be kept off a file that carries one, and neither is appending a bullet
-after the ones it has. Setting one straight is mine to do in Obsidian.
+has to be kept off a file that carries one. Appending a bullet after the ones it
+has is not rewriting it either. Setting one straight is mine to do in Obsidian.
 
 A deletion moves the file with `mv -n` to `~/projects/vault/.trash/` under its
 own name with the local timestamp appended,
