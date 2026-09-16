@@ -25,8 +25,10 @@ rules loaded.
   my command, as its own change and never inside the approval unit of another.
   Show the proposed change and wait for my OK before writing it. A correction
   you noticed is put up as such a change only on the Note the note skill is
-  extending or correcting, and my yes to its preview is the command; anywhere
-  else it is named in one line.
+  extending or correcting, and my yes to its preview is the command. Settling an
+  open question in a Draft is the one other place: what the settling makes wrong
+  in that Draft goes up inside the settling's own unit. Anywhere else it is
+  named in one line.
 
 My word decides: "delete" deletes and "archive" archives, whatever reason comes
 with it, and neither is read as the other. A delete reaches any file I name
