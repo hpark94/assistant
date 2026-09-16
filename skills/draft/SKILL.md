@@ -117,8 +117,7 @@ Whatever the brainstorm produced.
   several drafts records the order here.
 - A `dropped` draft is **not** deleted on its own, because "we considered this
   and rejected it" is exactly what cannot be reconstructed later. Deleting one
-  is a command under Writing to the Vault, which sends it to the vault's bin and
-  never to `rm`.
+  is a command under Writing to the Vault.
 - No `tags` and no `hub`. An image I passed by path goes in as text on what it
   shows, and the preview says so.
 
@@ -300,11 +299,12 @@ back to `todo` or `wip`.
    **A new draft and a modification are read cold before their preview**,
    wherever the change has a preview, reaches the body below the `# Title`, and
    the file as it will land carries a `## Steps` section under a `todo` or `wip`
-   status. Hand that whole file to a fresh agent and ask it one question: which
-   open steps it cannot carry out from this file alone, and what is missing. It
-   answers with a list and never a rewrite. What it found goes up beside the
-   preview and is never folded into the file silently, so that I see the gap and
-   not only your repair.
+   status. Hand that whole file to a fresh agent, in Codex `spawn_agent` with
+   `fork_turns: "none"`, and ask it one question: which open steps it cannot
+   carry out from this file alone, and what is missing. It answers with a list
+   and never a rewrite. What it found goes up beside the preview and is never
+   folded into the file silently, so that I see the gap and not only your
+   repair.
 
    **Only an explicit command writes a status or sets a tick.** A remark that
    something is now carried out states a fact and authorises nothing. You may
@@ -382,10 +382,10 @@ Dataview query over `status`.
 Run this in the project you are working in, or name the project as an argument:
 `/draft --open dots` works from any directory, this repo included.
 
-1. **Find.** The project is the argument, otherwise found as the contract's
-   `project` says. Name the project you searched for in your answer, so a wrong
-   one is visible rather than silent. List the drafts whose `project` matches
-   and whose `status` is `todo` or `wip`:
+1. **Find.** The project is the slug of the argument, otherwise found as the
+   contract's `project` says. Name the project you searched for in your answer,
+   so a wrong one is visible rather than silent. List the drafts whose `project`
+   matches and whose `status` is `todo` or `wip`:
 
    ```sh
    rg -l '^project: <project>$' ~/projects/vault/drafts/ | xargs -r rg -l '^status: (todo|wip)$'

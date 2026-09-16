@@ -28,10 +28,10 @@ rules loaded.
   extending or correcting, and my yes to its preview is the command; anywhere
   else it is named in one line.
 
-What I command deleted is deleted, whatever reason the command gives, and that
-reaches any file I name outside `archive/` and `.trash/`, a Note included. A
-note found no longer to belong in the knowledge is archived rather than deleted,
-and the note skill owns how. A Draft or a Hub is never archived.
+My word decides: "delete" deletes and "archive" archives, whatever reason comes
+with it, and neither is read as the other. A delete reaches any file I name
+outside `archive/` and `.trash/`, a Note included; an archiving reaches a Note
+only, and the note skill owns how.
 
 A file in `archive/` or in `.trash/` is read and never changed, moved or
 removed, and no command lifts this. Bringing one back or emptying the bin is

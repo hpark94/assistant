@@ -335,9 +335,8 @@ the renames are mine.
 
 ## Archiving
 
-Archiving takes a note that no longer belongs in the knowledge out of `notes/`.
-`global.md` settles that it happens only on my command; the whole of it is one
-approval unit, one preview and one yes.
+Archiving takes a note out of `notes/`. The whole of it is one approval unit,
+one preview and one yes.
 
 1. **Find the note** with the Procedure's step 2 search, **read it whole** and
    run `prettier --check` on it. The body is not touched. Where

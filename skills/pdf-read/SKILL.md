@@ -33,21 +33,17 @@ A run over a page range writes `<name>-map-<first>-<last>.md` instead, so a
 partial map never overwrites a whole one; `pages` stays the document's count
 either way.
 
-**Where that path falls inside `~/projects/vault` and no map is reused, stop
-before reading the PDF and say so.**
-
 Where the file already exists and is newer than the PDF, validate it before
 reading the PDF. A reusable map has the fixed shape below, a non-empty summary
 and map lines that cover the requested range exactly once without gaps. Run
 `prettier --check <map>` as part of that validation, using Prettier's normal
 configuration search.
 
-Where only the Prettier check fails and the map sits outside the vault, pass its
-complete content through `prettier --stdin-filepath <map>`, validate the result
-and replace the map without reading the PDF. Any other Prettier failure stops
-and leaves the map untouched. Where structural validation fails outside the
-vault, proceed as though no map exists and replace it after reading the PDF. The
-vault rule above stops either repair there.
+Where only the Prettier check fails, pass the map's complete content through
+`prettier --stdin-filepath <map>`, validate the result and replace the map
+without reading the PDF. Any other Prettier failure stops and leaves the map
+untouched. Where structural validation fails, proceed as though no map exists
+and replace it after reading the PDF.
 
 A valid, formatted map is read and the PDF left alone. That reuse is the reason
 it is a file at all, and it is the first thing the run does. The map is a
