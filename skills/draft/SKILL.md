@@ -162,23 +162,60 @@ are folded together. The reason is resumption, because after three weeks the
 last tick has to say what state the world is in.
 
 An entry is a task line with optional indented bullets, `Check:` for what
-justifies the tick and `Watch:` for the warning that saves you before the step.
-Only the task line is required, and a bullet that is there carries one of those
-two labels.
+justifies the tick, `Watch:` for the warning that saves you before the step, and
+`Result:` for what a ticked step turned out to be: the commit, the measurement,
+where it went past its Check. Only the task line is required, and a bullet that
+is there carries one of those three labels. A `Result:` stands only under a
+ticked step and is only ever appended after the bullets it has; the `Watch:` it
+would otherwise be written into is a warning for before the step.
 
 ```markdown
-- [ ] `install.sh` links the skill into both agent directories
+- [x] `install.sh` links the skill into both agent directories
   - Check: `ls -l ~/.claude/skills/draft` shows a relative link
   - Watch: Codex reads `~/.agents/skills`, Claude `~/.claude/skills`
+  - Result: `a1b2c3d`, both links checked on 2026-08-14
 ```
 
 An extension never takes the form away. New prose goes above `## Steps`, which
-stays the last section of the open body, and new steps go at the end of the
-list, below the ticked ones. A draft that was prose gains a `## Steps` where the
-new session decided something, never for its own sake. A `todo` or a `wip` draft
-may be modified this way. The body of a `done`, `dropped` or `superseded` one
-takes nothing beyond the `## Outcome` its close adds, and its status never goes
-back to `todo` or `wip`.
+stays the last section of the open body, and new steps go anywhere below the
+last ticked one and never above it, so the ticked steps stay an unbroken record.
+A draft that was prose gains a `## Steps` where the new session decided
+something, never for its own sake. A `todo` or a `wip` draft may be modified
+this way. The body of a `done`, `dropped` or `superseded` one takes nothing
+beyond the `## Outcome` its close adds, and its status never goes back to `todo`
+or `wip`.
+
+## Still open
+
+`## Still open` holds what a draft has not decided: a question that can already
+be stated sharply, and work that is coming but not yet sharp enough to be a
+step. It stands directly above `## Steps`, or last in the open body where there
+are none. There is no second section for the second kind, because every further
+place to look is one more place to miss. An entry is a bullet with a bold lead
+and its weighing as prose.
+
+A decided entry stays where it is and gains an indented bullet:
+
+```markdown
+- **Whether the cost formula follows the handout.** The handout scales by 10^8,
+  the routers by the reference bandwidth.
+  - Settled 2026-08-20: it follows the routers, see `## Cost formula`
+```
+
+The bullet says in one sentence what was decided and where its why stands, a
+commit or a section of the draft, and the why goes there and not into the
+bullet. An entry that turned out moot is settled the same way with the reason,
+and one that became steps names them. A `Settled` bullet is only ever appended:
+a later revision is a second one below it, and a decision really overturned goes
+through the supersede rule. A removed entry leaves every step that still names
+it pointing at nothing.
+
+Settling an entry goes up as one unit with the correction of every open step and
+every passage of prose it makes wrong, a `Watch:` that still calls it open
+included. A ticked step is not among them.
+
+Unsettled entries survive a close as open boxes do, and are not asked about on
+the status change.
 
 ## Writing a draft
 
@@ -323,8 +360,9 @@ back to `todo` or `wip`.
    file, the same as a formatting passage I refused, and say in the report that
    the file is still unformatted. The exception ends where the diff does:
    `updated` moves with the write as it does everywhere else, anything beyond
-   it, another line of body text or the `superseded_by` that a `superseded`
-   requires, is a normal change and gets its preview.
+   it, another line of body text, the `Result:` beside a tick, or the
+   `superseded_by` that a `superseded` requires, is a normal change and gets its
+   preview.
 
    **A close is one approval unit.** A close carries the `## Outcome` of the
    contract, so it is never a status change alone and the exception above does
@@ -332,13 +370,14 @@ back to `todo` or `wip`.
    nothing lands before that yes, the status included: a `done` written ahead of
    a refused Outcome is the state this rule exists to prevent.
 
-   **A `- [x]` line is untouchable**, under the rule `global.md` carries.
-   Something the work overtook becomes a new step that takes it back, a real
-   contradiction goes through the supersede rule. An open box carries no such
-   protection: it is body text like any other and changes under the rules above.
-   It also survives a `done`, because a finished draft with empty boxes records
-   what was deliberately not done, which is why `dropped` exists instead of
-   deletion. Do not ask about them on the status change.
+   **A ticked step is untouchable**, under the rule `global.md` carries, and
+   takes nothing beyond an appended `Result:`. Something the work overtook
+   becomes a new step that takes it back, a real contradiction goes through the
+   supersede rule. An open box carries no such protection: it is body text like
+   any other and changes under the rules above. It also survives a `done`,
+   because a finished draft with empty boxes records what was deliberately not
+   done, which is why `dropped` exists instead of deletion. Do not ask about
+   them on the status change.
 
    **A supersede is one approval unit.** It touches two files, the new successor
    and the predecessor's frontmatter, but it is one decision and gets one
@@ -421,9 +460,10 @@ Run this in the project you are working in, or name the project as an argument:
    see. Where the slugged name of the working directory's git root, or of the
    working directory outside a repository, is not the draft's project, read no
    code and say so. Where it has a `## Steps` section, add how many of its boxes
-   are ticked, out of how many, and what the next open step is. Run none of its
-   checks: `--open` is a read, and a check out of a draft would run against the
-   live environment.
+   are ticked, out of how many, and what the next open step is. Where it has a
+   `## Still open`, add how many entries are unsettled, and which of them the
+   next open step waits on. Run none of its checks: `--open` is a read, and a
+   check out of a draft would run against the live environment.
 5. **Ask how to proceed**, and do nothing until answered. Carry it out, plan it
    first, or keep it in context as a reference. Ask in the same breath whether
    `status` should go to `wip`. A draft that step 2 found blocked is not offered

@@ -42,10 +42,11 @@ agent run `mv` for one: Obsidian carries the incoming wiki links along, `mv`
 leaves them pointing nowhere on four devices. What a file should be called
 instead is said in one line. Moving a Note to another hub is a rename.
 
-A ticked `- [x]` step is never rewritten or removed from its file, and no
-command lifts this: a tick claims something happened in the world. Reflowing its
-line is not rewriting it, so a formatter never has to be kept off a file that
-carries one. Setting one straight is mine to do in Obsidian.
+A ticked `- [x]` step, its line and the bullets beneath it, is never rewritten
+or removed from its file, and no command lifts this: a tick claims something
+happened in the world. Reflowing it is not rewriting it, so a formatter never
+has to be kept off a file that carries one, and neither is appending a bullet
+after the ones it has. Setting one straight is mine to do in Obsidian.
 
 A deletion moves the file with `mv -n` to `~/projects/vault/.trash/` under its
 own name with the local timestamp appended,
