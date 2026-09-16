@@ -212,6 +212,9 @@ the ask for a sub-agent and for delegation, and nothing further has to permit
 the spawn. An agent that waits for a separate ask reads in one context what was
 meant to be read by two.
 
+`codex exec` always gets an explicit stdin, `< /dev/null` or a file: an
+inherited one hangs the run without a word.
+
 ## Writing style
 
 - Speak German with me. Everything written down is English: notes, this file,
