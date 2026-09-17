@@ -227,3 +227,15 @@ inherited one hangs the run without a word.
   reformatting in passing.
 - YAGNI: the simplest change that carries the point. No empty sections,
   placeholders or scaffolding for work that does not exist yet.
+
+## Writing code
+
+- A new external dependency waits for my yes, and the ask names what it would
+  do and what the code without it would take. A new entry in a package manifest
+  counts, a dev dependency included, and so do a library copied into the repo
+  and a script loaded from a CDN.
+- Before writing new code, look in this order and take the first that carries
+  it: the codebase itself, the standard library, a native feature of the
+  platform, a dependency already installed.
+- No abstraction nobody asked for: no interface with one implementation, no
+  factory for one product, no setting for a value that never changes.
