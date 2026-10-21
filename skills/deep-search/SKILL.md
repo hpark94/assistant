@@ -1,10 +1,10 @@
 ---
 name: deep-search
 description:
-  "Answer one question from the live web in depth, with the sources read in full
-  and named on the claim. Triggers: the command /deep-search or $deep-search.
-  Never invoke this because the conversation mentions research, a deep dive,
-  sources or the web."
+  "Answer one question from the live web in depth, or from research papers alone
+  with --papers, with the sources read in full and named on the claim. Triggers:
+  the command /deep-search or $deep-search. Never invoke this because the
+  conversation mentions research, a deep dive, sources or the web."
 ---
 
 # deep-search
@@ -17,7 +17,8 @@ nothing else.
 the engine and the depth of Deep Search: where it searches, how far the reading
 goes, who does it, and when it stops.
 
-Arguments, if any, name the question. Nothing here ever writes to the vault.
+Arguments, if any, name the question, after `--papers` where it is given.
+Nothing here ever writes to the vault.
 
 ## Scope
 
@@ -86,9 +87,10 @@ only confirms what two sources already said is the signal to stop.
 
 ## The ceiling
 
-24 full texts and 6 searches per invocation. It is a runaway brake and not a
-budget to spend: reaching it means something went wrong with the question, and
-you say so in the answer rather than reporting a thin result as a complete one.
+24 full texts and 6 searches per invocation, 12 full texts with `--papers`. It
+is a runaway brake and not a budget to spend: reaching it means something went
+wrong with the question, and you say so in the answer rather than reporting a
+thin result as a complete one.
 
 Raise `maxCharacters` per page to what the page actually needs, because reading
 the source in full is the point of delegating the reading at all.
@@ -103,6 +105,33 @@ cutoff and today is closed with `web_search_advanced_exa` and
 `startPublishedDate`. It also takes `endPublishedDate`, `startCrawlDate`,
 `endCrawlDate` and `maxAgeHours`, which is the freshness of the crawl rather
 than of the page.
+
+## Papers
+
+`/deep-search --papers <question>` answers from research papers alone, and
+everything above holds with these changes.
+
+Every search is `web_search_advanced_exa` with `category: "publication"`. A
+fetch may reach any URL a found entry points to, its DOI, its arXiv copy or its
+publisher's page, since it reads a paper the index found rather than widening
+the pool.
+
+The abstract an entry carries is for picking and not for reading: a reader reads
+the full text, appendix included. Where no full text is reachable, the abstract
+stands as the source and the finding is marked `abstract only`. Preprints count,
+and a finding from one is marked `preprint`.
+
+A reader takes at most three papers per round, because full texts pile up in the
+reader's context and not in yours. Its report adds the DOI to every finding, and
+the marker where one applies.
+
+A claim links to the DOI, or to the URL read where there is none, and names the
+year and its marker. Citation counts are left out, because a count beside one
+paper and none beside another weighs by a gap.
+
+Where the index yields nothing worth reading, the answer says so and points to
+`/deep-search` without the flag. It never falls back to the open web on its own:
+the absence of papers is the result I asked for.
 
 ## Contradiction
 
